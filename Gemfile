@@ -7,6 +7,9 @@ gem 'rails', '3.0.7'
 
 gem 'sqlite3'
 
+# Bcrypt library for encrypting hashes and passwords for authentication.
+gem "bcrypt-ruby", :require => "bcrypt"
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
