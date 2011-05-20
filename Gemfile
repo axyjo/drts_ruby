@@ -10,6 +10,9 @@ gem 'sqlite3'
 # Bcrypt library for encrypting hashes and passwords for authentication.
 gem "bcrypt-ruby", :require => "bcrypt"
 
+# Use HAML for templating.
+gem "haml"
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
