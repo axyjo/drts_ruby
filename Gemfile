@@ -23,6 +23,9 @@ gem 'therubyracer', :require => false
 # Use Compass for CSS
 gem 'compass'
 
+# Use LABjs for loading Javascript files in the right order.
+gem 'labjs-rails'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
