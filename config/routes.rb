@@ -1,4 +1,6 @@
 DrtsRuby::Application.routes.draw do
+  get "sessions/new"
+
   get "users/new"
   get "sign_up" => "users#new", :as => "sign_up"
   root :to => "users#new"
