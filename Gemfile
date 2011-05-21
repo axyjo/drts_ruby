@@ -8,20 +8,20 @@ gem 'rails', '3.0.7'
 gem 'sqlite3'
 
 # Bcrypt library for encrypting hashes and passwords for authentication.
-gem "bcrypt-ruby", :require => "bcrypt"
+gem 'bcrypt-ruby', :require => 'bcrypt'
 
 # Use HAML-rails for templating and modifying the default rails generators.
-gem "haml-rails"
+gem 'haml-rails'
 
 # Use jQuery
-gem "jquery-rails"
+gem 'jquery-rails'
 
 # Use CoffeeScript (with Barista), along with V8 from therubyracer
-gem "barista"
-gem "therubyracer", :require => false
+gem 'barista'
+gem 'therubyracer', :require => false
 
 # Use Compass for CSS
-gem "compass"
+gem 'compass'
 
 # Use unicorn as the web server
 # gem 'unicorn'
