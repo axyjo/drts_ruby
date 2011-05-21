@@ -20,6 +20,9 @@ gem "jquery-rails"
 gem "barista"
 gem "therubyracer", :require => false
 
+# Use Compass for CSS
+gem "compass"
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
