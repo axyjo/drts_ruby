@@ -10,8 +10,8 @@ gem 'sqlite3'
 # Bcrypt library for encrypting hashes and passwords for authentication.
 gem "bcrypt-ruby", :require => "bcrypt"
 
-# Use HAML for templating.
-gem "haml"
+# Use HAML-rails for templating and modifying the default rails generators.
+gem "haml-rails"
 
 # Use jQuery
 gem "jquery-rails"
