@@ -1,21 +1,23 @@
-Game.map.viewport = Game.map.viewport || {};
+Map = Map || {}
 
-Game.map.viewport.init = ->
-  Game.map.viewport.animateMove = true
+Map.viewport = Map.viewport || {}
 
-Game.map.viewport.top = ->
+Map.viewport.init = ->
+  Map.viewport.animateMove = true
+
+Map.viewport.top = ->
   return $("#map_viewport").offset().top
 
-Game.map.viewport.left = ->
+Map.viewport.left = ->
   return $("#map_viewport").offset().left
 
-Game.map.viewport.moveCursor = ->
+Map.viewport.moveCursor = ->
   return $("#map_viewport").css("cursor","move")
 
-Game.map.viewport.clearCursor = ->
+Map.viewport.clearCursor = ->
   return $("#map_viewport").css("cursor", "")
 
-Game.map.viewport.moveDelta = (dLeft, dTop, noAnimate) ->
+Map.viewport.moveDelta = (dLeft, dTop, noAnimate) ->
   left = this.left()
   top = this.top()
   left += dLeft
@@ -27,8 +29,8 @@ Game.map.viewport.moveDelta = (dLeft, dTop, noAnimate) ->
     $("#map_viewport").offset(left: left, top: top)
 
   # Check for map viewport bounding box.
-  Game.map.checkBounds()
+  Map.checkBounds()
   # Check layers for newly loaded tiles.
-  Game.map.layers.checkAll()
+  Map.layers.checkAll()
   
   console.log(this.left(), this.top())

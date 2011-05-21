@@ -1,8 +1,10 @@
-Game.map.drag = Game.map.drag || {}
+Map = Map || {}
 
-Game.map.dragging = false
+Map.drag = Map.drag || {}
 
-Game.map.drag.start = (e) ->
+Map.dragging = false
+
+Map.drag.start = (e) ->
   # Get the starting position of the drag gesture.
   this.dragStartLeft = e.clientX
   this.dragStartTop = e.clientY
@@ -10,7 +12,7 @@ Game.map.drag.start = (e) ->
   # used to change the offset of the viewport.
   this.dragging = true
 
-Game.map.drag.move = (e) ->
+Map.drag.move = (e) ->
   # Update the dragEnd variables with the current mouse position.
   this.dragEndLeft = e.clientX;
   this.dragEndTop = e.clientY;
@@ -21,12 +23,12 @@ Game.map.drag.move = (e) ->
   this.dragStartLeft = this.dragEndLeft;
   this.dragStartTop = this.dragEndTop;
   # Check for map viewport bounding box.
-  Game.map.checkBounds();
+  Map.checkBounds();
 
 
-Game.map.drag.end = ->
+Map.drag.end = ->
   this.dragging = false
   # Check for map viewport bounding box.
-  Game.map.checkBounds()
+  Map.checkBounds()
   # Check layers for newly loaded tiles.
-  Game.map.layers.checkAll()
+  Map.layers.checkAll()

@@ -1,9 +1,11 @@
-Game.map.bar = Game.map.bar || {}
+Map = Map || {}
 
-Game.map.bar.init = ->
+Map.bar = Map.bar || {}
 
-Game.map.bar.populate = (position) -> 
-  if position.x > 0 and position.y > 0 and position.x <= Game.map.mapSize and position.y <= Game.map.mapSize 
+Map.bar.init = ->
+
+Map.bar.populate = (position) -> 
+  if position.x > 0 and position.y > 0 and position.x <= Map.mapSize and position.y <= Map.mapSize 
     if this.ajax_request?
       this.ajax_request.abort();
     # Store the hover/click request in a variable so that it can be easily
@@ -16,7 +18,7 @@ Game.map.bar.populate = (position) ->
         $(window).triggerHandler('resize');
     )
 
-Game.map.bar.position = (e) -> 
+Map.bar.position = (e) -> 
   # Caclulate the distance the viewport has been offset by to account for
   # items to its left and top. We cannot simply subtract the viewport's
   # width from the window's width (and the same for height), as then items
@@ -38,8 +40,8 @@ Game.map.bar.position = (e) ->
   # the current zoom level and the tile size. First, divide by the length
   # of the coordinate at the current zoom level. Then, get the ceiling value
   # because the possible values range from 1 to mapSize.
-  x_val = Math.ceil(x_val/Game.map.coordinateLength())
-  y_val = Math.ceil(y_val/Game.map.coordinateLength())
+  x_val = Math.ceil(x_val/Map.coordinateLength())
+  y_val = Math.ceil(y_val/Map.coordinateLength())
 
   position = {x: x_val, y: y_val}
   $("#map_position").html(position.x + ", " + position.y)
