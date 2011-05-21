@@ -16,6 +16,10 @@ gem "haml"
 # Use jQuery
 gem "jquery-rails"
 
+# Use CoffeeScript (with Barista), along with V8 from therubyracer
+gem "barista"
+gem "therubyracer", :require => false
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
