@@ -1,0 +1,9 @@
+/* line 25, tiles */
+.tiles-sprite, .tiles-grass {
+  background: url('/images/tiles-837cae5d96.png') no-repeat;
+}
+
+/* line 59, ../../../../../../.rvm/gems/ruby-1.9.2-p180@rails3/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.tiles-grass {
+  background-position: 0 0;
+}
