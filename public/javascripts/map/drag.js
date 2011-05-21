@@ -1,5 +1,5 @@
-/* DO NOT MODIFY. This file was compiled Sat, 21 May 2011 13:45:44 GMT from
- * /home/akshay/Dropbox/Webdev/drts_ruby/app/scripts/map/map.drag.coffee
+/* DO NOT MODIFY. This file was compiled Sat, 21 May 2011 15:30:42 GMT from
+ * /home/akshay/Dropbox/Webdev/drts_ruby/app/scripts/map/drag.coffee
  */
 
 (function() {
