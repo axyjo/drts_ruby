@@ -1,0 +1,45 @@
+/* line 1, ../../../app/stylesheets/map/map.scss */
+#map {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  background-color: #F4F0EC;
+  z-index: -10;
+}
+
+/* line 9, ../../../app/stylesheets/map/map.scss */
+#map_bar {
+  position: absolute;
+  min-width: 225px;
+  max-width: 225px;
+  overflow: auto;
+  background-color: #000;
+  box-shadow: 3px 0 20px #000;
+  -moz-box-shadow: 3px 0 20px #000;
+  -webkit-box-shadow: 3px 0 20px #000;
+  z-index: 20;
+}
+
+/* line 21, ../../../app/stylesheets/map/map.scss */
+#map_position, #map_data {
+  color: #FFF;
+  font-size: .846em;
+  font: normal small "Lucida Grande", Verdana, sans-serif;
+  vertical-align: bottom;
+}
+
+/* line 28, ../../../app/stylesheets/map/map.scss */
+#map_viewport {
+  left: 0px;
+  top: 0px;
+  position: relative;
+  float: right;
+}
+
+/* line 35, ../../../app/stylesheets/map/map.scss */
+.map_tiles {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
