@@ -13,6 +13,9 @@ gem "bcrypt-ruby", :require => "bcrypt"
 # Use HAML for templating.
 gem "haml"
 
+# Use jQuery
+gem "jquery-rails"
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
