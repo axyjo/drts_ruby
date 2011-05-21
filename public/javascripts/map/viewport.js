@@ -1,25 +1,27 @@
-/* DO NOT MODIFY. This file was compiled Sat, 21 May 2011 15:30:42 GMT from
+/* DO NOT MODIFY. This file was compiled Sat, 21 May 2011 19:54:21 GMT from
  * /home/akshay/Dropbox/Webdev/drts_ruby/app/scripts/map/viewport.coffee
  */
 
 (function() {
-  Game.map.viewport = Game.map.viewport || {};
-  Game.map.viewport.init = function() {
-    return Game.map.viewport.animateMove = true;
+  var Map;
+  Map = Map || {};
+  Map.viewport = Map.viewport || {};
+  Map.viewport.init = function() {
+    return Map.viewport.animateMove = true;
   };
-  Game.map.viewport.top = function() {
+  Map.viewport.top = function() {
     return $("#map_viewport").offset().top;
   };
-  Game.map.viewport.left = function() {
+  Map.viewport.left = function() {
     return $("#map_viewport").offset().left;
   };
-  Game.map.viewport.moveCursor = function() {
+  Map.viewport.moveCursor = function() {
     return $("#map_viewport").css("cursor", "move");
   };
-  Game.map.viewport.clearCursor = function() {
+  Map.viewport.clearCursor = function() {
     return $("#map_viewport").css("cursor", "");
   };
-  Game.map.viewport.moveDelta = function(dLeft, dTop, noAnimate) {
+  Map.viewport.moveDelta = function(dLeft, dTop, noAnimate) {
     var left, top;
     left = this.left();
     top = this.top();
@@ -37,8 +39,8 @@
         top: top
       });
     }
-    Game.map.checkBounds();
-    Game.map.layers.checkAll();
+    Map.checkBounds();
+    Map.layers.checkAll();
     return console.log(this.left(), this.top());
   };
 }).call(this);

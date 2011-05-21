@@ -1,33 +1,34 @@
-/* DO NOT MODIFY. This file was compiled Sat, 21 May 2011 14:07:49 GMT from
+/* DO NOT MODIFY. This file was compiled Sat, 21 May 2011 19:54:20 GMT from
  * /home/akshay/Dropbox/Webdev/drts_ruby/app/scripts/map/map.coffee
  */
 
 (function() {
-  Game.map = Game.map || {};
-  Game.map.init = function() {
-    Game.map.maxTiles = 0;
-    Game.map.tileSize = 256;
-    Game.map.mapSize = 512;
-    Game.map.defaultZoom = 3;
-    Game.map.borderCache = 1;
-    Game.map.layers.init();
-    Game.map.events.init();
-    Game.map.viewport.init();
-    Game.map.resetZoom();
-    window.setInterval(Game.map.events.resize, '100');
-    window.setInterval(Game.map.events.resize, '2000');
-    Game.map.checkBounds();
-    return Game.map.layers.checkAll();
+  var Map;
+  Map = Map || {};
+  Map.init = function() {
+    Map.maxTiles = 0;
+    Map.tileSize = 256;
+    Map.mapSize = 512;
+    Map.defaultZoom = 3;
+    Map.borderCache = 1;
+    Map.layers.init();
+    Map.events.init();
+    Map.viewport.init();
+    Map.resetZoom();
+    window.setInterval(Map.events.resize, '100');
+    window.setInterval(Map.events.resize, '2000');
+    Map.checkBounds();
+    return Map.layers.checkAll();
   };
-  Game.map.coordinateLength = function() {
+  Map.coordinateLength = function() {
     return Math.pow(2, this.zoom);
   };
-  Game.map.resetZoom = function() {
+  Map.resetZoom = function() {
     var zoom;
-    zoom = Game.map.defaultZoom;
+    zoom = Map.defaultZoom;
     return this.setZoom(zoom);
   };
-  Game.map.setZoom = function(z) {
+  Map.setZoom = function(z) {
     var totalSize;
     if (z < 0) {
       z = 0;
@@ -36,20 +37,20 @@
     }
     this.zoom = z;
     totalSize = this.mapSize * this.coordinateLength();
-    Game.map.maxTiles = totalSize / this.tileSize;
+    Map.maxTiles = totalSize / this.tileSize;
     $("#map_viewport").width(totalSize);
     $("#map_viewport").height(totalSize);
     return this.layers.checkAll();
   };
-  Game.map.zoomIn = function() {
+  Map.zoomIn = function() {
     this.setZoom(this.zoom - 1);
     return console.log("New zoom: ", this.zoom);
   };
-  Game.map.zoomOut = function() {
+  Map.zoomOut = function() {
     this.setZoom(this.zoom + 1);
     return console.log("New zoom: ", this.zoom);
   };
-  Game.map.checkBounds = function() {
+  Map.checkBounds = function() {
     var left_offset, top_offset, totalSize, viewport;
     viewport = $("#map_viewport");
     totalSize = this.mapSize * this.coordinateLength();

@@ -1,27 +1,29 @@
-/* DO NOT MODIFY. This file was compiled Sat, 21 May 2011 15:30:42 GMT from
+/* DO NOT MODIFY. This file was compiled Sat, 21 May 2011 19:54:20 GMT from
  * /home/akshay/Dropbox/Webdev/drts_ruby/app/scripts/map/drag.coffee
  */
 
 (function() {
-  Game.map.drag = Game.map.drag || {};
-  Game.map.dragging = false;
-  Game.map.drag.start = function(e) {
+  var Map;
+  Map = Map || {};
+  Map.drag = Map.drag || {};
+  Map.dragging = false;
+  Map.drag.start = function(e) {
     this.dragStartLeft = e.clientX;
     this.dragStartTop = e.clientY;
     return this.dragging = true;
   };
-  Game.map.drag.move = function(e) {
+  Map.drag.move = function(e) {
     this.dragEndLeft = e.clientX;
     this.dragEndTop = e.clientY;
     this.dragDeltaLeft = this.dragEndLeft - this.dragStartLeft;
     this.dragDeltaTop = this.dragEndTop - this.dragStartTop;
     this.dragStartLeft = this.dragEndLeft;
     this.dragStartTop = this.dragEndTop;
-    return Game.map.checkBounds();
+    return Map.checkBounds();
   };
-  Game.map.drag.end = function() {
+  Map.drag.end = function() {
     this.dragging = false;
-    Game.map.checkBounds();
-    return Game.map.layers.checkAll();
+    Map.checkBounds();
+    return Map.layers.checkAll();
   };
 }).call(this);

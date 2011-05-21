@@ -1,36 +1,38 @@
-/* DO NOT MODIFY. This file was compiled Sat, 21 May 2011 15:30:42 GMT from
+/* DO NOT MODIFY. This file was compiled Sat, 21 May 2011 19:54:20 GMT from
  * /home/akshay/Dropbox/Webdev/drts_ruby/app/scripts/map/layers.coffee
  */
 
 (function() {
-  Game.map.layers = Game.map.layers || {};
-  Game.map.layers.init = function() {
-    Game.map.layers.checkLock = false;
-    return Game.map.layers.tilesets = Drupal.settings.tilesets;
+  var Map;
+  Map = Map || {};
+  Map.layers = Map.layers || {};
+  Map.layers.init = function() {
+    Map.layers.checkLock = false;
+    return Map.layers.tilesets = Drupal.settings.tilesets;
   };
-  Game.map.layers.checkAll = function() {
+  Map.layers.checkAll = function() {
     var tileset, _i, _len, _ref;
-    while (Game.map.layers.checkLock) {
+    while (Map.layers.checkLock) {
       true;
     }
-    if (!Game.map.layers.checkLock) {
-      Game.map.layers.checkLock = true;
-      _ref = Game.map.layers.tilesets;
+    if (!Map.layers.checkLock) {
+      Map.layers.checkLock = true;
+      _ref = Map.layers.tilesets;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         tileset = _ref[_i];
-        Game.map.layers.check(tileset);
+        Map.layers.check(tileset);
       }
     }
-    return Game.map.layers.checkLock = false;
+    return Map.layers.checkLock = false;
   };
-  Game.map.layers.check = function(type) {
+  Map.layers.check = function(type) {
     var fetch, fetchTiles, tile, tileArr, url, visTiles, visTilesMap, _fn, _i, _j, _len, _len2;
-    visTiles = Game.map.layers.getVisibleTiles();
+    visTiles = Map.layers.getVisibleTiles();
     visTilesMap = new Array();
     fetchTiles = new Array();
     _fn = function() {
       var cached, tileName;
-      tileName = type + '-' + tileArr.xPos + '-' + tileArr.yPos + '-' + Game.map.zoom;
+      tileName = type + '-' + tileArr.xPos + '-' + tileArr.yPos + '-' + Map.zoom;
       visTilesMap[tileName] = tileArr;
       $("#" + tileName).remove();
       cached = $("#map_viewport").data(tileName);
@@ -65,37 +67,37 @@
     }
     return $(window).triggerHandler('resize');
   };
-  Game.map.layers.clear = function(type) {
+  Map.layers.clear = function(type) {
     return $("#map_viewport img").each(function(i) {
       if ($(this).hasClass(type)) {
         return $(this).remove();
       }
     });
   };
-  Game.map.layers.clearAll = function() {
+  Map.layers.clearAll = function() {
     var tileset, _i, _len, _ref, _results;
-    _ref = Game.map.layers.tilesets;
+    _ref = Map.layers.tilesets;
     _results = [];
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       tileset = _ref[_i];
-      _results.push(Game.map.layers.clear(tileset));
+      _results.push(Map.layers.clear(tileset));
     }
     return _results;
   };
-  Game.map.layers.getVisibleTiles = function() {
+  Map.layers.getVisibleTiles = function() {
     var counter, endX, endY, mapX, mapY, startX, startY, tilesX, tilesY, visibleTiles, x, _fn;
-    mapX = Game.map.viewport.left();
-    mapY = Game.map.viewport.top();
-    startX = Math.abs(Math.floor(mapX / Game.map.tileSize)) - Game.map.borderCache;
-    startY = Math.abs(Math.floor(mapY / Game.map.tileSize)) - Game.map.borderCache;
+    mapX = Map.viewport.left();
+    mapY = Map.viewport.top();
+    startX = Math.abs(Math.floor(mapX / Map.tileSize)) - Map.borderCache;
+    startY = Math.abs(Math.floor(mapY / Map.tileSize)) - Map.borderCache;
     startX = Math.max(0, startX);
     startY = Math.max(0, startY);
-    tilesX = Math.ceil($("#map_viewport").width() / Game.map.tileSize) + Game.map.borderCache;
-    tilesY = Math.ceil($("#map_viewport").height() / Game.map.tileSize) + Game.map.borderCache;
+    tilesX = Math.ceil($("#map_viewport").width() / Map.tileSize) + Map.borderCache;
+    tilesY = Math.ceil($("#map_viewport").height() / Map.tileSize) + Map.borderCache;
     endX = startX + tilesX;
     endY = startY + tilesY;
-    endX = Math.min(Game.map.maxTiles - 1, endX);
-    endY = Math.min(Game.map.maxTiles - 1, endY);
+    endX = Math.min(Map.maxTiles - 1, endX);
+    endY = Math.min(Map.maxTiles - 1, endY);
     visibleTiles = [];
     counter = 0;
     _fn = function() {
