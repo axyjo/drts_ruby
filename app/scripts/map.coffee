@@ -127,7 +127,7 @@ Map.layers.init = ->
   # Lock for the checkAll() function so that we don't check too many times
   # on a particular event trigger.
   Map.layers.checkLock = false
-  Map.layers.tilesets = Drupal.settings.tilesets
+  Map.layers.tilesets = ["base"]
 
 Map.layers.checkAll = ->
   true while Map.layers.checkLock
@@ -152,7 +152,7 @@ Map.layers.check = (type) ->
       else
         fetchTiles.push tileName
 
-  url = Drupal.settings.basePath + "?q=tiles"
+  url = "http://" + document.location.host + "/tiles"
   fetch = false
 
   for tile in fetchTiles
