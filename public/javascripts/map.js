@@ -1,4 +1,4 @@
-/* DO NOT MODIFY. This file was compiled Sun, 22 May 2011 11:32:44 GMT from
+/* DO NOT MODIFY. This file was compiled Sun, 22 May 2011 11:52:21 GMT from
  * /home/akshay/Dropbox/Webdev/drts_ruby/app/scripts/map.coffee
  */
 
@@ -332,4 +332,5 @@
     Map.checkBounds();
     return Map.layers.checkAll();
   };
+  window.Map = Map;
 }).call(this);

@@ -1,2 +1,2 @@
-#$(document).ready ->
-#  Map.init()
+$(document).ready ->
+  Map.init()

@@ -332,3 +332,5 @@ Map.drag.end = ->
   Map.checkBounds()
   # Check layers for newly loaded tiles.
   Map.layers.checkAll()
+
+window.Map = Map
