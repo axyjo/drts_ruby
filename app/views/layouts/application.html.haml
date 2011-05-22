@@ -6,8 +6,9 @@
     = stylesheet_link_tag 'print.css', :media => 'print'
     /[if lt IE 8]
       = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
-    = labjs_load('LAB.min.js')
-    = labjs_include_tag(:files => ["application"], :require => ["jquery.min", "game", "map"])
+    = javascript_include_tag :defaults
+    = javascript_include_tag 'game'
+    = javascript_include_tag 'map'
     = csrf_meta_tag
   %body.bp
     #container
