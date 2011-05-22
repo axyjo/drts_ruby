@@ -1,2 +1,7 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
+/* DO NOT MODIFY. This file was compiled Sat, 21 May 2011 20:03:55 GMT from
+ * /home/akshay/Dropbox/Webdev/drts_ruby/app/scripts/application.coffee
+ */
+
+(function() {
+
+}).call(this);

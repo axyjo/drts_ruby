@@ -1,0 +1,2 @@
+#$(document).ready ->
+#  Map.init()
