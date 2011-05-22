@@ -7,15 +7,12 @@ Map.init = ->
   Map.tileSize = 128
   Map.mapSize = 512
   Map.defaultZoom = 3
-  Map.borderCache = 1
+  Map.borderCache = 0
   Map.layers.init()
   Map.events.init()
   Map.viewport.init()
   Map.resetZoom()
-  window.setInterval(Map.events.resize, '100')
-  window.setInterval(Map.events.resize, '2000')
   Map.checkBounds()
-  Map.layers.checkAll()
 
 Map.coordinateLength = ->
   # Resolutions are zoom levels to pixels per coordinate. Zoom level 0 is
@@ -222,6 +219,7 @@ Map.layers.getVisibleTiles = ->
 Map.viewport = Map.viewport || {}
 
 Map.viewport.init = ->
+  Map.events.resize()
   Map.viewport.animateMove = true
 
 Map.viewport.top = ->
