@@ -2,3 +2,6 @@
 db/*.sqlite3
 log/*.log
 tmp/
+public/javascripts/application.js
+public/javascripts/game.js
+public/javascripts/map.js
