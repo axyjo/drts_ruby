@@ -5,3 +5,4 @@ tmp/
 public/javascripts/application.js
 public/javascripts/game.js
 public/javascripts/map.js
+public/stylesheets/*.css
