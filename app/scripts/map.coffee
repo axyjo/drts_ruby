@@ -152,14 +152,8 @@ Map.layers.check = (type) ->
       else
         fetchTiles.push tileName
 
-  url = "http://" + document.location.host + "/tiles?fetch=true"
-  fetch = false
-
-  for tile in fetchTiles
-    url = url + "&t[]=" + encodeURIComponent(tile)
-    fetch = true
-
-  if fetch
+  base_url = "http://" + document.location.host + "/tiles?fetch=true"
+  fetch = (url) ->
     $.getJSON url, (data)->
       if data?
         for tile in data
@@ -168,6 +162,15 @@ Map.layers.check = (type) ->
             $("#map_viewport").data tile.id, tile
       return true
     ,"json"
+
+  url = ''
+  for counter in [0..fetchTiles.length-1]
+    do ->
+      url = url + "&t[]=" + encodeURIComponent(fetchTiles[counter])
+      if counter % 5 == 0
+        fetch(base_url + url)
+        url = ''
+  fetch(base_url + url) if url != ''
 
   $(window).triggerHandler 'resize'
 
