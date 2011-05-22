@@ -17,10 +17,10 @@ class MapsController < ApplicationController
           # max tiles = map size * 2^z / tile size
           max_tiles = 512 * 2**z / tile_size
           if x >= 0 and y >= 0 and z >= 0 and x < max_tiles and y < max_tiles and z < 7
-            left = x*tile_size
-            top = y*tile_size
+            left = (x*tile_size).to_s
+            top = (y*tile_size).to_s
             tile_type = get_tile_type(x, y, z)
-            html = '<div class="map_tiles tiles-sprite tiles-'+tile_type+'" id="'+tile+'"></div>'
+            html = '<div class="map_tiles tiles-sprite tiles-'+tile_type+'" id="'+tile+'" style="left:'+left+'px; top:'+top+'px;"></div>'
             @json_tiles.push({'id' => tile, 'type' => type, 'html' => html})
           end
         end

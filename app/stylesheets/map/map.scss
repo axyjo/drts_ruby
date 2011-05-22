@@ -38,4 +38,5 @@ $tile_size: 128px;
   @include vendor("user-select", none);
   width: $tile_size;
   height: $tile_size;
+  position: absolute;
 }
