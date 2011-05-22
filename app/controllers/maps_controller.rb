@@ -3,7 +3,7 @@ class MapsController < ApplicationController
   end
 
   def tiles
-    tile_size = 256
+    tile_size = 128
     tiles = params.fetch("t")
     @json_tiles = []
     tiles.each do |tile|

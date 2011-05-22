@@ -1,6 +1,6 @@
 @import "mixins";
 @import "map/map.tiles";
-$tile_size: 256px;
+$tile_size: 128px;
 
 #map {
   position:absolute;
