@@ -164,15 +164,15 @@ Map.layers.check = (type) ->
     ,"json"
 
   url = ''
-  for counter in [0..fetchTiles.length-1]
-    do ->
-      url = url + "&t[]=" + encodeURIComponent(fetchTiles[counter])
-      if counter % 5 == 0
-        fetch(base_url + url)
-        url = ''
-  fetch(base_url + url) if url != ''
-
-  $(window).triggerHandler 'resize'
+  if fetchTiles.length != 0
+    for counter in [1..fetchTiles.length]
+      do ->
+        url = url + "&t[]=" + encodeURIComponent(fetchTiles[counter-1])
+        if counter % 30 == 0
+          fetch(base_url + url)
+          url = ''
+    fetch(base_url + url) if url != ''
+    $(window).triggerHandler 'resize'
 
 Map.layers.clear = (type) ->
   $("#map_viewport img").each (i) ->
