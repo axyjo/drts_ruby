@@ -4,7 +4,7 @@ Map = Map || {}
 
 Map.init = ->
   Map.maxTiles = 0
-  Map.tileSize = 256
+  Map.tileSize = 128
   Map.mapSize = 512
   Map.defaultZoom = 3
   Map.borderCache = 1
