@@ -112,11 +112,11 @@ Map.events.mouseup = (e) ->
   Map.viewport.clearCursor()
 
 Map.events.resize = -> 
-  $("#map_viewport").width($(window).width()-$("#map_bar").width())
-  $("#map_viewport").height($(window).height())
-  $("#map").offset({left: $(window).width() - $("#map_viewport").width()})
-  $("#map_bar").height($("#map_viewport").height())
-  $("#map_bar").width($(window).width() - $("#map_viewport").width())
+  $("#map").width($(window).width()-$("#map_bar").width())
+  $("#map").height($(window).height())
+  $("#map").offset({left: $(window).width() - $("#map").width()})
+  $("#map_bar").height($("#map").height())
+  # $("#map_bar").width($(window).width() - $("#map_viewport").width())
   $("#map_position").offset({top: $("#map_bar").height()})
 
 # Extend the map namespace by including layer functions.
@@ -198,8 +198,8 @@ Map.layers.getVisibleTiles = ->
   # Get the number of tiles that are completely visible. The border_cache
   # variable exists so that the script downloads partially visible tiles as
   # well. This value does not change unless the viewport size is changed.
-  tilesX = Math.ceil($("#map_viewport").width() / Map.tileSize) + Map.borderCache
-  tilesY = Math.ceil($("#map_viewport").height() / Map.tileSize) + Map.borderCache
+  tilesX = Math.ceil($("#map").width() / Map.tileSize) + Map.borderCache
+  tilesY = Math.ceil($("#map").height() / Map.tileSize) + Map.borderCache
   
   endX = startX + tilesX
   endY = startY + tilesY
