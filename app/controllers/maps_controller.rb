@@ -19,11 +19,27 @@ class MapsController < ApplicationController
           if x >= 0 and y >= 0 and z >= 0 and x < max_tiles and y < max_tiles and z < 7
             left = x*tile_size
             top = y*tile_size
-            html = '<div class="map_tiles tiles-sprite tiles-'+type+'" id="'+tile+'"></div>'
+            tile_type = get_tile_type(x, y, z)
+            html = '<div class="map_tiles tiles-sprite tiles-'+tile_type+'" id="'+tile+'"></div>'
             @json_tiles.push({'id' => tile, 'type' => type, 'html' => html})
           end
         end
       end
+    end
+  end
+
+  private
+  def get_tile_type(x, y, z)
+    sum = x+y+z
+    mod = sum % 4
+    if mod == 1
+      return "fire"
+    elsif mod == 2
+      return "water"
+    elsif mod == 3
+      return "grass"
+    elsif mod == 0
+      return "rock"
     end
   end
 end
