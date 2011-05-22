@@ -9,7 +9,7 @@ class MapsController < ApplicationController
     tiles.each do |tile|
       tile_params = tile.split('-')
       if tile_params.count == 4
-        x, y, z, type = tile_params
+        type, x, y, z = tile_params
         if Float(x) and Float(y) and Float(z)
           x = x.to_i
           y = y.to_i
@@ -19,7 +19,7 @@ class MapsController < ApplicationController
           if x >= 0 and y >= 0 and z >= 0 and x < max_tiles and y < max_tiles and z < 7
             left = x*tile_size
             top = y*tile_size
-            html = '<div class="map_tiles .tiles-sprite .tiles-'+type+'" id="'+tile+'"></div>'
+            html = '<div class="map_tiles tiles-sprite tiles-'+type+'" id="'+tile+'"></div>'
             @json_tiles.push({'id' => tile, 'type' => type, 'html' => html})
           end
         end

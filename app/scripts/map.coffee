@@ -3,7 +3,6 @@ Map = Map || {}
 # Create the base map namespace.
 
 Map.init = ->
-  console.log "Map initing"
   Map.maxTiles = 0
   Map.tileSize = 256
   Map.mapSize = 512
@@ -12,14 +11,11 @@ Map.init = ->
   Map.layers.init()
   Map.events.init()
   Map.viewport.init()
-  console.log  "Map submodule inits done"
   Map.resetZoom()
   window.setInterval(Map.events.resize, '100')
   window.setInterval(Map.events.resize, '2000')
   Map.checkBounds()
-  console.log "Map bounds check"
   Map.layers.checkAll()
-  console.log "Map checkAll done"
 
 Map.coordinateLength = ->
   # Resolutions are zoom levels to pixels per coordinate. Zoom level 0 is
@@ -156,20 +152,21 @@ Map.layers.check = (type) ->
       else
         fetchTiles.push tileName
 
-  url = "http://" + document.location.host + "/tiles"
+  url = "http://" + document.location.host + "/tiles?fetch=true"
   fetch = false
 
   for tile in fetchTiles
-    url = url + "&t[]=" + encodeURIComponent(fetchTiles[tile])
+    url = url + "&t[]=" + encodeURIComponent(tile)
     fetch = true
 
   if fetch
     $.getJSON url, (data)->
       if data?
-        $.each data (index, value) ->
-          if value? and value.html?
-            $("#map_viewport").append value.html
-            $("#map_viewport").data index value
+        for tile in data
+          if tile? and tile.html?
+            $("#map_viewport").append tile.html
+            $("#map_viewport").data tile.id, tile
+      return true
     ,"json"
 
   $(window).triggerHandler 'resize'
