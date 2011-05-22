@@ -3,6 +3,7 @@ Map = Map || {}
 # Create the base map namespace.
 
 Map.init = ->
+  console.log "Map initing"
   Map.maxTiles = 0
   Map.tileSize = 256
   Map.mapSize = 512
@@ -11,11 +12,14 @@ Map.init = ->
   Map.layers.init()
   Map.events.init()
   Map.viewport.init()
+  console.log  "Map submodule inits done"
   Map.resetZoom()
   window.setInterval(Map.events.resize, '100')
   window.setInterval(Map.events.resize, '2000')
   Map.checkBounds()
+  console.log "Map bounds check"
   Map.layers.checkAll()
+  console.log "Map checkAll done"
 
 Map.coordinateLength = ->
   # Resolutions are zoom levels to pixels per coordinate. Zoom level 0 is
@@ -156,7 +160,7 @@ Map.layers.check = (type) ->
   fetch = false
 
   for tile in fetchTiles
-    url = url + "&tiles[]=" + encodeURIComponent(fetchTiles[tile])
+    url = url + "&t[]=" + encodeURIComponent(fetchTiles[tile])
     fetch = true
 
   if fetch
