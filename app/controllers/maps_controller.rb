@@ -2,6 +2,13 @@ class MapsController < ApplicationController
   def view
   end
 
+  def click
+    x = params.fetch("x")
+    y = params.fetch("y")
+    x = x.to_i
+    y = y.to_i
+  end
+
   def tiles
     tile_size = 128
     tiles = params.fetch("t")
