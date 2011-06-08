@@ -42,6 +42,7 @@ GEM
     erubis (2.7.0)
     execjs (1.1.1)
       multi_json (~> 1.0)
+    haml (3.1.2)
     hike (1.0.0)
     i18n (0.6.0)
     jquery-rails (1.0.9)
@@ -105,6 +106,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-script
+  haml
   jquery-rails
   rails (= 3.1.0.rc2)
   sass-rails (~> 3.1.0.rc)
