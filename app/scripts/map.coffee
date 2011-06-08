@@ -181,8 +181,9 @@ Map.layers.clearAll = ->
 
 Map.layers.getVisibleTiles = ->
   # Get the current offset from the 0, 0 position.
-  mapX = Map.viewport.left()
-  mapY = Map.viewport.top()
+  # TODO: Simplify this calculation.
+  mapX = (Map.mapSize * Map.coordinateLength()) - Map.viewport.left() - $(window).width() + $("#map").offset().left
+  mapY = (Map.mapSize * Map.coordinateLength()) - Map.viewport.top() - $(window).height() + $("#map").offset().top
 
   # Get the first tile that should be visible. The border_cache variable
   # exists as the script should download border_cache tiles beyond the
@@ -212,6 +213,7 @@ Map.layers.getVisibleTiles = ->
         do ->
           tile = xPos: x, yPos: y
           visibleTiles[counter++] = tile
+  console.log startX, startY, tilesX, tilesY, endX, endY, visibleTiles
   return visibleTiles
 
 # Extend the map namespace by including viewport functions.
