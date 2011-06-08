@@ -55,4 +55,18 @@ DrtsRuby::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
+
+  get "maps/view"
+  match "/tiles" => "maps#tiles", :as => :tiles
+  match "/map_click/:x/:y" => "maps#click", :as => :map_click
+
+  get "log_in" => "sessions#new", :as => "log_in"
+  get "log_out" => "sessions#destroy", :as => "log_out"
+  get "sign_up" => "users#new", :as => "sign_up"
+
+  resources :users
+  resources :sessions
+
+  root :to => "maps#view"
+
 end
