@@ -1,16 +1,4 @@
 DrtsRuby::Application.routes.draw do
-  get "maps/view"
-  match "/tiles" => "maps#tiles", :as => :tiles
-  match "/map_click/:x/:y" => "maps#click", :as => :map_click
-
-  get "log_in" => "sessions#new", :as => "log_in"
-  get "log_out" => "sessions#destroy", :as => "log_out"
-
-  get "sign_up" => "users#new", :as => "sign_up"
-  # root :to => "users#new"
-  resources :users
-  resources :sessions
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -60,7 +48,7 @@ DrtsRuby::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => "maps#view"
+  # root :to => 'welcome#index'
 
   # See how all your routes lay out with "rake routes"
 

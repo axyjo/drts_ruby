@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-DrtsRuby::Application.config.secret_token = '891a1414b377e007023b2b11658e628b2c5dc6281ab31d50d97a5e427b04225e02efb86f95e53e2302e482c9e872ac008cb880ece63ce4cbab752cc0652051ef'
+DrtsRuby::Application.config.secret_token = '9b8b7595554cf597f600b9e5242a0fcf530a37994073770b8d46597c913776d568b8f2905516ba664837517f24d405e00e2ef883258ce2ba17952ec36e691995'
