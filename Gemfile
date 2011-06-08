@@ -8,7 +8,7 @@ gem 'rails', '3.1.0.rc2'
 gem 'sqlite3'
 
 # Asset template engines
-gem 'sass-rails', "~> 3.1.0.rc"
+gem 'sass-rails', :git => 'https://github.com/rails/sass-rails.git'
 gem 'coffee-script'
 gem 'uglifier'
 
@@ -16,6 +16,9 @@ gem 'jquery-rails'
 
 # Add Haml for templating
 gem 'haml'
+
+# Add compass for CSS
+gem 'compass', :git => 'https://github.com/chriseppstein/compass.git', :branch => 'rails31'
 
 # Use unicorn as the web server
 # gem 'unicorn'

@@ -1,3 +1,23 @@
+GIT
+  remote: https://github.com/chriseppstein/compass.git
+  revision: 24ed97d9201253392c779dd62f6090f129959c44
+  branch: rails31
+  specs:
+    compass (0.11.1.24ed97d)
+      chunky_png (~> 1.1)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
+
+GIT
+  remote: https://github.com/rails/sass-rails.git
+  revision: 0754f8f675650c807a6a1f2b05aaf5b576bed2fe
+  specs:
+    sass-rails (3.1.0.rc.2)
+      actionpack (~> 3.1.0.rc1)
+      railties (~> 3.1.0.rc1)
+      sass (>= 3.1.2)
+      sprockets (>= 2.0.0.beta.9)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -35,6 +55,7 @@ GEM
     arel (2.1.1)
     bcrypt-ruby (2.1.4)
     builder (3.0.0)
+    chunky_png (1.2.0)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
@@ -42,6 +63,7 @@ GEM
     erubis (2.7.0)
     execjs (1.1.1)
       multi_json (~> 1.0)
+    fssm (0.2.7)
     haml (3.1.2)
     hike (1.0.0)
     i18n (0.6.0)
@@ -80,11 +102,6 @@ GEM
       thor (~> 0.14.6)
     rake (0.9.2)
     sass (3.1.2)
-    sass-rails (3.1.0.rc.2)
-      actionpack (~> 3.1.0.rc1)
-      railties (~> 3.1.0.rc1)
-      sass (>= 3.1.2)
-      sprockets (>= 2.0.0.beta.9)
     sprockets (2.0.0.beta.10)
       hike (~> 1.0)
       rack (~> 1.0)
@@ -106,10 +123,11 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-script
+  compass!
   haml
   jquery-rails
   rails (= 3.1.0.rc2)
-  sass-rails (~> 3.1.0.rc)
+  sass-rails!
   sqlite3
   turn
   uglifier
