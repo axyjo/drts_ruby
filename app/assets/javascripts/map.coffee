@@ -109,8 +109,6 @@ Map.events.resize = ->
   $("#map").height($(window).height())
   $("#map").offset({left: $(window).width() - $("#map").width()})
   $("#map_bar").height($("#map").height())
-  # $("#map_bar").width($(window).width() - $("#map_viewport").width())
-  $("#map_position").offset({top: $("#map_bar").height()})
 
 # Extend the map namespace by including layer functions.
 

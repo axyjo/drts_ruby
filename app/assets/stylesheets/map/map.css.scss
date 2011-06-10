@@ -24,7 +24,11 @@ $tile_size: 128px;
   color: #FFF;
   font-size: .846em;
   font: normal small "Lucida Grande", Verdana, sans-serif;
-  vertical-align: bottom;
+  position: absolute;
+}
+
+#map_position {
+  bottom: 0;
 }
 
 #map_viewport {
