@@ -72,7 +72,7 @@ Map.events.init = ->
   # so that even if the mouse is let go when the cursor is ourside of the
   # div, the map will not drag again when the cursor is brought in to the
   # div again.
-  $(document).bind("mouseup", this.mouseup)  
+  $(document).bind("mouseup", this.mouseup)
   # Window events.
   $(window).resize(Map.events.resize)
 
@@ -99,12 +99,12 @@ Map.events.mousemove = (e) ->
     Map.viewport.moveDelta(Map.drag.dragDeltaLeft, Map.drag.dragDeltaTop, true)
   Map.bar.position(e)
 
-Map.events.mouseup = (e) -> 
+Map.events.mouseup = (e) ->
   if Map.drag.dragging
     Map.drag.end()
   Map.viewport.clearCursor()
 
-Map.events.resize = -> 
+Map.events.resize = ->
   $("#map").width($(window).width()-$("#map_bar").width())
   $("#map").height($(window).height())
   $("#map").offset({left: $(window).width() - $("#map").width()})
@@ -114,7 +114,7 @@ Map.events.resize = ->
 
 Map.layers = Map.layers || {}
 
-Map.layers.init = -> 
+Map.layers.init = ->
   # Lock for the checkAll() function so that we don't check too many times
   # on a particular event trigger.
   Map.layers.checkLock = false
@@ -186,13 +186,13 @@ Map.layers.getVisibleTiles = ->
   startY = Math.abs(Math.floor(mapY / Map.tileSize)) - Map.borderCache
   startX = Math.max(0, startX)
   startY = Math.max(0, startY)
-  
+
   # Get the number of tiles that are completely visible. The border_cache
   # variable exists so that the script downloads partially visible tiles as
   # well. This value does not change unless the viewport size is changed.
   tilesX = Math.ceil($("#map").width() / Map.tileSize) + Map.borderCache
   tilesY = Math.ceil($("#map").height() / Map.tileSize) + Map.borderCache
-  
+
   endX = startX + tilesX
   endY = startY + tilesY
   endX = Math.min(Map.maxTiles - 1, endX)
@@ -253,8 +253,8 @@ Map.bar = Map.bar || {}
 
 Map.bar.init = ->
 
-Map.bar.populate = (position) -> 
-  if position.x > 0 and position.y > 0 and position.x <= Map.mapSize and position.y <= Map.mapSize 
+Map.bar.populate = (position) ->
+  if position.x > 0 and position.y > 0 and position.x <= Map.mapSize and position.y <= Map.mapSize
     if this.ajax_request?
       this.ajax_request.abort();
     # Store the hover/click request in a variable so that it can be easily
@@ -262,12 +262,12 @@ Map.bar.populate = (position) ->
     this.ajax_request = $.ajax(
       type: "GET"
       url: "?q=map_click/" + Math.floor(position.x) + '/' + Math.floor(position.y)
-      success: (data) -> 
+      success: (data) ->
         $('#map_data').html(data);
         $(window).triggerHandler('resize');
     )
 
-Map.bar.position = (e) -> 
+Map.bar.position = (e) ->
   # Caclulate the distance the viewport has been offset by to account for
   # items to its left and top. We cannot simply subtract the viewport's
   # width from the window's width (and the same for height), as then items
