@@ -311,12 +311,10 @@ Map.drag.start = (e) ->
   this.dragging = true
 
 Map.drag.move = (e) ->
-  # Update the dragEnd variables with the current mouse position.
-  this.dragEndLeft = e.clientX;
-  this.dragEndTop = e.clientY;
-  # Caculate change in position.
-  this.dragDeltaLeft = this.dragEndLeft - this.dragStartLeft;
-  this.dragDeltaTop = this.dragEndTop - this.dragStartTop;
+  # Caculate change in position. e.client[X,Y] are the current positions while
+  # this.dragStart[Left,Top] are the initial positions.
+  this.dragDeltaLeft = e.clientX - this.dragStartLeft;
+  this.dragDeltaTop = e.clientY - this.dragStartTop;
   # Reset the starting coordinates.
   this.dragStartLeft = this.dragEndLeft;
   this.dragStartTop = this.dragEndTop;
