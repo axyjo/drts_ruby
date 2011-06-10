@@ -23,7 +23,7 @@ class MapsController < ApplicationController
           z = z.to_i
           # max tiles = map size / 2^z
           max_tiles = 512 / 2**z
-          if x >= 0 and y >= 0 and z >= 0 and x < max_tiles and y < max_tiles and z < 7
+          if x >= 0 and y >= 0 and z >= 0 and x < max_tiles and y < max_tiles and z <= 7
             left = (x*tile_size).to_s
             top = (y*tile_size).to_s
             tile_type = get_tile_type(x, y, z)
