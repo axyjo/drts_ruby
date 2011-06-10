@@ -32,10 +32,7 @@ Map.setZoom = (z) ->
   else if z > 7
     z = 7
   this.zoom = z;
-  totalSize = this.mapSize* this.coordinateLength()
-  Map.maxTiles = totalSize/this.tileSize
-  $("#map_viewport").width(totalSize)
-  $("#map_viewport").height(totalSize)
+  Map.maxTiles = this.mapSize * this.coordinateLength() / this.tileSize
   this.layers.checkAll()
 
 Map.zoomIn = ->
@@ -48,19 +45,18 @@ Map.zoomOut = ->
 
 Map.checkBounds = ->
   viewport = $("#map_viewport")
-  totalSize = this.mapSize* this.coordinateLength()
   left_offset = 0 + $("#map_bar").width()
   top_offset = 0
 
   if viewport.offset().left - left_offset > 0
     viewport.offset(left: left_offset)
-  else if viewport.offset().left < viewport.width() - totalSize + left_offset
-    viewport.offset(left: viewport.width() - totalSize + left_offset)
+  else if viewport.offset().left < left_offset
+    viewport.offset(left: left_offset)
 
   if viewport.offset().top + top_offset > 0
     viewport.offset(top: 0 + top_offset)
-  else if viewport.offset().top < viewport.height() - totalSize + top_offset
-    viewport.offset(top: viewport.height() - totalSize + top_offset)
+  else if viewport.offset().top < top_offset
+    viewport.offset(top: top_offset)
 
 # Extend the map namespace by including event handlers.
 
