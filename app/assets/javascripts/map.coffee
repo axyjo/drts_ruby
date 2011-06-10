@@ -38,11 +38,9 @@ Map.setZoom = (z) ->
 
 Map.zoomIn = ->
   this.setZoom(this.zoom - 1)
-  console.log("New zoom: ",this.zoom)
 
 Map.zoomOut = ->
   this.setZoom(this.zoom + 1)
-  console.log("New zoom: ",this.zoom)
 
 Map.checkBounds = ->
   viewport = $("#map_viewport")
