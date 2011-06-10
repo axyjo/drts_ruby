@@ -33,7 +33,7 @@ Map.setZoom = (z) ->
   else if z > 7
     z = 7
   this.zoom = z;
-  Map.maxTiles = this.mapSize * this.coordinateLength() / this.tileSize
+  Map.maxTiles = this.mapSize / this.coordinateLength()
   this.layers.checkAll()
 
 Map.zoomIn = ->
