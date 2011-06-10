@@ -208,7 +208,6 @@ Map.layers.getVisibleTiles = ->
         do ->
           tile = xPos: x, yPos: y
           visibleTiles[counter++] = tile
-  console.log startX, startY, tilesX, tilesY, endX, endY, visibleTiles
   return visibleTiles
 
 # Extend the map namespace by including viewport functions.
@@ -240,7 +239,6 @@ Map.viewport.moveDelta = (dLeft, dTop, noAnimate) ->
   top = this.top()
   left += dLeft
   top += dTop
-  console.log("new vals", left, top)
   if this.animateMove and not noAnimate
     $("#map_viewport").animate(left: left, top: top)
   else
@@ -250,7 +248,6 @@ Map.viewport.moveDelta = (dLeft, dTop, noAnimate) ->
   Map.checkBounds()
   # Check layers for newly loaded tiles.
   Map.layers.checkAll()
-  console.log(this.left(), this.top())
 
 # Extend the map namespace by including the map bar functions.
 
