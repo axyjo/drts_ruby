@@ -12,6 +12,7 @@ Map.init = ->
   Map.events.init()
   Map.viewport.init()
   Map.resetZoom()
+  Map.viewport.move(0, 0)
   Map.checkBounds()
 
 Map.coordinateLength = ->
@@ -229,6 +230,10 @@ Map.viewport.moveCursor = ->
 
 Map.viewport.clearCursor = ->
   return $("#map_viewport").css("cursor", "")
+
+Map.viewport.move = (left, top) ->
+  $("#map_viewport").offset(left: left, top: top)
+  Map.checkBounds()
 
 Map.viewport.moveDelta = (dLeft, dTop, noAnimate) ->
   left = this.left()
