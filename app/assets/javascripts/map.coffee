@@ -49,10 +49,8 @@ Map.checkBounds = ->
 
   if viewport.offset().left - left_offset > 0
     viewport.offset(left: left_offset)
-  # Yes, the negative is correct, since the 'left' property is the opposite of
-  # what we actually want.
-  else if viewport.offset().left < -Map.maxTiles * Map.tileSize
-    viewport.offset(left: -Map.maxTiles * Map.tileSize)
+  else if viewport.offset().left < $(window).width() - Map.maxTiles * Map.tileSize
+    viewport.offset(left: $(window).width() - Map.maxTiles * Map.tileSize)
 
   if viewport.offset().top + top_offset > 0
     viewport.offset(top: 0 + top_offset)
