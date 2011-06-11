@@ -24,10 +24,7 @@ class MapsController < ApplicationController
           # max tiles = map size / 2^z
           max_tiles = 512 / 2**z
           if x >= 0 and y >= 0 and z >= 0 and x < max_tiles and y < max_tiles and z <= 7
-            left = (x*tile_size).to_s
-            top = (y*tile_size).to_s
-            tile_type = get_tile_type(x, y, z)
-            html = '<div class="map_tiles tiles-sprite tiles-'+tile_type+'" id="'+tile+'" style="left:'+left+'px; top:'+top+'px;"></div>'
+            html = generate_tile_html(x, y, z)
             @json_tiles.push({'id' => tile, 'type' => type, 'html' => html})
           end
         end
@@ -48,5 +45,13 @@ class MapsController < ApplicationController
     elsif mod == 0
       return "rock"
     end
+  end
+
+  def generate_tile_html(x, y, z)
+    left = (x*tile_size).to_s
+    top = (y*tile_size).to_s
+    tile_type = get_tile_type(x, y, z)
+    html = '<div class="map_tiles tiles-sprite tiles-'+tile_type+'" id="'+tile+'" style="left:'+left+'px; top:'+top+'px;"></div>'
+    return html
   end
 end
