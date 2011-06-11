@@ -10,7 +10,6 @@ class MapsController < ApplicationController
   end
 
   def tiles
-    tile_size = 128
     tiles = params.fetch("t")
     @json_tiles = []
     tiles.each do |tile|
@@ -48,6 +47,7 @@ class MapsController < ApplicationController
   end
 
   def generate_tile_html(x, y, z)
+    tile_size = 128
     left = (x*tile_size).to_s
     top = (y*tile_size).to_s
     tile_type = get_tile_type(x, y, z)
