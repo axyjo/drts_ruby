@@ -6,7 +6,7 @@ Map.init = ->
   Map.maxTiles = 0
   Map.tileSize = 128
   Map.mapSize = 512
-  Map.defaultZoom = 3
+  Map.defaultZoom = 5
   Map.borderCache = 0
   Map.layers.init()
   Map.events.init()
