@@ -49,13 +49,15 @@ Map.checkBounds = ->
 
   if viewport.offset().left - left_offset > 0
     viewport.offset(left: left_offset)
-  else if viewport.offset().left < left_offset
-    viewport.offset(left: left_offset)
+  # Yes, the negative is correct, since the 'left' property is the opposite of
+  # what we actually want.
+  else if viewport.offset().left < -Map.maxTiles * Map.tileSize
+    viewport.offset(left: -Map.maxTiles * Map.tileSize)
 
   if viewport.offset().top + top_offset > 0
     viewport.offset(top: 0 + top_offset)
-  else if viewport.offset().top < top_offset
-    viewport.offset(top: top_offset)
+  else if viewport.offset().top < $("#map").height() - Map.maxTiles * Map.tileSize
+    viewport.offset(top: $("#map").height() - Map.maxTiles * Map.tileSize)
 
 # Extend the map namespace by including event handlers.
 
