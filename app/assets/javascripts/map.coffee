@@ -235,7 +235,7 @@ Map.viewport.clearCursor = ->
   return $("#map_viewport").css("cursor", "")
 
 Map.viewport.move = (left, top) ->
-  $("#map_viewport").offset(left: left, top: top)
+  $("#map_viewport").offset(left: left + $("#map_bar").width(), top: top)
   Map.checkBounds()
 
 Map.viewport.moveDelta = (dLeft, dTop, noAnimate) ->
