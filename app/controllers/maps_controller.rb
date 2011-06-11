@@ -62,8 +62,8 @@ class MapsController < ApplicationController
     max_tiles = 512 / 2**default_z
     map_size = 512
     html = ""
-    for x in 0..max_tiles
-      for y in 0..max_tiles
+    for x in 0..max_tiles-1
+      for y in 0..max_tiles-1
         temp = generate_tile_html('base', x, y, default_z)
         html = "#{html}#{temp}\n"
       end
