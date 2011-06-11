@@ -114,17 +114,10 @@ Map.events.resize = ->
 Map.layers = Map.layers || {}
 
 Map.layers.init = ->
-  # Lock for the checkAll() function so that we don't check too many times
-  # on a particular event trigger.
-  Map.layers.checkLock = false
   Map.layers.tilesets = ["base"]
 
 Map.layers.checkAll = ->
-  true while Map.layers.checkLock
-  if not Map.layers.checkLock
-    Map.layers.checkLock = true
-    Map.layers.check tileset for tileset in Map.layers.tilesets
-  Map.layers.checkLock = false
+  Map.layers.check tileset for tileset in Map.layers.tilesets
 
 Map.layers.check = (type) ->
   visTiles = Map.layers.getVisibleTiles()
