@@ -168,16 +168,16 @@ Map.layers.clearAll = ->
   Map.layers.clear tileset for tileset in Map.layers.tilesets
 
 Map.layers.getVisibleTiles = ->
-  # Get the current offset from the 0, 0 position.
-  # TODO: Simplify this calculation.
-  mapX = (Map.mapSize * Map.coordinateLength()) - Map.viewport.left() - $(window).width() + $("#map").offset().left
-  mapY = (Map.mapSize * Map.coordinateLength()) - Map.viewport.top() - $(window).height() + $("#map").offset().top
+  # Get the offset for the top left position, accounting for other elements on
+  # the page.
+  realViewportLeft = Map.viewport.left() - $("#map").offset().left
+  realViewportTop = Map.viewport.top() - $("#map").offset().top
 
   # Get the first tile that should be visible. The border_cache variable
   # exists as the script should download border_cache tiles beyond the
   # visible border.
-  startX = Math.abs(Math.floor(mapX / Map.tileSize)) - Map.borderCache
-  startY = Math.abs(Math.floor(mapY / Map.tileSize)) - Map.borderCache
+  startX = Math.abs(Math.floor(realViewportLeft / Map.tileSize)) - Map.borderCache
+  startY = Math.abs(Math.floor(realViewportTop / Map.tileSize)) - Map.borderCache
   startX = Math.max(0, startX)
   startY = Math.max(0, startY)
 
