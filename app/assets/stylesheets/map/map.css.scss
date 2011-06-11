@@ -27,6 +27,10 @@ $tile_size: 128px;
   position: absolute;
 }
 
+#map_data {
+  display: none;
+}
+
 #map_position {
   bottom: 0;
 }

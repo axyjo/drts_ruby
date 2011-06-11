@@ -1,6 +1,6 @@
 class MapsController < ApplicationController
   def view
-    @initial_tiles = get_initial_tiles
+    @initial_tiles = get_initial_tiles.to_json
   end
 
   def click
@@ -24,8 +24,8 @@ class MapsController < ApplicationController
           # max tiles = map size / 2^z
           max_tiles = 512 / 2**z
           if x >= 0 and y >= 0 and z >= 0 and x < max_tiles and y < max_tiles and z <= 7
-            html = generate_tile_html(layer, x, y, z)
-            @json_tiles.push({'id' => tile, 'type' => layer, 'html' => html})
+            json = generate_tile_json(layer, x, y, z)
+            @json_tiles.push(json)
           end
         end
       end
@@ -47,27 +47,27 @@ class MapsController < ApplicationController
     end
   end
 
-  def generate_tile_html(layer, x, y, z)
+  def generate_tile_json(layer, x, y, z)
     tile_size = 128
     left = (x*tile_size).to_s
     top = (y*tile_size).to_s
     tile_type = get_tile_type(x, y, z)
     id = "#{layer}-#{x}-#{y}-#{z}"
-    html = '<div class="map_tiles tiles-sprite tiles-'+tile_type+'" id="'+id+'" style="left:'+left+'px; top:'+top+'px;"></div>'
-    return html
+    html = "<div class=\"map_tiles tiles-sprite tiles-"+tile_type+"\" id=\""+id+"\" style='left:"+left+"px; top:"+top+"px;'></div>"
+    return {'id' => id, 'type' => layer, 'tile' => tile_type, 'left' => left, 'top' => top}
   end
 
   def get_initial_tiles
     default_z = 5
     max_tiles = 512 / 2**default_z
     map_size = 512
-    html = ""
+    json_tiles = []
     for x in 0..max_tiles-1
       for y in 0..max_tiles-1
-        temp = generate_tile_html('base', x, y, default_z)
-        html = "#{html}#{temp}\n"
+        temp = generate_tile_json('base', x, y, default_z)
+        json_tiles.push(temp)
       end
     end
-    return html
+    return json_tiles
   end
 end

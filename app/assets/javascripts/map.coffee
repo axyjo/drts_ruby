@@ -117,9 +117,28 @@ Map.layers = Map.layers || {}
 
 Map.layers.init = ->
   Map.layers.tilesets = ["base"]
+  Map.layers.parseJSON $("#map_data").html()
+  $("#map_data").empty().show()
 
 Map.layers.checkAll = ->
   Map.layers.check tileset for tileset in Map.layers.tilesets
+
+Map.layers.parseJSON = (data) ->
+  if data?
+    if typeof data == 'string'
+      data = jQuery.parseJSON data
+    for tile in data
+      if tile? and tile.left? and tile.top? and tile.id? and tile.tile?
+        Map.layers.addTile tile
+        $("#map_viewport").data tile.id, tile
+  return true
+
+Map.layers.addTile = (tile) ->
+  div = $("<div class='map_tiles tiles-sprite'></div>")
+  div.addClass "tiles-"+tile.tile
+  div.attr "id", tile.id
+  div.offset {top: tile.top, left: tile.left}
+  $("#map_viewport").append div
 
 Map.layers.check = (type) ->
   visTiles = Map.layers.getVisibleTiles()
@@ -131,23 +150,15 @@ Map.layers.check = (type) ->
       tileName = type + '-' + tileArr.xPos + '-' + tileArr.yPos + '-' + Map.zoom
       visTilesMap[tileName] = tileArr
       $("#" + tileName).remove()
-      cached = $("#map_viewport").data tileName
-      if cached? and cached.html?
-        $("#map_viewport").append cached.html
+      cache = $("#map_viewport").data tileName
+      if cache? and cache.left? and cache.top? and cache.id? and cache.tile?
+        Map.layers.addTile cache
       else
         fetchTiles.push tileName
 
   base_url = "http://" + document.location.host + "/tiles?fetch=true"
   fetch = (url) ->
-    $.getJSON url, (data)->
-      if data?
-        for tile in data
-          if tile? and tile.html?
-            $("#map_viewport").append tile.html
-            $("#map_viewport").data tile.id, tile
-      return true
-    ,"json"
-
+    $.getJSON url, Map.layers.parseJSON, "json"
   url = ''
   if fetchTiles.length != 0
     for counter in [1..fetchTiles.length]
