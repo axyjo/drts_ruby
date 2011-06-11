@@ -8,8 +8,8 @@ Map.init = ->
   Map.mapSize = 512
   Map.defaultZoom = 5
   Map.borderCache = 0
-  Map.layers.init()
   Map.events.init()
+  Map.layers.init()
   Map.viewport.init()
   Map.resetZoom()
   Map.viewport.move(0, 0)
