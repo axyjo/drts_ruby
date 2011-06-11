@@ -308,14 +308,15 @@ Map.drag.start = (e) ->
 Map.drag.move = (e) ->
   # Caculate change in position. e.client[X,Y] are the current positions while
   # this.dragStart[Left,Top] are the initial positions.
-  this.dragDeltaLeft = e.clientX - this.dragStartLeft;
-  this.dragDeltaTop = e.clientY - this.dragStartTop;
-  # Reset the starting coordinates.
-  this.dragStartLeft = this.dragEndLeft;
-  this.dragStartTop = this.dragEndTop;
-  # Check for map viewport bounding box.
-  Map.checkBounds();
+  this.dragDeltaLeft = e.clientX - this.dragStartLeft
+  this.dragDeltaTop = e.clientY - this.dragStartTop
 
+  # Reset the starting coordinates.
+  this.dragStartLeft = e.clientX
+  this.dragStartTop = e.clientY
+
+  # Check for map viewport bounding box.
+  Map.checkBounds()
 
 Map.drag.end = ->
   this.dragging = false
