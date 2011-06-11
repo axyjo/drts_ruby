@@ -315,9 +315,6 @@ Map.drag.move = (e) ->
   this.dragStartLeft = e.clientX
   this.dragStartTop = e.clientY
 
-  # Check for map viewport bounding box.
-  Map.checkBounds()
-
 Map.drag.end = ->
   this.dragging = false
   # Check for map viewport bounding box.
