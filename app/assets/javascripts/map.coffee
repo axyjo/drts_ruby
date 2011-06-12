@@ -45,7 +45,7 @@ Map.zoomOut = ->
 Map.checkBounds = ->
   viewport = $("#map_viewport")
   left_offset = 0 + $("#map_bar").width()
-  top_offset = 0
+  top_offset = 0 + $("#navbar").height()
 
   if viewport.offset().left - left_offset > 0
     viewport.offset(left: left_offset)
