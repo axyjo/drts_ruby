@@ -1,6 +1,7 @@
 @import "mixins";
 @import "map/map.tiles";
 @import "compass/css3/border-radius";
+@import "compass/css3/opacity";
 $tile_size: 128px;
 
 #map {
@@ -54,6 +55,11 @@ $tile_size: 128px;
   background-color: #000;
   text-align: center;
   color: #ddd;
+  @include opacity(0.75);
+}
+
+#map_notif:hover {
+  @include opaque;
 }
 
 .map_tiles {
