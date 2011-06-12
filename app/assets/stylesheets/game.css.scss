@@ -1,0 +1,40 @@
+@import "compass/css3/box-shadow";
+@import "compass/css3/border-radius";
+
+#navbar {
+  vertical-align: middle;
+  min-height: 30px;
+  background-color: #000;
+  color: #ccc;
+  font: normal small "Lucida Grande", Verdana, sans-serif;
+  left: 0;
+  margin: 0 -20px;
+  padding: 0 20px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  @include box-shadow(0 3px 20px #000);
+  z-index: 25;
+  a {
+    color: #fff;
+    font-size: 1em;
+    text-decoration: none;
+  }
+  ul li {
+    float: left;
+    a {
+      float: left;
+      padding: 0 10px;
+      @include border-radius(10px);
+      &:focus, &:hover, &:active, &:active:fous {
+        background: #444;
+      }
+    }
+  }
+  #navbar-user {
+    float: right;
+  }
+  #navbar-menu {
+    float: left;
+  }
+}
