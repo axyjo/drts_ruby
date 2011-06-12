@@ -37,7 +37,7 @@ class MapsController < ApplicationController
     sum = x+y+z
     mod = sum % 4
     if mod == 1
-      return "fire"
+      return "sand"
     elsif mod == 2
       return "water"
     elsif mod == 3
