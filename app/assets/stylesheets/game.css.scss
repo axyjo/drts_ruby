@@ -3,7 +3,6 @@
 
 #navbar {
   vertical-align: middle;
-  min-height: 30px;
   background-color: #000;
   color: #ccc;
   font: normal small "Lucida Grande", Verdana, sans-serif;
@@ -17,6 +16,8 @@
   z-index: 25;
   a {
     color: #fff;
+    margin-top: 5px;
+    margin-bottom: 5px;
     font-size: 1em;
     text-decoration: none;
   }
