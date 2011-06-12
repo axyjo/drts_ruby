@@ -1,5 +1,6 @@
 @import "mixins";
 @import "map/map.tiles";
+@import "compass/css3/border-radius";
 $tile_size: 128px;
 
 #map {
@@ -40,6 +41,19 @@ $tile_size: 128px;
   top: 0px;
   position: relative;
   float:right;
+}
+
+#map_notif {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin-left: -150px;
+  min-height: 30px;
+  width: 300px;
+  @include border-top-radius(10px);
+  background-color: #000;
+  text-align: center;
+  color: #ddd;
 }
 
 .map_tiles {
