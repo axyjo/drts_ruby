@@ -7,6 +7,4 @@
     = csrf_meta_tag
   %body
     #container
-      - flash.each do |name, msg|
-        = content_tag :div, msg, :id => "flash#{name}"
       = yield
