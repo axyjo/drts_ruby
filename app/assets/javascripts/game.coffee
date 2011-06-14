@@ -5,10 +5,10 @@ Game = Game || {}
 Game.modal = Game.modal || {}
 
 Game.modal.init = ->
-  $("a .modal").bind("click", Game.modal.click)
+  $("a").bind("click", Game.modal.click)
 
 Game.modal.click = (e) ->
-  console.log e.target.href
+  Game.modal.fetch e.target.href
   false
 
 Game.modal.fetch = (url) ->
