@@ -6,9 +6,11 @@ Game.modal = Game.modal || {}
 
 Game.modal.init = ->
   $("a").bind("click", Game.modal.click)
+  # TODO: recognize any hashes already in the URL bar on load.
 
 Game.modal.click = (e) ->
   Game.modal.fetch e.target.href
+  window.location.hash = e.target.pathname.substr(1, e.target.pathname.length)
   false
 
 Game.modal.fetch = (url) ->
@@ -29,5 +31,6 @@ Game.modal.show = ->
 Game.modal.hide = ->
   $("#modal").hide()
   $("#modal-overlay").hide()
+  window.location.hash = ''
 
 window.Game = Game
