@@ -32,7 +32,7 @@ Map.setZoom = (z) ->
     z = 0
   else if z > 7
     z = 7
-  this.zoom = z;
+  this.zoom = z
   Map.maxTiles = this.mapSize / this.coordinateLength()
   this.layers.checkAll()
 
@@ -261,14 +261,14 @@ Map.bar.init = ->
 Map.bar.populate = (position) ->
   if position.x > 0 and position.y > 0 and position.x <= Map.mapSize and position.y <= Map.mapSize
     if this.ajax_request?
-      this.ajax_request.abort();
+      this.ajax_request.abort()
     # Store the hover/click request in a variable so that it can be easily
     # aborted.
     this.ajax_request = $.ajax(
       type: "GET"
       url: "?q=map_click/" + Math.floor(position.x) + '/' + Math.floor(position.y)
       success: (data) ->
-        $('#map_data').html(data);
+        $('#map_data').html(data)
     )
 
 Map.bar.position = (e) ->
@@ -279,7 +279,7 @@ Map.bar.position = (e) ->
   displacementX = $("#map_bar").width()
   displacementY = 0
 
-  offset = $("#map_viewport").offset();
+  offset = $("#map_viewport").offset()
   # Using displacements from origin calculated above, change the values.
   offset.left -= displacementX
   offset.top -= displacementY
