@@ -14,15 +14,13 @@ Game.modal.click = (e) ->
   false
 
 Game.modal.fetch = (url) ->
-  $.getJSON url, Game.modal.parseJSON, "json"
+  $.ajax(
+    type: "GET"
+    url: url
+    success: (data) ->
+      $("#modal").html(data)
+    )
   Game.modal.show()
-
-Game.modal.parseJSON = (data) ->
-  if data?
-    if typeof data == 'string'
-      data = jQuery.parseJSON data
-    $("#modal-header").replace(data.header)
-    $("#modal-content").replace(data.content)
 
 Game.modal.show = ->
   $("#modal").show()
