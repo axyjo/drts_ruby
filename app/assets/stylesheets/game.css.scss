@@ -43,6 +43,10 @@
 
 #modal {
   display: none;
+  position: absolute;
+  left: 50%;
+  margin-left: -250px;
+  top: 50px;
   z-index: 100;
   background-color: #fff;
   width: 500px;
