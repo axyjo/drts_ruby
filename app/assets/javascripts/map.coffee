@@ -269,7 +269,6 @@ Map.bar.populate = (position) ->
       url: "?q=map_click/" + Math.floor(position.x) + '/' + Math.floor(position.y)
       success: (data) ->
         $('#map_data').html(data);
-        $(window).triggerHandler('resize');
     )
 
 Map.bar.position = (e) ->
