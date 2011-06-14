@@ -24,8 +24,10 @@ Game.modal.parseJSON = (data) ->
 
 Game.modal.show = ->
   $("#modal").show()
+  $("#modal-overlay").show()
 
 Game.modal.hide = ->
   $("#modal").hide()
+  $("#modal-overlay").hide()
 
 window.Game = Game
