@@ -52,6 +52,7 @@
   width: 500px;
   min-height: 200px;
   padding: 10px 10px 10px 10px;
+  @include box-shadow(0 3px 20px #eee);
   @include border-radius(10px);
   #modal-header {
     font-size: 200%;
