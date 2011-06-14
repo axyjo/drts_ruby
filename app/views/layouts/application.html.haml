@@ -14,7 +14,7 @@
               = link_to "Home", root_path
         %div#navbar-user
           - if current_user
-            Logged in as #{current_user.email}
+            Logged in as #{current_user.username}
             %ul
               %li
                 = link_to "Log out", log_out_path
