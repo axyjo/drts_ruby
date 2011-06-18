@@ -106,7 +106,7 @@ Map.events.mouseup = (e) ->
 Map.events.resize = ->
   $("#map").width($(window).width()-$("#map_bar").width())
   $("#map").height($(window).height() - Game.navbar.height())
-  $("#map").offset({left: $(window).width() - $("#map").width()})
+  $("#map").offset({left: $(window).width() - $("#map").width(), top: Game.navbar.height()})
   $("#map_bar").height($("#map").height())
   $("#map_bar").offset({top: Game.navbar.height()})
 
