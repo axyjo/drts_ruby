@@ -12,6 +12,9 @@ Game.modal = Game.modal || {}
 
 Game.modal.init = ->
   $("a").bind("click", Game.modal.click)
+  $(document).keyup (e) ->
+    if e.keyCode == 27
+      Game.modal.hide()
   # TODO: recognize any hashes already in the URL bar on load.
 
 Game.modal.click = (e) ->
