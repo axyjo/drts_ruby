@@ -28,8 +28,8 @@ Game.modal.fetch = (url) ->
     url: url
     success: (data) ->
       $("#modal").html(data)
+      Game.modal.show()
     )
-  Game.modal.show()
 
 Game.modal.show = ->
   $("#modal").show()
