@@ -48,7 +48,7 @@ class MapsController < ApplicationController
   end
 
   def generate_tile_json(layer, x, y, z)
-    tile_size = 128
+    tile_size = 64
     left = (x*tile_size).to_s
     top = (y*tile_size).to_s
     tile_type = get_tile_type(x, y, z)
