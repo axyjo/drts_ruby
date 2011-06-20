@@ -1,3 +1,5 @@
+require "bundler/capistrano"
+
 set :application, "drts_ruby"
 set :scm, :git
 set :repository,  "git://github.com/axyjo/drts_ruby.git"
