@@ -10,3 +10,6 @@ role :web, "cali.akshayjoshi.com"                          # Your HTTP server, A
 role :app, "cali.akshayjoshi.com"                          # This may be the same as your `Web` server
 role :db,  "cali.akshayjoshi.com", :primary => true # This is where Rails migrations will run
 
+task :tail_log, :roles => :app do
+  run "tail -f #{shared_path}/log/production.log"
+end
