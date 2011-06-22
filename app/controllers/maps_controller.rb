@@ -3,13 +3,6 @@ class MapsController < ApplicationController
     @initial_tiles = get_initial_tiles.to_json
   end
 
-  def click
-    x = params.fetch("x")
-    y = params.fetch("y")
-    x = x.to_i
-    y = y.to_i
-  end
-
   def tiles
     tiles = params.fetch("t")
     @json_tiles = []

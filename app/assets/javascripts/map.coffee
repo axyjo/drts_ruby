@@ -73,8 +73,7 @@ Map.events.init = ->
   $(window).resize(Map.events.resize)
 
 Map.events.click = (e) ->
-  position = Map.bar.position(e)
-  Map.bar.populate(position)
+  Map.bar.position(e)
 
 Map.events.dblclick = (e) ->
   Map.zoomIn()
@@ -256,19 +255,6 @@ Map.viewport.moveDelta = (dLeft, dTop, noAnimate) ->
 Map.bar = Map.bar || {}
 
 Map.bar.init = ->
-
-Map.bar.populate = (position) ->
-  if position.x > 0 and position.y > 0 and position.x <= Map.mapSize and position.y <= Map.mapSize
-    if this.ajax_request?
-      this.ajax_request.abort()
-    # Store the hover/click request in a variable so that it can be easily
-    # aborted.
-    this.ajax_request = $.ajax(
-      type: "GET"
-      url: "?q=map_click/" + Math.floor(position.x) + '/' + Math.floor(position.y)
-      success: (data) ->
-        $('#map_data').html(data)
-    )
 
 Map.bar.position = (e) ->
   # Caclulate the distance the viewport has been offset by to account for

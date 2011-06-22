@@ -58,7 +58,6 @@ DrtsRuby::Application.routes.draw do
 
   get "maps/view"
   match "/tiles" => "maps#tiles", :as => :tiles
-  match "/map_click/:x/:y" => "maps#click", :as => :map_click
 
   get "log_in" => "sessions#new", :as => "log_in"
   get "log_out" => "sessions#destroy", :as => "log_out"
