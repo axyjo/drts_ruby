@@ -58,7 +58,7 @@ class MapsController < ApplicationController
   end
 
   def get_initial_tiles
-    default_z = 5
+    default_z = 2
     max_tiles = 512 / 2**default_z
     map_size = 512
     json_tiles = []
