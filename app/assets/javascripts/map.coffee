@@ -278,8 +278,8 @@ Map.bar.position = (e) ->
   # the current zoom level and the tile size. First, divide by the length
   # of the coordinate at the current zoom level. Then, get the ceiling value
   # because the possible values range from 1 to mapSize.
-  x_val = Math.ceil(x_val/Map.coordinateLength())
-  y_val = Math.ceil(y_val/Map.coordinateLength())
+  x_val = Math.ceil(x_val/Math.pow(2, Map.zoom))
+  y_val = Math.ceil(y_val/Math.pow(2, Map.zoom))
 
   position = {x: x_val, y: y_val}
   $("#map_position").html(position.x + ", " + position.y)
