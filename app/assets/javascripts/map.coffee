@@ -250,9 +250,9 @@ Map.viewport.moveDelta = (dLeft, dTop, noAnimate) ->
     $("#map_viewport").offset(left: left, top: top)
 
   # Check for map viewport bounding box.
-  # Map.checkBounds()
+  Map.checkBounds()
   # Check layers for newly loaded tiles.
-  Map.layers.checkAll()
+  # Map.layers.checkAll()
 
 # Extend the map namespace by including the map bar functions.
 
