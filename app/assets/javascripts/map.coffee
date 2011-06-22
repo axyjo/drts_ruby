@@ -54,8 +54,8 @@ Map.checkBounds = ->
 
   if viewport.offset().top + top_offset > 0
     viewport.offset(top: 0 + top_offset)
-  else if viewport.offset().top < $("#map").height() - Map.maxTiles * Map.tileSize
-    viewport.offset(top: $("#map").height() - Map.maxTiles * Map.tileSize)
+  else if viewport.offset().top < $("#map").height() - Map.maxTiles * Map.tileSize + Game.navbar.height()
+    viewport.offset(top: $("#map").height() - Map.maxTiles * Map.tileSize + Game.navbar.height())
 
 # Extend the map namespace by including event handlers.
 
