@@ -123,21 +123,22 @@ Map.layers.checkAll = ->
   Map.layers.check tileset for tileset in Map.layers.tilesets
 
 Map.layers.parseJSON = (data) ->
+  divs = ''
   if data?
     if typeof data == 'string'
       data = jQuery.parseJSON data
     for tile in data
       if tile? and tile.left? and tile.top? and tile.id? and tile.tile?
-        Map.layers.addTile tile
+        divs = divs + Map.layers.getTileHTML tile
         $("#map_viewport").data tile.id, tile
-  return true
+  $("#map_viewport").append divs
 
-Map.layers.addTile = (tile) ->
+Map.layers.getTileHTML = (tile) ->
   div = $("<div class='map_tiles tiles-sprite'></div>")
   div.addClass "tiles-"+tile.tile
   div.attr "id", tile.id
   div.offset {top: tile.top, left: tile.left}
-  $("#map_viewport").append div
+  div[0].outerHTML
 
 Map.layers.check = (type) ->
   visTiles = Map.layers.getVisibleTiles()
@@ -151,7 +152,8 @@ Map.layers.check = (type) ->
       $("#" + tileName).remove()
       cache = $("#map_viewport").data tileName
       if cache? and cache.left? and cache.top? and cache.id? and cache.tile?
-        Map.layers.addTile cache
+        tile = Map.layers.getTileHTML cache
+        $("#map_viewport").append tile
       else
         fetchTiles.push tileName
 
