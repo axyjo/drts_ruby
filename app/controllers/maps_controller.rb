@@ -21,8 +21,8 @@ class MapsController < ApplicationController
           x = x.to_i
           y = y.to_i
           z = z.to_i
-          # max tiles = map size / 2^z
-          max_tiles = 512 / 2**z
+          # max tiles = map size / 2^(max zoom - z)
+          max_tiles = 512 / 2**(6-z)
           if x >= 0 and y >= 0 and z >= 0 and x < max_tiles and y < max_tiles and z <= 7
             json = generate_tile_json(layer, x, y, z)
             @json_tiles.push(json)
@@ -59,7 +59,7 @@ class MapsController < ApplicationController
 
   def get_initial_tiles
     default_z = 2
-    max_tiles = 512 / 2**default_z
+    max_tiles = 512 / 2**(6 - default_z)
     map_size = 512
     json_tiles = []
     for x in 0..max_tiles-1

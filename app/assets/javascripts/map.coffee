@@ -17,11 +17,8 @@ Map.init = ->
 
 Map.coordinateLength = ->
   # Resolutions are zoom levels to pixels per coordinate. Zoom level 0 is
-  # zoomed all the way in, while zoom level 7 is zoomed all the way out.
-  # Answers the question: How long is one side of the square allocated to a
-  # coordinate (in pixels)? Response is equivalent to the following code:
-  # var resolutions = {0: 1,1: 2,2: 4, 3:8, 4:16, 5:32, 6:64, 7:128};
-  return Math.pow(2, this.zoom)
+  # zoomed all the way out, while zoom level 6 is zoomed all the way in.
+  return Math.pow(2, 6 - this.zoom)
 
 Map.resetZoom = ->
   zoom = Map.defaultZoom
@@ -30,17 +27,17 @@ Map.resetZoom = ->
 Map.setZoom = (z) ->
   if z < 0
     z = 0
-  else if z > 7
-    z = 7
+  else if z > 6
+    z = 6
   this.zoom = z
   Map.maxTiles = this.mapSize / this.coordinateLength()
   this.layers.checkAll()
 
 Map.zoomIn = ->
-  this.setZoom(this.zoom - 1)
+  this.setZoom(this.zoom + 1)
 
 Map.zoomOut = ->
-  this.setZoom(this.zoom + 1)
+  this.setZoom(this.zoom - 1)
 
 Map.checkBounds = ->
   viewport = $("#map_viewport")
