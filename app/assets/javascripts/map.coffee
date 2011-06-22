@@ -143,15 +143,16 @@ Map.layers.check = (type) ->
 
   for tileArr in visTiles
     do ->
-      tileName = type + '-' + tileArr.xPos + '-' + tileArr.yPos + '-' + Map.zoom
-      visTilesMap[tileName] = tileArr
-      $("#" + tileName).remove()
-      cache = $("#map_viewport").data tileName
-      if cache? and cache.left? and cache.top? and cache.id? and cache.tile?
-        tile = Map.layers.getTileHTML cache
-        $("#map_viewport").append tile
-      else
-        fetchTiles.push tileName
+      if tileArr.xPos < Map.maxTiles && tileArr.yPos < Map.maxTiles
+        tileName = type + '-' + tileArr.xPos + '-' + tileArr.yPos + '-' + Map.zoom
+        visTilesMap[tileName] = tileArr
+        $("#" + tileName).remove()
+        cache = $("#map_viewport").data tileName
+        if cache? and cache.left? and cache.top? and cache.id? and cache.tile?
+          tile = Map.layers.getTileHTML cache
+          $("#map_viewport").append tile
+        else
+          fetchTiles.push tileName
 
   base_url = "http://" + document.location.host + "/tiles?fetch=true"
   fetch = (url) ->
