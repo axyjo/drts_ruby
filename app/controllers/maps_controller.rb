@@ -46,7 +46,6 @@ class MapsController < ApplicationController
     top = (y*tile_size).to_s
     tile_type = get_tile_type(x, y, z)
     id = "#{layer}-#{x}-#{y}-#{z}"
-    html = "<div class=\"map_tiles tiles-sprite tiles-"+tile_type+"\" id=\""+id+"\" style='left:"+left+"px; top:"+top+"px;'></div>"
     return {'id' => id, 'type' => layer, 'tile' => tile_type, 'left' => left, 'top' => top}
   end
 
