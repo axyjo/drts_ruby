@@ -2,7 +2,7 @@
 @import "map/map.tiles";
 @import "compass/css3/border-radius";
 @import "compass/css3/opacity";
-$tile_size: 128px;
+$tile_size: 64px;
 
 #map {
   position:absolute;
