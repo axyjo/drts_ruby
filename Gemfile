@@ -26,6 +26,9 @@ gem 'compass', :git => 'https://github.com/chriseppstein/compass.git', :branch =
 # Deploy with Capistrano
 gem 'capistrano'
 
+# Use resque for queues
+gem 'resque', :require => "resque/server"
+
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
