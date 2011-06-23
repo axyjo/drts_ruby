@@ -66,6 +66,8 @@ DrtsRuby::Application.routes.draw do
   resources :users
   resources :sessions
 
+  mount Resque::Server, :at => "/resque"
+
   root :to => "maps#view"
 
 end
