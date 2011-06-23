@@ -57,7 +57,7 @@ DrtsRuby::Application.routes.draw do
   # match ':controller(/:action(/:id(.:format)))'
 
   get "maps/view"
-  match "/tiles" => "maps#tiles", :as => :tiles
+  match "/tiles/:type/:z/:x/:y" => "maps#tiles", :as => :tiles
 
   get "log_in" => "sessions#new", :as => "log_in"
   get "log_out" => "sessions#destroy", :as => "log_out"
