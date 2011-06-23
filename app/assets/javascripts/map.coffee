@@ -118,8 +118,9 @@ Map.layers.checkAll = ->
 
 Map.layers.getTileHTML = (tile) ->
   img = $("<img class='map_tiles'></img>")
+  tile_path = tile.type + "/" + tile.z + "/" tile.x + "/" + tile.y + ".jpg"
   img.attr "id", tile.id
-  img.attr "src", "http://" + document.location.host + "/tiles/" + tile.type + "/" +
+  img.attr "src", "http://" + document.location.host + "/tiles/" + tile_path
   img.offset {top: tile.top, left: tile.left}
   img[0].outerHTML
 
