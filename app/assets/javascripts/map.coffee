@@ -4,8 +4,8 @@ Map = Map || {}
 
 Map.init = ->
   Map.maxTiles = 0
-  Map.tileSize = 64
-  Map.mapSize = 512
+  Map.tileSize = 256
+  Map.mapSize = 8192
   Map.defaultZoom = 2
   Map.borderCache = 0
   Map.events.init()
