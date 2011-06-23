@@ -3,24 +3,22 @@ class MapsController < ApplicationController
   end
 
   def tiles
-    tiles = params.fetch("t")
-    @json_tiles = []
-    tiles.each do |tile|
-      tile_params = tile.split('-')
-      if tile_params.count == 4
-        layer, x, y, z = tile_params
-        if Float(x) and Float(y) and Float(z)
-          x = x.to_i
-          y = y.to_i
-          z = z.to_i
-          # max tiles = map size / 2^(max zoom - z)
-          max_tiles = 512 / 2**(6-z)
-          if x >= 0 and y >= 0 and z >= 0 and x < max_tiles and y < max_tiles and z <= 7
-            json = generate_tile_json(layer, x, y, z)
-            @json_tiles.push(json)
-          end
+    img_dir = Rails.root.join("app", "assets", "images")
+
+    map = ChunkyPNG::Image.from_file(img_dir.join("base_map_new.png"))
+    z = params[:z]
+    if 2**z < map.height
+      scale = 1.0/2**(5-z)
+      height_factor = map.height/2**z
+      x = params[:x]
+      y = params[:y]
+      if x < map.height/2**(13-z)
+        if y < map.height/2**(13-z)
+          tile = map.crop(x*height_factor, y*height_factor, height_factor, height_factor)
+          tile = tile.resample(scale*tile.width, scale*tile.height)
         end
       end
     end
+    render :text => tile.to_blob
   end
 end
