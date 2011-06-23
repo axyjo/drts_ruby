@@ -1,6 +1,5 @@
 class MapsController < ApplicationController
   def view
-    @initial_tiles = get_initial_tiles.to_json
   end
 
   def tiles
@@ -23,43 +22,5 @@ class MapsController < ApplicationController
         end
       end
     end
-  end
-
-  private
-  def get_tile_type(x, y, z)
-    sum = x+y+z
-    mod = sum % 4
-    if mod == 1
-      return "sand"
-    elsif mod == 2
-      return "water"
-    elsif mod == 3
-      return "grass"
-    elsif mod == 0
-      return "rock"
-    end
-  end
-
-  def generate_tile_json(layer, x, y, z)
-    tile_size = 64
-    left = (x*tile_size).to_s
-    top = (y*tile_size).to_s
-    tile_type = get_tile_type(x, y, z)
-    id = "#{layer}-#{x}-#{y}-#{z}"
-    return {'id' => id, 'type' => layer, 'tile' => tile_type, 'left' => left, 'top' => top}
-  end
-
-  def get_initial_tiles
-    default_z = 2
-    max_tiles = 512 / 2**(6 - default_z)
-    map_size = 512
-    json_tiles = []
-    for x in 0..max_tiles-1
-      for y in 0..max_tiles-1
-        temp = generate_tile_json('base', x, y, default_z)
-        json_tiles.push(temp)
-      end
-    end
-    return json_tiles
   end
 end

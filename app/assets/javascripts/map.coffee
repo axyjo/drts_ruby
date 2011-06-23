@@ -112,60 +112,32 @@ Map.layers = Map.layers || {}
 
 Map.layers.init = ->
   Map.layers.tilesets = ["base"]
-  Map.layers.parseJSON $("#map_data").html()
-  $("#map_data").empty().show()
 
 Map.layers.checkAll = ->
   Map.layers.check tileset for tileset in Map.layers.tilesets
 
-Map.layers.parseJSON = (data) ->
-  divs = ''
-  if data?
-    if typeof data == 'string'
-      data = jQuery.parseJSON data
-    for tile in data
-      if tile? and tile.left? and tile.top? and tile.id? and tile.tile?
-        divs = divs + Map.layers.getTileHTML tile
-        $("#map_viewport").data tile.id, tile
-  $("#map_viewport").append divs
-
 Map.layers.getTileHTML = (tile) ->
-  div = $("<div class='map_tiles tiles-sprite'></div>")
-  div.addClass "tiles-"+tile.tile
-  div.attr "id", tile.id
-  div.offset {top: tile.top, left: tile.left}
-  div[0].outerHTML
+  img = $("<img class='map_tiles'></img>")
+  img.attr "id", tile.id
+  img.attr "src", "http://" + document.location.host + "/tiles/" + tile.type + "/" +
+  img.offset {top: tile.top, left: tile.left}
+  img[0].outerHTML
 
 Map.layers.check = (type) ->
   visTiles = Map.layers.getVisibleTiles()
-  visTilesMap = new Array()
-  fetchTiles = new Array()
+  html = ''
 
   for tileArr in visTiles
     do ->
-      if tileArr.xPos < Map.maxTiles && tileArr.yPos < Map.maxTiles
-        tileName = type + '-' + tileArr.xPos + '-' + tileArr.yPos + '-' + Map.zoom
-        visTilesMap[tileName] = tileArr
-        $("#" + tileName).remove()
-        cache = $("#map_viewport").data tileName
-        if cache? and cache.left? and cache.top? and cache.id? and cache.tile?
-          tile = Map.layers.getTileHTML cache
-          $("#map_viewport").append tile
-        else
-          fetchTiles.push tileName
+      tile =
+        id: type + '-' + tileArr.xPos + '-' + tileArr.yPos + '-' + Map.zoom
+        x: tileArr.xPos
+        y: tileArr.yPos
+        z: Map.zoom
+      if tile.x < Map.maxTiles && tile.y < Map.maxTiles
+        $("#" + tile.id).remove()
+        html = html + Map.layers.getTileHTML tile
 
-  base_url = "http://" + document.location.host + "/tiles?fetch=true"
-  fetch = (url) ->
-    $.getJSON url, Map.layers.parseJSON, "json"
-  url = ''
-  if fetchTiles.length != 0
-    for counter in [1..fetchTiles.length]
-      do ->
-        url = url + "&t[]=" + encodeURIComponent(fetchTiles[counter-1])
-        if counter % 30 == 0
-          fetch(base_url + url)
-          url = ''
-    fetch(base_url + url) if url != ''
     $(window).triggerHandler 'resize'
 
 Map.layers.clear = (type) ->
