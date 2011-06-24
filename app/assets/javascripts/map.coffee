@@ -121,7 +121,7 @@ Map.layers.getTileHTML = (tile) ->
   tile_path = tile.type + "/" + tile.z + "/" + tile.x + "/" + tile.y + ".png"
   img.attr "id", tile.id
   img.attr "src", "http://" + document.location.host + "/tiles/" + tile_path
-  img.offset {top: tile.top, left: tile.left}
+  img.offset {top: tile.y * Map.tileSize, left: tile.x * Map.tileSize}
   img[0].outerHTML
 
 Map.layers.check = (type) ->
