@@ -21,16 +21,15 @@ Map.coordinateLength = ->
   return Math.pow(2, 6 - this.zoom)
 
 Map.resetZoom = ->
-  zoom = Map.defaultZoom
-  this.setZoom(zoom)
+  this.setZoom(Map.defaultZoom)
 
 Map.setZoom = (z) ->
   if z < 0
     z = 0
-  else if z > 6
-    z = 6
+  else if z > 4
+    z = 4
   this.zoom = z
-  Map.maxTiles = this.mapSize / this.coordinateLength()
+  Map.maxTiles = Math.pow(2, z+2)
   this.layers.checkAll()
 
 Map.zoomIn = ->
