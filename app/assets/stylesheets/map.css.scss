@@ -18,7 +18,8 @@ $tile_size: 256px;
   max-width: 225px;
   overflow: auto;
   background-color: #000;
-  @include box-shadow(3px 0 20px #000);
+  float: right;
+  @include box-shadow(-3px 0 20px #000);
   z-index: 20;
 }
 
@@ -41,7 +42,7 @@ $tile_size: 256px;
   left: 0px;
   top: 0px;
   position: relative;
-  float:right;
+  float:left;
 }
 
 #map_notif {
