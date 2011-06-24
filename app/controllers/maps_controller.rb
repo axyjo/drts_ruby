@@ -1,5 +1,6 @@
 class MapsController < ApplicationController
   require 'RMagick'
+  caches_page :tiles
 
   def view
   end
