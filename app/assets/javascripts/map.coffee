@@ -140,7 +140,8 @@ Map.layers.check = (type) ->
         $("#" + tile.id).remove()
         html = html + Map.layers.getTileHTML tile
 
-    $(window).triggerHandler 'resize'
+  $("#map_viewport").append html
+  $(window).triggerHandler 'resize'
 
 Map.layers.clear = (type) ->
   $("#map_viewport img").each (i) ->
