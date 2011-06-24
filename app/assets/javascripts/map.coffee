@@ -90,7 +90,7 @@ Map.events.mousemove = (e) ->
   if Map.drag.dragging
     Map.drag.move(e)
     # Move the viewport, based on the current change in positon.
-    Map.viewport.moveDelta(Map.drag.dragDeltaLeft, Map.drag.dragDeltaTop, true)
+    Map.viewport.moveDelta(Map.drag.dragDeltaLeft, Map.drag.dragDeltaTop, false)
   Map.bar.position(e)
 
 Map.events.mouseup = (e) ->
@@ -209,12 +209,12 @@ Map.viewport.move = (left, top) ->
   $("#map_viewport").offset(left: left + $("#map_bar").width(), top: top)
   Map.checkBounds()
 
-Map.viewport.moveDelta = (dLeft, dTop, noAnimate) ->
+Map.viewport.moveDelta = (dLeft, dTop, animate) ->
   left = this.left()
   top = this.top()
   left += dLeft
   top += dTop
-  if this.animateMove and not noAnimate
+  if this.animateMove and animate
     $("#map_viewport").animate(left: left, top: top)
   else
     $("#map_viewport").offset(left: left, top: top)
