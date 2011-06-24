@@ -121,7 +121,7 @@ Map.layers.getTileHTML = (tile) ->
   img.attr "id", tile.id
   img.attr "src", "http://" + document.location.host + "/tiles/" + tile_path
   img.offset {top: tile.y * Map.tileSize, left: tile.x * Map.tileSize}
-  img[0].outerHTML
+  img
 
 Map.layers.check = (type) ->
   visTiles = Map.layers.getVisibleTiles()
@@ -137,9 +137,8 @@ Map.layers.check = (type) ->
         type: type
       if tile.x < Map.maxTiles && tile.y < Map.maxTiles
         $("#" + tile.id).remove()
-        html = html + Map.layers.getTileHTML tile
+        $("#map_viewport").append Map.layers.getTileHTML tile
 
-  $("#map_viewport").append html
   $(window).triggerHandler 'resize'
 
 Map.layers.clear = (type) ->
