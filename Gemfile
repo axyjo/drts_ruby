@@ -32,6 +32,9 @@ gem 'resque', :require => "resque/server"
 # Use RMagick for tile generation.
 gem 'rmagick'
 
+# Use rack-offline to generate the HTML5 app cache
+gem 'rack-offline'
+
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
