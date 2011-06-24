@@ -1,28 +1,37 @@
 class MapsController < ApplicationController
+  require 'RMagick'
+
   def view
   end
 
   def tiles
-    z = params[:z]
-    map_height = 8192
-    if 2**z < map_height
-      scale = 1.0/2**(5-z)
-      height_factor = map_height/2**z
-      x = params[:x]
-      y = params[:y]
-      if x < map.height/2**(13-z)
-        if y < map.height/2**(13-z)
-          tile = map.crop(x*height_factor, y*height_factor, height_factor, height_factor)
-          tile = tile.resample(scale*tile.width, scale*tile.height)
-        end
-      end
-    end
-    render :text => tile.to_blob
-  end
+    slice_size = 2048
+    z = params[:z].to_i
+    if z >= 0 and z <= 4
+      scale = 2**(z-3)
 
-  private
-  def get_map_segment(x, y, z)
-    img_dir = Rails.root.join("app", "assets", "images")
-    map = ChunkyPNG::Image.from_file(img_dir.join("base_map.png"))
+      # Chunk count is the number of chunks in the tile at the current zoom.
+      chunk_count = 2**z
+
+      # Calculate which pre-cut tile will contain what we want.
+      tile_x = (params[:x].to_f/chunk_count).floor
+      tile_y = (params[:y].to_f/chunk_count).floor
+
+      # Calculate how much of the pre-cut tile we want.
+      chunk_width = slice_size / 2**z
+      chunk_height = slice_size / 2**z
+      chunk_x = (params[:x].to_i % chunk_count) * chunk_width
+      chunk_y = (params[:y].to_i % chunk_count) * chunk_height
+
+      # Get the tile we want.
+      img_dir = Rails.root.join("app", "assets", "images", "map", params[:type], tile_x.to_s)
+      path = img_dir.join(tile_y.to_s + "_crush.png").to_s
+      map = Magick::ImageList.new(path)
+
+      tile = map.crop(chunk_x, chunk_y, chunk_width, chunk_height)
+      tile.scale!(scale)
+
+      send_data tile.to_blob, :type =>'image/png', :disposition => 'inline'
+    end
   end
 end
