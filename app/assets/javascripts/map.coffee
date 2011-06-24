@@ -118,7 +118,7 @@ Map.layers.checkAll = ->
 
 Map.layers.getTileHTML = (tile) ->
   img = $("<img class='map_tiles'></img>")
-  tile_path = tile.type + "/" + tile.z + "/" tile.x + "/" + tile.y + ".png"
+  tile_path = tile.type + "/" + tile.z + "/" + tile.x + "/" + tile.y + ".png"
   img.attr "id", tile.id
   img.attr "src", "http://" + document.location.host + "/tiles/" + tile_path
   img.offset {top: tile.top, left: tile.left}
@@ -135,6 +135,7 @@ Map.layers.check = (type) ->
         x: tileArr.xPos
         y: tileArr.yPos
         z: Map.zoom
+        type: type
       if tile.x < Map.maxTiles && tile.y < Map.maxTiles
         $("#" + tile.id).remove()
         html = html + Map.layers.getTileHTML tile
