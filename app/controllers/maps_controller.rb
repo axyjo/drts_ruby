@@ -26,7 +26,7 @@ class MapsController < ApplicationController
 
       # Get the tile we want.
       img_dir = Rails.root.join("app", "assets", "images", "map", params[:type], tile_x.to_s)
-      path = img_dir.join(tile_y.to_s + "_crush.png").to_s
+      path = img_dir.join(tile_y.to_s + ".png").to_s
       map = Magick::ImageList.new(path)
 
       tile = map.crop(chunk_x, chunk_y, chunk_width, chunk_height)
