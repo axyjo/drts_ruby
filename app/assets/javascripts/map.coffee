@@ -117,9 +117,8 @@ Map.layers.check = (type) ->
         y: tileArr.yPos
         z: Map.zoom
         type: type
-      if tile.x < Map.maxTiles && tile.y < Map.maxTiles
-        $("#" + tile.id).remove()
-        $("#map_viewport").append Map.layers.getTileHTML tile
+      $("#" + tile.id).remove()
+      $("#map_viewport").append Map.layers.getTileHTML tile
   $(window).triggerHandler 'resize'
 
 Map.layers.clear = (type) ->
