@@ -124,13 +124,13 @@ Map.layers.getTileHTML = (tile) ->
   img
 
 Map.layers.check = (type) ->
-  visTiles = Map.layers.getVisibleTiles()
-  for tileArr in visTiles
+  visibleTiles = Map.layers.getVisibleTiles()
+  for t in visibleTiles
     do ->
       tile =
-        id: type + '-' + tileArr.xPos + '-' + tileArr.yPos + '-' + Map.zoom
-        x: tileArr.xPos
-        y: tileArr.yPos
+        id: type + '-' + t.xPos + '-' + t.yPos + '-' + Map.zoom
+        x: t.xPos
+        y: t.yPos
         z: Map.zoom
         type: type
       if tile.x < Map.maxTiles && tile.y < Map.maxTiles
@@ -178,7 +178,7 @@ Map.layers.getVisibleTiles = ->
     do ->
       for y in [startY..endY]
         do ->
-          tile = xPos: x, yPos: y
+          tile = x: x, y: y
           visibleTiles[counter++] = tile
   return visibleTiles
 
