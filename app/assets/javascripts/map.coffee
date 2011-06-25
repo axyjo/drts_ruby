@@ -121,9 +121,9 @@ Map.layers.check = (type) ->
   for t in visibleTiles
     do ->
       tile =
-        id: type + '-' + t.xPos + '-' + t.yPos + '-' + Map.zoom
-        x: t.xPos
-        y: t.yPos
+        id: type + '-' + t.x + '-' + t.y + '-' + Map.zoom
+        x: t.x
+        y: t.y
         z: Map.zoom
         type: type
       $("#" + tile.id).remove()
