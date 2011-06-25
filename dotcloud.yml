@@ -5,3 +5,5 @@ www:
     rack-env: production
 queue:
   type: redis
+resque:
+  type: ruby-worker
