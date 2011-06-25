@@ -141,14 +141,14 @@ Map.layers.clearAll = ->
 Map.layers.getVisibleTiles = ->
   # Get the offset for the top left position, accounting for other elements on
   # the page.
-  realViewportLeft = Map.viewport.left() - $("#map").offset().left
-  realViewportTop = Map.viewport.top() - $("#map").offset().top
+  realViewportLeft = $("#map").offset().left - Map.viewport.left()
+  realViewportTop = $("#map").offset().top - Map.viewport.top()
 
   # Get the first tile that should be visible. The border_cache variable
   # exists as the script should download border_cache tiles beyond the
   # visible border.
-  startX = Math.abs(Math.floor(realViewportLeft / Map.tileSize)) - Map.borderCache
-  startY = Math.abs(Math.floor(realViewportTop / Map.tileSize)) - Map.borderCache
+  startX = Math.floor(realViewportLeft / Map.tileSize) - Map.borderCache
+  startY = Math.floor(realViewportTop / Map.tileSize) - Map.borderCache
 
   # Get the number of tiles that are completely visible. The border_cache
   # variable exists so that the script downloads partially visible tiles as
