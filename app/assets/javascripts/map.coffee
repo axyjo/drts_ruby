@@ -13,7 +13,6 @@ Map.init = ->
   Map.viewport.init()
   Map.resetZoom()
   Map.viewport.move(0, 0)
-  Map.checkBounds()
 
 Map.coordinateLength = ->
   # Resolutions are zoom levels to pixels per coordinate. Zoom level 0 is
@@ -37,21 +36,6 @@ Map.zoomIn = ->
 
 Map.zoomOut = ->
   this.setZoom(this.zoom - 1)
-
-Map.checkBounds = ->
-  viewport = $("#map_viewport")
-  left_offset = 0
-  top_offset = 0 + $("#navbar").height()
-
-  if viewport.offset().left - left_offset > 0
-    viewport.offset(left: left_offset)
-  else if viewport.offset().left < $("#map").width() - Map.maxTiles * Map.tileSize
-    viewport.offset(left: $("#map").width() - Map.maxTiles * Map.tileSize)
-
-  if viewport.offset().top + top_offset > 0
-    viewport.offset(top: 0 + top_offset)
-  else if viewport.offset().top < $("#map").height() - Map.maxTiles * Map.tileSize + Game.navbar.height()
-    viewport.offset(top: $("#map").height() - Map.maxTiles * Map.tileSize + Game.navbar.height())
 
 # Extend the map namespace by including event handlers.
 
@@ -116,8 +100,17 @@ Map.layers.checkAll = ->
   Map.layers.check tileset for tileset in Map.layers.tilesets
 
 Map.layers.getTileHTML = (tile) ->
+  # Calculate which tile we really want to load from the server.
+  real_x = tile.x
+  real_y = tile.y
+  real_x += Map.maxTiles until real_x >= 0
+  real_y += Map.maxTiles until real_y >= 0
+  real_x = real_x % Map.maxTiles
+  real_y = real_y % Map.maxTiles
+
+  # Create and return the image object.
   img = $("<img class='map_tiles'></img>")
-  tile_path = tile.type + "/" + tile.z + "/" + tile.x + "/" + tile.y + ".png"
+  tile_path = tile.type + "/" + tile.z + "/" + real_x + "/" + real_y + ".png"
   img.attr "id", tile.id
   img.attr "src", "http://" + document.location.host + "/tiles/" + tile_path
   img.offset {top: tile.y * Map.tileSize, left: tile.x * Map.tileSize}
@@ -133,9 +126,8 @@ Map.layers.check = (type) ->
         y: t.yPos
         z: Map.zoom
         type: type
-      if tile.x < Map.maxTiles && tile.y < Map.maxTiles
-        $("#" + tile.id).remove()
-        $("#map_viewport").append Map.layers.getTileHTML tile
+      $("#" + tile.id).remove()
+      $("#map_viewport").append Map.layers.getTileHTML tile
   $(window).triggerHandler 'resize'
 
 Map.layers.clear = (type) ->
@@ -157,8 +149,6 @@ Map.layers.getVisibleTiles = ->
   # visible border.
   startX = Math.abs(Math.floor(realViewportLeft / Map.tileSize)) - Map.borderCache
   startY = Math.abs(Math.floor(realViewportTop / Map.tileSize)) - Map.borderCache
-  startX = Math.max(0, startX)
-  startY = Math.max(0, startY)
 
   # Get the number of tiles that are completely visible. The border_cache
   # variable exists so that the script downloads partially visible tiles as
@@ -168,8 +158,6 @@ Map.layers.getVisibleTiles = ->
 
   endX = startX + tilesX
   endY = startY + tilesY
-  endX = Math.min(Map.maxTiles - 1, endX)
-  endY = Math.min(Map.maxTiles - 1, endY)
 
   # Generate the list of visible tiles based on the above variables.
   visibleTiles = []
@@ -204,7 +192,6 @@ Map.viewport.clearCursor = ->
 
 Map.viewport.move = (left, top) ->
   $("#map_viewport").offset(left: left + $("#map_bar").width(), top: top)
-  Map.checkBounds()
 
 Map.viewport.moveDelta = (dLeft, dTop, animate) ->
   left = this.left() + dLeft
@@ -275,8 +262,6 @@ Map.drag.move = (e) ->
 
 Map.drag.end = ->
   this.dragging = false
-  # Check for map viewport bounding box.
-  Map.checkBounds()
   # Check layers for newly loaded tiles.
   Map.layers.checkAll()
 
