@@ -125,8 +125,6 @@ Map.layers.getTileHTML = (tile) ->
 
 Map.layers.check = (type) ->
   visTiles = Map.layers.getVisibleTiles()
-  html = ''
-
   for tileArr in visTiles
     do ->
       tile =
@@ -138,7 +136,6 @@ Map.layers.check = (type) ->
       if tile.x < Map.maxTiles && tile.y < Map.maxTiles
         $("#" + tile.id).remove()
         $("#map_viewport").append Map.layers.getTileHTML tile
-
   $(window).triggerHandler 'resize'
 
 Map.layers.clear = (type) ->
@@ -252,7 +249,7 @@ Map.bar.position = (e) ->
 
   position = {x: x_val, y: y_val}
   $("#map_position").html(position.x + ", " + position.y)
-  return position
+  position
 
 # Extend the map namespace by including the drag functions.
 
