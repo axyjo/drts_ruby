@@ -54,6 +54,11 @@ Map.events.init = ->
   $(document).bind("mouseup", this.mouseup)
   # Window events.
   $(window).resize(Map.events.resize)
+  # Keyboard shortcuts.
+  $(document).keypress (e) ->
+    switch e.which
+      when 43, 61 then Map.zoomIn()
+      when 45, 95 then Map.zoomOut()
 
 Map.events.click = (e) ->
   Map.bar.position(e)
