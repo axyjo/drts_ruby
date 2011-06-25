@@ -100,8 +100,17 @@ Map.layers.checkAll = ->
   Map.layers.check tileset for tileset in Map.layers.tilesets
 
 Map.layers.getTileHTML = (tile) ->
+  # Calculate which tile we really want to load from the server.
+  real_x = tile.x
+  real_y = tile.y
+  real_x += Map.maxTiles until real_x >= 0
+  real_y += Map.maxTiles until real_y >= 0
+  real_x = real_x % Map.maxTiles
+  real_y = real_y % Map.maxTiles
+
+  # Create and return the image object.
   img = $("<img class='map_tiles'></img>")
-  tile_path = tile.type + "/" + tile.z + "/" + tile.x + "/" + tile.y + ".png"
+  tile_path = tile.type + "/" + tile.z + "/" + real_x + "/" + real_y + ".png"
   img.attr "id", tile.id
   img.attr "src", "http://" + document.location.host + "/tiles/" + tile_path
   img.offset {top: tile.y * Map.tileSize, left: tile.x * Map.tileSize}
