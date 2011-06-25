@@ -207,10 +207,8 @@ Map.viewport.move = (left, top) ->
   Map.checkBounds()
 
 Map.viewport.moveDelta = (dLeft, dTop, animate) ->
-  left = this.left()
-  top = this.top()
-  left += dLeft
-  top += dTop
+  left = this.left() + dLeft
+  top = this.top() + dTop
   if this.animateMove and animate
     $("#map_viewport").animate(left: left, top: top)
   else
