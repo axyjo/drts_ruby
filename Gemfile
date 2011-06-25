@@ -26,6 +26,9 @@ gem 'compass', :git => 'https://github.com/chriseppstein/compass.git', :branch =
 # Deploy with Capistrano
 gem 'capistrano'
 
+# Use therubyracer as our V8 engine (especially on Dotcloud)
+gem 'therubyracer'
+
 # Use resque for queues
 gem 'resque', :require => "resque/server"
 
