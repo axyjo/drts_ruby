@@ -10,7 +10,7 @@ for z in 0..maxZoom
   maxTilesY = 2**(z+2) - 1
   for x in 0..maxTilesX
     for y in 0..maxTilesY
-      Resque.enqueue(TileCacher, 'base/' + z + '/' + x + '/' + y)
+      Resque.enqueue(TileCacher, 'base/' + z.to_s + '/' + x.to_s + '/' + y.to_s)
     end
   end
 end
