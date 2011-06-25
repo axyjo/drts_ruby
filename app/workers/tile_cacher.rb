@@ -1,3 +1,6 @@
+require 'net/http'
+require 'uri'
+
 class TileCacher
   @queue = :map_queue
   def self.perform(tile_path)
