@@ -10,7 +10,10 @@ for z in 0..maxZoom
   maxTilesY = 2**(z+2) - 1
   for x in 0..maxTilesX
     for y in 0..maxTilesY
-      Resque.enqueue(TileCacher, 'base/' + z.to_s + '/' + x.to_s + '/' + y.to_s)
+      tile_path = 'base/' + z.to_s + '/' + x.to_s + '/' + y.to_s
+      if !File.exists?(Rails.root.join('public', 'tiles', tile_path+'.png'))
+        Resque.enqueue(TileCacher, tile_path)
+      end
     end
   end
 end
