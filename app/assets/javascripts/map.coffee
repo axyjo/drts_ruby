@@ -141,8 +141,6 @@ Map.layers.getVisibleTiles = ->
   # visible border.
   startX = Math.abs(Math.floor(realViewportLeft / Map.tileSize)) - Map.borderCache
   startY = Math.abs(Math.floor(realViewportTop / Map.tileSize)) - Map.borderCache
-  startX = Math.max(0, startX)
-  startY = Math.max(0, startY)
 
   # Get the number of tiles that are completely visible. The border_cache
   # variable exists so that the script downloads partially visible tiles as
@@ -152,8 +150,6 @@ Map.layers.getVisibleTiles = ->
 
   endX = startX + tilesX
   endY = startY + tilesY
-  endX = Math.min(Map.maxTiles - 1, endX)
-  endY = Math.min(Map.maxTiles - 1, endY)
 
   # Generate the list of visible tiles based on the above variables.
   visibleTiles = []
