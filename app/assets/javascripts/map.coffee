@@ -13,7 +13,6 @@ Map.init = ->
   Map.viewport.init()
   Map.resetZoom()
   Map.viewport.move(0, 0)
-  Map.checkBounds()
 
 Map.coordinateLength = ->
   # Resolutions are zoom levels to pixels per coordinate. Zoom level 0 is
@@ -37,21 +36,6 @@ Map.zoomIn = ->
 
 Map.zoomOut = ->
   this.setZoom(this.zoom - 1)
-
-Map.checkBounds = ->
-  viewport = $("#map_viewport")
-  left_offset = 0
-  top_offset = 0 + $("#navbar").height()
-
-  if viewport.offset().left - left_offset > 0
-    viewport.offset(left: left_offset)
-  else if viewport.offset().left < $("#map").width() - Map.maxTiles * Map.tileSize
-    viewport.offset(left: $("#map").width() - Map.maxTiles * Map.tileSize)
-
-  if viewport.offset().top + top_offset > 0
-    viewport.offset(top: 0 + top_offset)
-  else if viewport.offset().top < $("#map").height() - Map.maxTiles * Map.tileSize + Game.navbar.height()
-    viewport.offset(top: $("#map").height() - Map.maxTiles * Map.tileSize + Game.navbar.height())
 
 # Extend the map namespace by including event handlers.
 
@@ -204,7 +188,6 @@ Map.viewport.clearCursor = ->
 
 Map.viewport.move = (left, top) ->
   $("#map_viewport").offset(left: left + $("#map_bar").width(), top: top)
-  Map.checkBounds()
 
 Map.viewport.moveDelta = (dLeft, dTop, animate) ->
   left = this.left() + dLeft
@@ -275,8 +258,6 @@ Map.drag.move = (e) ->
 
 Map.drag.end = ->
   this.dragging = false
-  # Check for map viewport bounding box.
-  Map.checkBounds()
   # Check layers for newly loaded tiles.
   Map.layers.checkAll()
 
