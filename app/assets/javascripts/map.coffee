@@ -37,6 +37,10 @@ Map.zoomIn = ->
 Map.zoomOut = ->
   this.setZoom(this.zoom - 1)
 
+Map.pan = (x, y) ->
+  Map.viewport.moveDelta x, y, false
+  Map.layers.checkAll()
+
 # Extend the map namespace by including event handlers.
 
 Map.events = Map.events || {}
@@ -59,6 +63,10 @@ Map.events.init = ->
     switch e.which
       when 187 then Map.zoomIn()
       when 189 then Map.zoomOut()
+      when 37  then Map.pan(25, 0)
+      when 38  then Map.pan(0, 25)
+      when 39  then Map.pan(-25, 0)
+      when 40  then Map.pan(0, -25)
 
 Map.events.click = (e) ->
   Map.bar.position(e)
