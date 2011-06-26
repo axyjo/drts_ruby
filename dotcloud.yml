@@ -1,5 +1,6 @@
 www:
   type: ruby
+  instances: 3
   config:
     ruby-version: 1.9.2
     rack-env: production
@@ -7,3 +8,4 @@ queue:
   type: redis
 resque:
   type: ruby-worker
+  instances: 2
