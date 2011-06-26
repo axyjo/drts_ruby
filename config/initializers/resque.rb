@@ -4,7 +4,8 @@ ENV["REDIS_URL"] ||= "redis://game:l8SxAPzcDXQgy0KfMiUj@efbb8c00.dotcloud.com:91
 uri = URI.parse(ENV["REDIS_URL"])
 Resque.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password, :thread_safe => true)
 
-maxZoom = 4
+# Subtract 2 zoom levels off the maximum so that the last two are generated on the fly.
+maxZoom = 4 - 2
 for z in 0..maxZoom
   maxTilesX = 2**(z+2) - 1
   maxTilesY = 2**(z+2) - 1
