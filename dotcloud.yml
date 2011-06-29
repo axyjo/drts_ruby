@@ -9,3 +9,6 @@ queue:
 resque:
   type: ruby-worker
   instances: 2
+faye:
+  type: nodejs
+  approot: faye
