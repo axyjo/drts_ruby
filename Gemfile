@@ -40,6 +40,9 @@ gem 'rmagick'
 # Use rack-offline to generate the HTML5 app cache
 gem 'rack-offline'
 
+# Use rcov for test coverage reports.
+gem 'rcov'
+
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
