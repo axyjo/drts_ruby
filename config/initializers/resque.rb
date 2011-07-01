@@ -1,19 +1,21 @@
 # The username doesn't matter for Redis.
 ENV["REDIS_URL"] ||= "redis://game:l8SxAPzcDXQgy0KfMiUj@efbb8c00.dotcloud.com:9113"
 
-uri = URI.parse(ENV["REDIS_URL"])
-Resque.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password, :thread_safe => true)
+if Rails.env.production?
+  uri = URI.parse(ENV["REDIS_URL"])
+  Resque.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password, :thread_safe => true)
 
-# Subtract 2 zoom levels off the maximum so that the last two are generated on the fly.
-maxZoom = 4 - 2
-for z in 0..maxZoom
-  maxTilesX = 2**(z+2) - 1
-  maxTilesY = 2**(z+2) - 1
-  for x in 0..maxTilesX
-    for y in 0..maxTilesY
-      tile_path = 'base/' + z.to_s + '/' + x.to_s + '/' + y.to_s
-      if !File.exists?(Rails.root.join('public', 'tiles', tile_path+'.png'))
-        Resque.enqueue(TileCacher, tile_path)
+  # Subtract 2 zoom levels off the maximum so that the last two are generated on the fly.
+  maxZoom = 4 - 2
+  for z in 0..maxZoom
+    maxTilesX = 2**(z+2) - 1
+    maxTilesY = 2**(z+2) - 1
+    for x in 0..maxTilesX
+      for y in 0..maxTilesY
+        tile_path = 'base/' + z.to_s + '/' + x.to_s + '/' + y.to_s
+        if !File.exists?(Rails.root.join('public', 'tiles', tile_path+'.png'))
+          Resque.enqueue(TileCacher, tile_path)
+        end
       end
     end
   end
