@@ -77,7 +77,7 @@ Map.events.dblclick = (e) ->
 
 Map.events.mousedown = (e) ->
   Map.drag.start(e)
-  Map.viewport.moveCursor()
+  $("#map_viewport").css("cursor","move")
   # The following statement exists in order to prevent the user's browser from
   # dragging the tile image like a conventional picture.
   false
@@ -93,7 +93,7 @@ Map.events.mousemove = (e) ->
 Map.events.mouseup = (e) ->
   if Map.drag.dragging
     Map.drag.end()
-  Map.viewport.clearCursor()
+  $("#map_viewport").css("cursor", "")
 
 Map.events.resize = ->
   $("#map").width($(window).width()-$("#map_bar").width())
@@ -196,12 +196,6 @@ Map.viewport.top = ->
 
 Map.viewport.left = ->
   return $("#map_viewport").offset().left
-
-Map.viewport.moveCursor = ->
-  return $("#map_viewport").css("cursor","move")
-
-Map.viewport.clearCursor = ->
-  return $("#map_viewport").css("cursor", "")
 
 Map.viewport.move = (left, top) ->
   $("#map_viewport").offset(left: left, top: top)
