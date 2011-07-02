@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :characters, :dependent => :destroy
+  belongs_to :empire
 
   attr_accessible :username, :email, :password, :password_confirmation
   has_secure_password
