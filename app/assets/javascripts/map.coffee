@@ -138,14 +138,6 @@ Map.layers.check = (type) ->
       $("#map_viewport").append Map.layers.getTileHTML tile
   $(window).triggerHandler 'resize'
 
-Map.layers.clear = (type) ->
-  $("#map_viewport img").each (i) ->
-    if $(this).hasClass(type)
-      $(this).remove()
-
-Map.layers.clearAll = ->
-  Map.layers.clear tileset for tileset in Map.layers.tilesets
-
 Map.layers.getVisibleTiles = ->
   # Get the offset for the top left position, accounting for other elements on
   # the page.
