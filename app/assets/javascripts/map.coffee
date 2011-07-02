@@ -221,33 +221,31 @@ Map.bar = Map.bar || {}
 Map.bar.init = ->
 
 Map.bar.position = (e) ->
-  # Caclulate the distance the viewport has been offset by to account for
-  # items to its left and top. We cannot simply subtract the viewport's
-  # width from the window's width (and the same for height), as then items
-  # to the right and top would be counted again, causing an over-correction.
-  displacementX = $("#map_bar").width()
-  displacementY = 0
-
   offset = $("#map_viewport").offset()
-  # Using displacements from origin calculated above, change the values.
-  offset.left -= displacementX
-  offset.top -= displacementY
 
   # Set x_val and y_val equal to the distance from the top-left of the
   # image layer.
-  x_val = e.pageX - displacementX - offset.left
-  y_val = e.pageY - displacementY - offset.top
+  x_val = e.pageX - offset.left
+  y_val = e.pageY - offset.top
 
-  # Change x_val and y_val such that the script takes into consideration
-  # the current zoom level and the tile size. First, divide by the length
-  # of the coordinate at the current zoom level. Then, get the ceiling value
-  # because the possible values range from 1 to mapSize.
-  x_val = Math.ceil(x_val/Math.pow(2, Map.zoom))
-  y_val = Math.ceil(y_val/Math.pow(2, Map.zoom))
+  # Mod these values by the map size at the current zoom level.
+  mapWidth = Map.tileSize * Map.maxTiles
+  x_val = x_val % mapWidth
+  if x_val <= 0
+    x_val += mapWidth
+  y_val = y_val % mapWidth
+  if y_val <= 0
+    y_val += mapWidth
 
-  position = {x: x_val, y: y_val}
-  $("#map_position").html(position.x + ", " + position.y)
-  position
+  # Multiply x_val and y_val by a scaling factor dependent on the current zoom
+  # level. Then, get the ceiling value because the possible values range from 1
+  # to the game map width.
+  scale = Math.pow(2, Map.zoom+3)
+  x_val = Math.ceil(x_val/scale)
+  y_val = Math.ceil(y_val/scale)
+
+  $("#map_position").html(x_val + ", " + y_val)
+  {x: x_val, y: y_val}
 
 # Extend the map namespace by including the drag functions.
 
