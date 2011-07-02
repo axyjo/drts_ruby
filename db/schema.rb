@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(:version => 20110701045426) do
   end
 
   create_table "provinces", :force => true do |t|
+    t.integer  "empire_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -26,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20110701045426) do
     t.string   "username"
     t.string   "email"
     t.string   "password_digest"
+    t.integer  "empire_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
