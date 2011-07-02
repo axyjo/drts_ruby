@@ -199,8 +199,6 @@ Map.viewport.moveDelta = (dLeft, dTop, animate) ->
 
 Map.bar = Map.bar || {}
 
-Map.bar.init = ->
-
 Map.bar.position = (e) ->
   offset = $("#map_viewport").offset()
 
