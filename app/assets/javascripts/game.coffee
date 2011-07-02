@@ -18,8 +18,9 @@ Game.modal.init = ->
   # TODO: recognize any hashes already in the URL bar on load.
 
 Game.modal.click = (e) ->
-  Game.modal.fetch e.target.href
-  window.location.hash = e.target.pathname.substr(1, e.target.pathname.length)
+  if e.target.href != ""
+    Game.modal.fetch e.target.href
+    window.location.hash = e.target.pathname.substr(1, e.target.pathname.length)
   false
 
 Game.modal.fetch = (url) ->
