@@ -10,7 +10,8 @@ GIT
 
 GIT
   remote: https://github.com/rails/sass-rails.git
-  revision: eee12e2e0bbfca56d458c82df47213e130ef5830
+  revision: d4bf0cc6270738a9cd42740765c24da94ae16651
+  branch: 3-1-stable
   specs:
     sass-rails (3.1.0.rc.3)
       actionpack (~> 3.1.0.rc1)

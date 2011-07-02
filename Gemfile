@@ -8,7 +8,7 @@ gem 'rails', '3.1.0.rc4'
 gem 'sqlite3'
 
 # Asset template engines
-gem 'sass-rails', :git => 'https://github.com/rails/sass-rails.git'
+gem 'sass-rails', :git => 'https://github.com/rails/sass-rails.git', :branch => '3-1-stable'
 gem 'coffee-script'
 gem 'uglifier'
 
