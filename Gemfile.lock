@@ -9,6 +9,14 @@ GIT
       sass (~> 3.1)
 
 GIT
+  remote: https://github.com/paulnicholson/coffee-filter.git
+  revision: 5cd0dec1be7ce8faf07ccaca6a9701355a4db6e1
+  specs:
+    coffee-filter (0.1.1)
+      coffee-script (>= 2.2.0)
+      haml (>= 3.0.18)
+
+GIT
   remote: https://github.com/rails/sass-rails.git
   revision: d4bf0cc6270738a9cd42740765c24da94ae16651
   branch: 3-1-stable
@@ -173,6 +181,7 @@ PLATFORMS
 
 DEPENDENCIES
   capistrano
+  coffee-filter!
   coffee-script
   compass!
   haml

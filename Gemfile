@@ -23,6 +23,9 @@ gem 'compass', :git => 'https://github.com/chriseppstein/compass.git', :branch =
 # Use unicorn as the web server
 # gem 'unicorn'
 
+# Use coffee-filter for JS responses.
+gem 'coffee-filter', :git => 'https://github.com/paulnicholson/coffee-filter.git'
+
 # Deploy with Capistrano
 gem 'capistrano'
 
