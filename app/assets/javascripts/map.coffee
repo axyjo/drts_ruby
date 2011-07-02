@@ -88,7 +88,7 @@ Map.events.mousemove = (e) ->
 Map.events.mouseup = (e) ->
   if Map.drag.dragging
     Map.drag.end()
-  $("#map_viewport").css("cursor", "")
+    $("#map_viewport").css("cursor", "")
 
 Map.events.resize = ->
   $("#map").width($(window).width()-$("#map_bar").width())
@@ -239,8 +239,6 @@ Map.bar.position = (e) ->
 # Extend the map namespace by including the drag functions.
 
 Map.drag = Map.drag || {}
-
-Map.dragging = false
 
 Map.drag.start = (e) ->
   # Get the starting position of the drag gesture.
