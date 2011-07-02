@@ -26,9 +26,9 @@
     float: left;
     a {
       float: left;
-      padding: 0 10px;
-      @include border-radius(10px);
+      padding: 0 5px;
       &:focus, &:hover, &:active, &:active:focus {
+        @include border-radius(10px);
         background: #444;
       }
     }
