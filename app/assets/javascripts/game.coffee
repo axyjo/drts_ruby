@@ -28,7 +28,10 @@ Game.modal.fetch = (url) ->
     url: url
     success: (data) ->
       $("#modal").html(data)
-      Game.modal.show()
+      if data == ' '
+        window.location.reload()
+      else
+        Game.modal.show()
     )
 
 Game.modal.show = ->
