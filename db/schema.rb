@@ -10,24 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110612201354) do
+ActiveRecord::Schema.define(:version => 20110701045426) do
 
-  create_table "characters", :force => true do |t|
+  create_table "empires", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "cities", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "kingdoms", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "rounds", :force => true do |t|
+  create_table "provinces", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
