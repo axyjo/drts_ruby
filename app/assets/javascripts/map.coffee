@@ -14,11 +14,6 @@ Map.init = ->
   Map.resetZoom()
   Map.viewport.move(0, 0)
 
-Map.coordinateLength = ->
-  # Resolutions are zoom levels to pixels per coordinate. Zoom level 0 is
-  # zoomed all the way out, while zoom level 6 is zoomed all the way in.
-  return Math.pow(2, 6 - this.zoom)
-
 Map.resetZoom = ->
   this.setZoom(Map.defaultZoom)
 
