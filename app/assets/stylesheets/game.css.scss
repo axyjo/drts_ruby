@@ -28,7 +28,7 @@
       float: left;
       padding: 0 10px;
       @include border-radius(10px);
-      &:focus, &:hover, &:active, &:active:fous {
+      &:focus, &:hover, &:active, &:active:focus {
         background: #444;
       }
     }
