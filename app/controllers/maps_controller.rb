@@ -1,5 +1,7 @@
 class MapsController < ApplicationController
   require 'RMagick'
+
+  # In production, save the tiles generated.
   caches_page :tiles
 
   def view
