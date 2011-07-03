@@ -20,12 +20,6 @@ gem 'haml'
 # Add compass for CSS
 gem 'compass', :git => 'https://github.com/chriseppstein/compass.git', :branch => 'rails31'
 
-# Use unicorn as the web server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-gem 'capistrano'
-
 group :production do
   # Use therubyracer as our V8 engine (especially on Dotcloud)
   gem 'therubyracer'
