@@ -28,8 +28,8 @@ group :production do
   gem 'resque', :require => "resque/server"
 end
 
-# Use RMagick for tile generation.
-gem 'rmagick'
+# Use chunky_png/oily_png for tile generation.
+gem 'oily_png'
 
 # Use rack-offline to generate the HTML5 app cache
 gem 'rack-offline'

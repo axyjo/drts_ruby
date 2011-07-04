@@ -1,5 +1,5 @@
 class MapsController < ApplicationController
-  require 'RMagick'
+  require 'oily_png'
 
   # In production, save the tiles generated.
   caches_page :tiles
@@ -29,10 +29,10 @@ class MapsController < ApplicationController
       # Get the tile we want.
       img_dir = Rails.root.join("app", "assets", "images", "map", params[:type], tile_x.to_s)
       path = img_dir.join(tile_y.to_s + ".png").to_s
-      map = Magick::ImageList.new(path)
+      map = ChunkyPNG::Image.from_file(path)
 
       tile = map.crop(chunk_x, chunk_y, chunk_width, chunk_height)
-      tile.scale!(scale)
+      tile.resample_nearest_neighbor!(tile.width * scale, tile.height * scale)
 
       send_data tile.to_blob, :type =>'image/png', :disposition => 'inline'
     end
