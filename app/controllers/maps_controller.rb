@@ -31,7 +31,10 @@ class MapsController < ApplicationController
       path = img_dir.join(tile_y.to_s + ".png").to_s
       tile = ChunkyPNG::Image.from_file(path)
 
-      tile.crop!(chunk_x, chunk_y, chunk_width, chunk_height)
+      # Don't crop if there is no difference between the chunk size and the slice size.
+      if chunk_width != slice_size and chunk_height != slice_size
+        tile.crop!(chunk_x, chunk_y, chunk_width, chunk_height)
+      end
       tile.resample_nearest_neighbor!(tile.width * scale, tile.height * scale)
 
       send_data tile.to_blob, :type =>'image/png', :disposition => 'inline'
