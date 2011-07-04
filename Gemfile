@@ -31,9 +31,6 @@ end
 # Use chunky_png/oily_png for tile generation.
 gem 'oily_png'
 
-# Use rack-offline to generate the HTML5 app cache
-gem 'rack-offline'
-
 # Use rails_code_qa for test coverage reports.
 gem 'rails_code_qa'
 

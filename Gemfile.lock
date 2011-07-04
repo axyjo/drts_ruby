@@ -93,7 +93,6 @@ GEM
       rack (>= 0.4)
     rack-mount (0.8.1)
       rack (>= 1.0.0)
-    rack-offline (0.6.1)
     rack-ssl (1.3.2)
       rack
     rack-test (0.6.0)
@@ -164,7 +163,6 @@ DEPENDENCIES
   haml
   jquery-rails
   oily_png
-  rack-offline
   rails (= 3.1.0.rc4)
   rails_code_qa
   resque
