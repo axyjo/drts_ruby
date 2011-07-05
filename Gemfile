@@ -34,6 +34,9 @@ gem 'oily_png'
 # Use rails_code_qa for test coverage reports.
 gem 'rails_code_qa'
 
+# Use Faye for pub/sub notifications (such as chat).
+gem 'faye'
+
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
