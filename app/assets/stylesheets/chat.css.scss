@@ -1,5 +1,13 @@
-.chat form input {
-  width: 215px;
-  border: none;
-  margin-left: 5px;
+.chat {
+  margin-top: 5px;
+  border: 1px #ddd solid;
+  .chat-box {
+    min-height: 200px;
+    overflow-y: scroll;
+  }
+  form input {
+    width: 215px;
+    border: none;
+    margin-left: 5px;
+  }
 }
