@@ -20,14 +20,6 @@ gem 'haml'
 # Add compass for CSS
 gem 'compass', :git => 'https://github.com/chriseppstein/compass.git', :branch => 'rails31'
 
-group :production do
-  # Use therubyracer as our V8 engine (especially on Dotcloud)
-  gem 'therubyracer'
-
-  # Use resque for queues
-  gem 'resque', :require => "resque/server"
-end
-
 # Use chunky_png/oily_png for tile generation.
 gem 'oily_png'
 
@@ -39,6 +31,14 @@ gem 'faye'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
+group :production do
+  # Use therubyracer as our V8 engine (especially on Dotcloud)
+  gem 'therubyracer'
+
+  # Use resque for queues
+  gem 'resque', :require => "resque/server"
+end
 
 group :test do
   # Pretty printed test output
