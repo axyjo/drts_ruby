@@ -192,5 +192,6 @@ DEPENDENCIES
   sass-rails!
   sqlite3
   therubyracer
+  thin
   turn
   uglifier

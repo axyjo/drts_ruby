@@ -44,3 +44,8 @@ group :test do
   # Pretty printed test output
   gem 'turn', :require => false
 end
+
+group :development do
+  # Use the thin server for Faye in the development environment.
+  gem 'thin'
+end
