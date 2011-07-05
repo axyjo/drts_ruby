@@ -3,6 +3,9 @@
   %head
     %title Test Title
     = stylesheet_link_tag 'application'
+    = javascript_include_tag 'http://localhost:9292/faye.js' if Rails.env.development?
+    -# TODO: Fix URL for production.
+    = javascript_include_tag 'http://localhost:9292/faye.js' if Rails.env.production?
     = javascript_include_tag 'jquery', 'application'
     = csrf_meta_tag
   %body
