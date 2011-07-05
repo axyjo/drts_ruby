@@ -4,5 +4,6 @@
     Testing notif
 #map_bar
   #map_data
-    = render :partial => 'chat/chatbar'
+    - if current_user
+      = render :partial => 'chat/chatbar'
   #map_position
