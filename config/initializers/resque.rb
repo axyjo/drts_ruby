@@ -1,8 +1,5 @@
-# The username doesn't matter for Redis.
-ENV["REDIS_URL"] ||= "redis://game:l8SxAPzcDXQgy0KfMiUj@efbb8c00.dotcloud.com:9113"
-
 if Rails.env.production?
-  uri = URI.parse(ENV["REDIS_URL"])
+  uri = URI.parse(REDIS_URL)
   Resque.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password, :thread_safe => true)
 
   # Subtract 2 zoom levels off the maximum so that the last two are generated on the fly.
