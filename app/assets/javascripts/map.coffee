@@ -24,6 +24,7 @@ Map.setZoom = (z) ->
     z = 4
   this.zoom = z
   Map.maxTiles = Math.pow(2, z+2)
+  this.layers.clearAll()
   this.layers.checkAll()
 
 Map.zoomIn = ->
@@ -107,6 +108,9 @@ Map.layers.init = ->
 Map.layers.checkAll = ->
   Map.layers.check tileset for tileset in Map.layers.tilesets
 
+Map.layers.clearAll = ->
+  Map.layers.clear tileset for tileset in Map.layers.tilesets
+
 Map.layers.getTileHTML = (tile) ->
   # Calculate which tile we really want to load from the server.
   real_x = tile.x
@@ -120,6 +124,7 @@ Map.layers.getTileHTML = (tile) ->
   img = $("<img class='map_tiles'></img>")
   tile_path = tile.type + "/" + tile.z + "/" + real_x + "/" + real_y + ".png"
   img.attr "id", tile.id
+  img.addClass tile.type + "-tile"
   img.attr "src", "http://" + document.location.host + "/tiles/" + tile_path
   img.offset {top: tile.y * Map.tileSize, left: tile.x * Map.tileSize}
   img
@@ -137,6 +142,9 @@ Map.layers.check = (type) ->
       $("#" + tile.id).remove()
       $("#map_viewport").append Map.layers.getTileHTML tile
   $(window).triggerHandler 'resize'
+
+Map.layers.clear = (type) ->
+  $("#map_viewport ."+type+"-tile").remove()
 
 Map.layers.getVisibleTiles = ->
   # Get the offset for the top left position, accounting for other elements on
