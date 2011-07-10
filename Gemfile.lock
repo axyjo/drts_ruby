@@ -103,6 +103,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.16)
     multi_json (1.0.3)
+    mysql2 (0.3.6)
     oily_png (1.0.1)
       chunky_png (~> 1)
     polyglot (0.3.1)
@@ -185,6 +186,7 @@ DEPENDENCIES
   faye
   haml
   jquery-rails
+  mysql2
   oily_png
   rails (= 3.1.0.rc4)
   rails_code_qa

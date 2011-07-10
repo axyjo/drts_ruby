@@ -5,8 +5,6 @@ gem 'rails', '3.1.0.rc4'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
-
 # Asset template engines
 gem 'sass-rails', :git => 'https://github.com/rails/sass-rails.git', :branch => '3-1-stable'
 gem 'coffee-script'
@@ -35,6 +33,9 @@ group :production do
 
   # Use resque for queues
   gem 'resque', :require => "resque/server"
+
+  # Use the mysql2 gem for the DB.
+  gem 'mysql2'
 end
 
 group :test do
@@ -43,6 +44,8 @@ group :test do
 end
 
 group :development do
+  gem 'sqlite3'
+
   # Use Faye for pub/sub notifications (such as chat).
   gem 'faye'
 
