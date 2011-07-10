@@ -1,0 +1,82 @@
+@import "compass/css3/transform";
+$hover: #669966;
+$normal: #ffffff;
+ul.icon {
+  padding: 0;
+  margin: 0;
+  li {
+    // General properties.
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    a:link, a:visited {
+      display: block;
+      border: 0;
+      padding-left: 28px;
+      color: $normal;
+    }
+    a:hover, a:focus, a:active {
+      color: $hover;
+      background: transparent;
+    }
+    &:before, &:after, a:before, a:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+    }
+    a:before, a:after {
+      margin: -8px 0 0;
+      background: $normal;
+    }
+    a:hover:before, a:focus:before, a:active:before {
+      background: $hover;
+    }
+  }
+
+  // Full-screen icon
+  li.full {
+    &:before, &:after {
+      z-index: 1;
+      left: 8px;
+      width: 3px;
+      height: 8px;
+      border: 5px solid $normal;
+      border-width: 5px 0;
+      margin-top: -8px;
+      @include rotate(45deg);
+    }
+
+    &:after {
+      @include rotate(-45deg);
+    }
+
+    &:hover:before, &:hover:after {
+      border-color: $hover;
+    }
+
+    a:before, a:after {
+      z-index: 10;
+      width: 4px;
+      height: 0;
+      border-width: 0 7px 7px;
+      border-style: solid;
+      border-color: transparent $normal;
+      margin-top: -8px;
+      background: transparent;
+    }
+
+    a:after {
+      border-width: 7px 7px 0;
+      margin-top: 3px;
+    }
+
+    a:hover:before, a:focus:before, a:active:before, a:hover:after, a:focus:after, a:active:after {
+      background: transparent;
+      border-color: transparent $hover;
+    }
+  }
+}
