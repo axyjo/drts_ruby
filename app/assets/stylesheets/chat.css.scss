@@ -1,6 +1,10 @@
 .chat {
   margin-top: 5px;
   border: 1px #ddd solid;
+  .chat-message {
+    margin-bottom: 3px;
+    max-width: 225px;
+  }
   .chat-box {
     height: 200px;
     overflow-y: scroll;
@@ -8,8 +12,14 @@
     white-space: pre-wrap;
   }
   form input {
-    width: 215px;
-    border: none;
-    margin-left: 5px;
+    // Reset the element and set the basics.
+    width: 225px;
+    border: 0;
+    padding: 0 0 0 0;
+    outline: 0;
+    display: block;
+
+    // This is to compensate for the border specified above for the .chat class.
+    margin-left: -2px;
   }
 }
