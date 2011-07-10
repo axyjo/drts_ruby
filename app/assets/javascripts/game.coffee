@@ -15,12 +15,12 @@ Game.modal.init = ->
   $(document).keyup (e) ->
     if e.keyCode == 27
       Game.modal.hide()
-  # TODO: recognize any hashes already in the URL bar on load.
+  # TODO: recognize the URL if we need to load a modal for it.
 
 Game.modal.click = (e) ->
   if e.target.href != ""
     Game.modal.fetch e.target.href
-    window.location.hash = e.target.pathname.substr(1, e.target.pathname.length)
+    window.history.pushState {}, "Title", e.target.href
   false
 
 Game.modal.fetch = (url) ->
@@ -42,6 +42,5 @@ Game.modal.show = ->
 Game.modal.hide = ->
   $("#modal").hide()
   $("#modal-overlay").hide()
-  window.location.hash = ''
 
 window.Game = Game
