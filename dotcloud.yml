@@ -12,3 +12,5 @@ resque:
 faye-node:
   type: nodejs
   approot: faye
+db:
+  type: mysql
