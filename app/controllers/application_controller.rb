@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   def broadcast(channel, data)
     message = {:channel => channel, :data => data}
-    uri = URI.parse("http://localhost:9292/faye")
+    uri = URI.parse(FAYE_URL)
     Net::HTTP.post_form(uri, :message => message.to_json)
   end
 
