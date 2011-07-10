@@ -1,7 +1,8 @@
 class ChatsController < ApplicationController
   def new
-    if params[:msg] != ''
-      message = ActionController::Base.helpers.sanitize params[:msg]
+    message = ActionController::Base.helpers.sanitize params[:msg]
+    message.strip!
+    if message != ''
       broadcast '/global_chat', {'user' => current_user.username, 'msg' => message}
       render
     end
