@@ -4,6 +4,8 @@
   .chat-box {
     min-height: 200px;
     overflow-y: scroll;
+    word-wrap: break-word;
+    white-space: pre-wrap;
   }
   form input {
     width: 215px;
