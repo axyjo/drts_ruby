@@ -2,7 +2,7 @@
   #global-chat.chat
     %h1 Global chat
     #global-chat-box.chat-box
-    #global-chat-form.chat-form
-      = form_tag '/chat/send', :remote => true
-      = text_field_tag(:msg)
+  .chat-form
+    = form_tag '/chat/send', :remote => true
+    = text_field_tag(:msg)
 
