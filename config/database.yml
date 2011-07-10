@@ -18,8 +18,15 @@ test:
   pool: 5
   timeout: 5000
 
+<% require 'json'
+   vars = JSON.parse(File.read("/home/dotcloud/environment.json")) if File.exists?("/home/dotcloud/environment.json")
+   vars = {} if vars == nil %>
+
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: mysql2
+  database: game_production
+  user: <%= vars["DOTCLOUD_DB_MYSQL_LOGIN"] %>
+  password: <%= vars["DOTCLOUD_DB_MYSQL_PASSWORD"] %>
+  port: <%= vars["DOTCLOUD_DB_MYSQL_PORT"] %>
+  host: <%= vars["DOTCLOUD_DB_MYSQL_HOST"] %>
+  encoding: utf8
