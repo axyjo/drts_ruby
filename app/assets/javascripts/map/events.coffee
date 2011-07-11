@@ -5,7 +5,9 @@ Map.events.init = ->
   $("#map").bind("click", Map.events.click)
   $("#map").bind("dblclick", Map.events.dblclick)
   $("#map").bind("mousedown", Map.events.mousedown)
-  $("#map").bind("mousemove", Map.events.mousemove)
+  $("#map").bind("mousemove", Map.bar.position)
+  # A drag that has already started shouldn't be interrupted.
+  $(document).bind("mousemove", Map.events.mousemove)
   # Instead of binding the mouseup event to the map, bind it to the document
   # so that even if the mouse is let go when the cursor is ourside of the
   # div, the map will not drag again when the cursor is brought in to the
@@ -43,7 +45,6 @@ Map.events.mousemove = (e) ->
     Map.drag.move(e)
     # Move the viewport, based on the current change in positon.
     Map.viewport.moveDelta(Map.drag.dragDeltaLeft, Map.drag.dragDeltaTop, false)
-  Map.bar.position(e)
 
 Map.events.mouseup = (e) ->
   if Map.drag.dragging
