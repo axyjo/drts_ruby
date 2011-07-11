@@ -74,7 +74,7 @@ GEM
     eventmachine (0.12.10)
     execjs (1.2.0)
       multi_json (~> 1.0)
-    faye (0.6.2)
+    faye (0.6.3)
       em-hiredis (>= 0.0.1)
       em-http-request (>= 0.2)
       eventmachine (~> 0.12.0)

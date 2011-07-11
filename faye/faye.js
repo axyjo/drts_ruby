@@ -12,7 +12,7 @@ Faye.extend = function(dest, source, overwrite) {
 };
 
 Faye.extend(Faye, {
-  VERSION:          '0.6.2',
+  VERSION:          '0.6.3',
   
   BAYEUX_VERSION:   '1.0',
   ID_LENGTH:        128,
@@ -707,8 +707,8 @@ Faye.Client = Faye.Class({
     
     this._state     = this.UNCONNECTED;
     this._channels  = new Faye.Channel.Set();
+    this._messageId = 0;
     
-    this._namespace = new Faye.Namespace();
     this._responseCallbacks = {};
     
     this._advice = {
@@ -888,7 +888,7 @@ Faye.Client = Faye.Class({
         
         var channels = [].concat(response.subscription);
         this.info('Subscription acknowledged for ? to ?', this._clientId, channels);
-        this._channels.subscribe(channels, callback, scope);
+        if (!force) this._channels.subscribe(channels, callback, scope);
         
         subscription.setDeferredStatus('succeeded');
       }, this);
@@ -973,13 +973,19 @@ Faye.Client = Faye.Class({
   },
   
   _send: function(message, callback, scope) {
-    message.id = this._namespace.generate();
+    message.id = this._generateMessageId();
     if (callback) this._responseCallbacks[message.id] = [callback, scope];
 
     this.pipeThroughExtensions('outgoing', message, function(message) {
       if (!message) return;
       this._transport.send(message, this._advice.timeout / 1000);
     }, this);
+  },
+  
+  _generateMessageId: function() {
+    this._messageId += 1;
+    if (this._messageId >= Math.pow(2,32)) this._messageId = 0;
+    return this._messageId.toString(36);
   },
 
   _handleAdvice: function(advice) {
@@ -1435,7 +1441,6 @@ Faye.Engine.Base = Faye.Class({
 });
 
 Faye.extend(Faye.Engine.Base.prototype, Faye.Logging);
-Faye.extend(Faye.Engine.Base.prototype, Faye.Timeouts);
 
 
 Faye.Engine.Connection = Faye.Class({
@@ -1530,11 +1535,10 @@ Faye.Engine.Memory = Faye.Class(Faye.Engine.Base, {
   },
   
   ping: function(clientId) {
-    var timeout = this._options.timeout;
-    if (typeof timeout !== 'number') return;
-    this.debug('Ping ?, ?', clientId, timeout);
+    if (typeof this.timeout !== 'number') return;
+    this.debug('Ping ?, ?', clientId, this.timeout);
     this.removeTimeout(clientId);
-    this.addTimeout(clientId, 2 * timeout, function() {
+    this.addTimeout(clientId, 2 * this.timeout, function() {
       this.destroyClient(clientId);
     }, this);
   },
@@ -1596,13 +1600,17 @@ Faye.Engine.Memory = Faye.Class(Faye.Engine.Base, {
     messages.forEach(conn.deliver, conn);
   }
 });
+Faye.extend(Faye.Engine.Memory.prototype, Faye.Timeouts);
 
 Faye.Engine.register('memory', Faye.Engine.Memory);
 
 
 Faye.Engine.Redis = Faye.Class(Faye.Engine.Base, {
-  DEFAULT_HOST: 'localhost',
-  DEFAULT_PORT: 6379,
+  DEFAULT_HOST:     'localhost',
+  DEFAULT_PORT:     6379,
+  DEFAULT_DATABASE: 0,
+  DEFAULT_GC:       60,
+  LOCK_TIMEOUT:     120,
   
   className: 'Engine.Redis',
 
@@ -1610,10 +1618,11 @@ Faye.Engine.Redis = Faye.Class(Faye.Engine.Base, {
     Faye.Engine.Base.prototype.initialize.call(this, options);
     
     var redis = require('redis'),
-        host  = this._options.host || this.DEFAULT_HOST,
-        port  = this._options.port || this.DEFAULT_PORT,
-        db    = this._options.database || 0,
-        auth  = this._options.password;
+        host  = this._options.host     || this.DEFAULT_HOST,
+        port  = this._options.port     || this.DEFAULT_PORT,
+        db    = this._options.database || this.DEFAULT_DATABASE,
+        auth  = this._options.password,
+        gc    = this._options.gc       || this.DEFAULT_GC;
     
     this._ns  = this._options.namespace;
     
@@ -1632,18 +1641,21 @@ Faye.Engine.Redis = Faye.Class(Faye.Engine.Base, {
     this._subscriber.on('message', function(topic, message) {
       self.emptyQueue(message);
     });
+    
+    this._gc = setInterval(function() { self.gc() }, gc * 1000);
   },
   
   disconnect: function() {
     this._redis.end();
     this._subscriber.unsubscribe();
     this._subscriber.end();
+    clearInterval(this._gc);
   },
   
   createClient: function(callback, scope) {
     var clientId = Faye.random(), self = this;
     this.debug('Created new client ?', clientId);
-    this._redis.sadd(this._ns + '/clients', clientId, function(error, added) {
+    this._redis.zadd(this._ns + '/clients', 0, clientId, function(error, added) {
       if (added === 0) return self.createClient(callback, scope);
       self.ping(clientId);
       callback.call(scope, clientId);
@@ -1652,11 +1664,8 @@ Faye.Engine.Redis = Faye.Class(Faye.Engine.Base, {
   
   destroyClient: function(clientId, callback, scope) {
     var self = this;
-    this._redis.srem(this._ns + '/clients', clientId);
+    this._redis.zrem(this._ns + '/clients', clientId);
     this._redis.del(this._ns + '/clients/' + clientId + '/messages');
-    
-    this.removeTimeout(clientId);
-    this._redis.del(this._ns + '/clients/' + clientId + '/ping');
     
     this._redis.smembers(this._ns + '/clients/' + clientId + '/channels', function(error, channels) {
       var n = channels.length, i = 0;
@@ -1675,26 +1684,19 @@ Faye.Engine.Redis = Faye.Class(Faye.Engine.Base, {
   },
   
   clientExists: function(clientId, callback, scope) {
-    this._redis.sismember(this._ns + '/clients', clientId, function(error, exists) {
-      callback.call(scope, exists !== 0);
+    this._redis.zscore(this._ns + '/clients', clientId, function(error, score) {
+      callback.call(scope, score !== null);
     });
   },
   
   ping: function(clientId) {
-    var timeout = this._options.timeout,
-        time    = new Date().getTime().toString(),
+    if (typeof this.timeout !== 'number') return;
+    
+    var time    = new Date().getTime(),
         self    = this;
     
-    if (typeof timeout !== 'number') return;
-    
-    this.debug('Ping ?, ?', clientId, timeout);
-    this.removeTimeout(clientId);
-    this._redis.set(this._ns + '/clients/' + clientId + '/ping', time);
-    this.addTimeout(clientId, 2 * timeout, function() {
-      this._redis.get(this._ns + '/clients/' + clientId + '/ping', function(error, ping) {
-        if (ping === time) self.destroyClient(clientId);
-      });
-    }, this);
+    this.debug('Ping ?, ?', clientId, time);
+    this._redis.zadd(this._ns + '/clients', time, clientId);
   },
   
   subscribe: function(clientId, channel, callback, scope) {
@@ -1718,19 +1720,20 @@ Faye.Engine.Redis = Faye.Class(Faye.Engine.Base, {
   publish: function(message) {
     this.debug('Publishing message ?', message);
 
-    var jsonMessage = JSON.stringify(message),
+    var self        = this,
+        jsonMessage = JSON.stringify(message),
         channels    = Faye.Channel.expand(message.channel),
-        self        = this;
+        keys        = Faye.map(channels, function(c) { return self._ns + '/channels' + c });
     
-    Faye.each(channels, function(channel) {
-      self._redis.smembers(self._ns + '/channels' + channel, function(error, clients) {
-        Faye.each(clients, function(clientId) {
-          self.debug('Queueing for client ?: ?', clientId, message);
-          self._redis.sadd(self._ns + '/clients/' + clientId + '/messages', jsonMessage);
-          self._redis.publish(self._ns + '/notifications', clientId);
-        });
+    var notify = function(error, clients) {
+      Faye.each(clients, function(clientId) {
+        self.debug('Queueing for client ?: ?', clientId, message);
+        self._redis.rpush(self._ns + '/clients/' + clientId + '/messages', jsonMessage);
+        self._redis.publish(self._ns + '/notifications', clientId);
       });
-    });
+    };
+    keys.push(notify);
+    this._redis.sunion.apply(this._redis, keys);
   },
   
   emptyQueue: function(clientId) {
@@ -1738,10 +1741,56 @@ Faye.Engine.Redis = Faye.Class(Faye.Engine.Base, {
     if (!conn) return;
     
     var key = this._ns + '/clients/' + clientId + '/messages', self = this;
-    this._redis.smembers(key, function(error, jsonMessages) {
+    this._redis.lrange(key, 0, -1, function(error, jsonMessages) {
+      self._redis.ltrim(key, jsonMessages.length, -1);
       Faye.each(jsonMessages, function(jsonMessage) {
         self._redis.srem(key, jsonMessage);
         conn.deliver(JSON.parse(jsonMessage));
+      });
+    });
+  },
+  
+  gc: function() {
+    if (typeof this.timeout !== 'number') return;
+    this._withLock('gc', function(releaseLock) {
+      var cutoff = new Date().getTime() - 1000 * 2 * this.timeout,
+          self   = this;
+      
+      this._redis.zrangebyscore(this._ns + '/clients', 0, cutoff, function(error, clients) {
+        var i = 0, n = clients.length;
+        if (i === n) return releaseLock();
+        
+        Faye.each(clients, function(clientId) {
+          this.destroyClient(clientId, function() {
+            i += 1;
+            if (i === n) releaseLock();
+          }, this);
+        }, self);
+      });
+    }, this);
+  },
+  
+  _withLock: function(lockName, callback, scope) {
+    var lockKey     = this._ns + '/locks/' + lockName,
+        currentTime = new Date().getTime(),
+        expiry      = currentTime + this.LOCK_TIMEOUT * 1000 + 1;
+        self        = this;
+    
+    var releaseLock = function() {
+      if (new Date().getTime() < expiry) self._redis.del(lockKey);
+    };
+    
+    this._redis.setnx(lockKey, expiry, function(error, set) {
+      if (set === 1) return callback.call(scope, releaseLock);
+      
+      self._redis.get(lockKey, function(error, timeout) {
+        var lockTimeout = parseInt(timeout, 10);
+        if (currentTime < lockTimeout) return;
+        
+        self._redis.getset(lockKey, expiry, function(error, oldValue) {
+          if (oldValue !== timeout) return;
+          callback.call(scope, releaseLock);
+        });
       });
     });
   }
@@ -1834,16 +1883,19 @@ Faye.Server = Faye.Class({
     this.info('Handling message: ? (local: ?)', message, local);
     
     var channelName = message.channel, response;
-    if (!message.error && Faye.Grammar.CHANNEL_NAME.test(channelName)) this._engine.publish(message);
     
-    if (Faye.Channel.isMeta(channelName)) {
-      this._handleMeta(message, local, callback, scope);
-    } else if (!message.clientId) {
-      callback.call(scope, []);
-    } else {
+    if (Faye.Channel.isMeta(channelName))
+      return this._handleMeta(message, local, callback, scope);
+    
+    if (!message.error && Faye.Grammar.CHANNEL_NAME.test(channelName))
+      this._engine.publish(message);
+    
+    if (message.clientId) {
       response = this._makeResponse(message);
       response.successful = !response.error;
       callback.call(scope, [response]);
+    } else {
+      callback.call(scope, []);
     }
   },
   
@@ -1858,6 +1910,9 @@ Faye.Server = Faye.Class({
   },
   
   _advize: function(response) {
+    if (Faye.indexOf([Faye.Channel.HANDSHAKE, Faye.Channel.CONNECT], response.channel) < 0)
+      return;
+    
     response.advice = response.advice || {};
     if (response.error) {
       Faye.extend(response.advice, {reconnect:  'handshake'}, false);
@@ -2028,6 +2083,8 @@ Faye.extend(Faye.Server.prototype, Faye.Extensible);
 
 
 Faye.Transport.NodeLocal = Faye.extend(Faye.Class(Faye.Transport, {
+  batching: false,
+  
   request: function(message, timeout) {
     this._endpoint.process(message, true, this.receive, this);
   }
