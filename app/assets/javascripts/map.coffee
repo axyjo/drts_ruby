@@ -38,9 +38,3 @@ Map.pan = (x, y) ->
   Map.layers.checkAll()
 
 window.Map = Map
-
-#= require map/bar
-#= require map/drag
-#= require map/events
-#= require map/layers
-#= require map/viewport

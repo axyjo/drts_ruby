@@ -7,4 +7,18 @@
 //= require jquery
 //= require faye
 //= require jquery_ujs
-//= require_tree .
+// Game Coffeescript files:
+//= require chat
+//
+//= require map
+//= require map/bar
+//= require map/drag
+//= require map/events
+//= require map/layers
+//= require map/viewport
+//
+//= require game
+//= require game/modal
+//= require game/navbar
+//
+//= require application
