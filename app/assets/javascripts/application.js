@@ -10,6 +10,8 @@
 // Game Coffeescript files:
 //= require chat
 //
+//= require notifications
+//
 //= require map
 //= require map/bar
 //= require map/drag
