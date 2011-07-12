@@ -1,6 +1,4 @@
 class User < ActiveRecord::Base
-  include Roles::RoleMethods
-
   belongs_to :empire
   has_and_belongs_to_many :roles, :uniq => true
 
@@ -12,8 +10,4 @@ class User < ActiveRecord::Base
   validates_presence_of :email
   validates_uniqueness_of :username
   validates_uniqueness_of :email
-
-  def privileges
-    roles.map(&:privileges).flatten
-  end
 end
