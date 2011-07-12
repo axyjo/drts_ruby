@@ -6,10 +6,9 @@
   vertical-align: middle;
   background-color: #000;
   color: #ccc;
+  height: 30px;
   font: normal small "Lucida Grande", Verdana, sans-serif;
   left: 0;
-  margin: 0 -20px;
-  padding: 0 20px;
   position: fixed;
   right: 0;
   top: 0;
@@ -17,21 +16,21 @@
   z-index: 25;
   a {
     color: #fff;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    font-size: 1em;
     text-decoration: none;
   }
   ul li {
+    margin-top: 0.4em;
+    padding-left: 5px;
+    padding-right: 5px;
     float: left;
-    a {
-      float: left;
-      padding: 0 5px;
-      &:focus, &:hover, &:active, &:active:focus {
-        @include border-radius(10px);
-        background: #444;
-      }
+    font-size: 1.1em;
+    &:focus, &:hover, &:active, &:active:focus {
+      @include border-radius(7px);
+      background: #444;
     }
+  }
+  .iconic {
+    font-size: 125%;
   }
   #navbar-user {
     float: right;
