@@ -1,7 +1,7 @@
-@import "mixins";
 @import "compass/css3/border-radius";
 @import "compass/css3/opacity";
 @import "compass/css3/box-shadow";
+@import "compass/css3/shared";
 $tile_size: 256px;
 
 #map {
@@ -61,7 +61,7 @@ $tile_size: 256px;
 }
 
 .map_tiles {
-  @include vendor("user-select", none);
+  @include experimental("user-select", none);
   width: $tile_size;
   height: $tile_size;
   position: absolute;
