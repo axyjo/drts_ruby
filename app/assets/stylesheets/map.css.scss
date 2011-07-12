@@ -41,25 +41,6 @@ $tile_size: 256px;
   float:left;
 }
 
-#map_notif {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  margin-left: -150px;
-  min-height: 30px;
-  width: 300px;
-  @include border-top-radius(10px);
-  background-color: #000;
-  text-align: center;
-  color: #ddd;
-  @include opacity(0.75);
-  display: none;
-}
-
-#map_notif:hover {
-  @include opaque;
-}
-
 .map_tiles {
   @include experimental("user-select", none);
   width: $tile_size;
