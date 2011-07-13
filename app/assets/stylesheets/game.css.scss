@@ -24,7 +24,7 @@
     padding-right: 5px;
     float: left;
     font-size: 1.1em;
-    &:focus, &:hover, &:active, &:active:focus {
+    &.active, &:focus, &:hover, &:active, &:active:focus {
       @include border-radius(7px);
       background: #444;
     }
