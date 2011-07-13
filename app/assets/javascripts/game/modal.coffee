@@ -1,16 +1,26 @@
 Game.modal = Game.modal || {}
 
 Game.modal.init = ->
-  $("a").bind("click", Game.modal.click)
+  $("li").bind("click", Game.modal.click)
+  Game.modal.changeActive()
   $(document).keyup (e) ->
     if e.keyCode == 27
       Game.modal.hide()
-  # TODO: recognize the URL if we need to load a modal for it.
+
+Game.modal.changeActive = ->
+  if Game.modal.current
+    Game.modal.current.removeClass "active"
+  Game.modal.current = $("#navbar a[href='" + window.location.pathname + "']").parent()
+  Game.modal.current.addClass "active"
 
 Game.modal.click = (e) ->
-  if e.target.href != ""
-    Game.modal.fetch e.target.href
-    window.history.pushState {}, "Title", e.target.href
+  element = $ e.currentTarget
+  link = element.find "a:last"
+  path = $(link).attr("href")
+  if path != "" and path != window.location.pathname
+    if not element.hasClass("active")
+      Game.modal.fetch path
+      window.history.pushState {}, "Title", path
   false
 
 Game.modal.fetch = (url) ->
@@ -26,9 +36,12 @@ Game.modal.fetch = (url) ->
     )
 
 Game.modal.show = ->
+  Game.modal.changeActive()
   $("#modal").show()
   $("#modal-overlay").show()
 
 Game.modal.hide = ->
+  window.history.pushState {}, "Home", "/"
+  Game.modal.changeActive()
   $("#modal").hide()
   $("#modal-overlay").hide()
