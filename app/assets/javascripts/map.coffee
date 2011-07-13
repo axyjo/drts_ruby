@@ -1,8 +1,7 @@
 Map = Map || {}
 
-# Create the base map namespace.
-
 Map.init = ->
+  Map._ = $ "#map"
   Map.maxTiles = 0
   Map.tileSize = 256
   Map.mapSize = 8192

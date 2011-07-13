@@ -9,7 +9,7 @@ Notifications.trigger = (msg) ->
   element = $("<div></div>").addClass("notification").addClass(msg.type).hide()
   element.append("<h3>" + msg.title + "</h3>")
   element.append("<p>" + msg.body + "</p>")
-  element.width $("#map").width()
+  element.width Map._.width()
   $("body").append(element)
   $(element).fadeIn()
   element.click ->

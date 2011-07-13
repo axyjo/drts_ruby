@@ -2,10 +2,10 @@ Map.events = Map.events || {}
 
 Map.events.init = ->
   # Mouse events.
-  $("#map").bind("click", Map.events.click)
-  $("#map").bind("dblclick", Map.events.dblclick)
-  $("#map").bind("mousedown", Map.events.mousedown)
-  $("#map").bind("mousemove", Map.bar.position)
+  Map._.bind("click", Map.events.click)
+  Map._.bind("dblclick", Map.events.dblclick)
+  Map._.bind("mousedown", Map.events.mousedown)
+  Map._.bind("mousemove", Map.bar.position)
   # A drag that has already started shouldn't be interrupted.
   $(document).bind("mousemove", Map.events.mousemove)
   # Instead of binding the mouseup event to the map, bind it to the document
@@ -52,8 +52,8 @@ Map.events.mouseup = (e) ->
     $("#map_viewport").css("cursor", "")
 
 Map.events.resize = ->
-  $("#map").width($(window).width()-$("#map_bar").width())
-  $("#map").height($(window).height() - Game.navbar.height())
-  $("#map").offset({top: Game.navbar.height()})
-  $("#map_bar").height($("#map").height())
-  $("#map_bar").offset({top: Game.navbar.height(), left: $(window).width() - $("#map_bar").width()})
+  Map._.width $(window).width()-$("#map_bar").width()
+  Map._.height $(window).height() - Game.navbar.height()
+  Map._.offset {top: Game.navbar.height()}
+  $("#map_bar").height Map._.height()
+  $("#map_bar").offset {top: Game.navbar.height(), left: $(window).width() - $("#map_bar").width()}
