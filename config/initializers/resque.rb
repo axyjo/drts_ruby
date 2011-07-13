@@ -2,8 +2,9 @@ if Rails.env.production?
   uri = URI.parse(REDIS_URL)
   Resque.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password, :thread_safe => true)
 
-  unless Resque.redis.get("resque_init_lock").nil?
+  if Resque.redis.get("resque_init_lock").nil?
     Resque.redis.set("resque_init_lock", "locked")
+    Resque.redis.expire("resque_init_lock", 3600)
 
     # Subtract 2 zoom levels off the maximum so that the last two are generated on the fly.
     maxZoom = 4 - 2
