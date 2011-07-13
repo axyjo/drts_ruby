@@ -1,5 +1,8 @@
 Map.bar = Map.bar || {}
 
+Map.bar.init = ->
+  Map.bar._ = $ "#map_bar"
+
 Map.bar.position = (e) ->
   offset = Map.viewport._.offset()
 

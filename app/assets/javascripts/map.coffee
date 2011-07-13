@@ -7,6 +7,7 @@ Map.init = ->
   Map.mapSize = 8192
   Map.defaultZoom = 0
   Map.borderCache = 0
+  Map.bar.init()
   Map.events.init()
   Map.layers.init()
   Map.viewport.init()
