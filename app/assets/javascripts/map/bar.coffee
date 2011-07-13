@@ -1,7 +1,7 @@
 Map.bar = Map.bar || {}
 
 Map.bar.position = (e) ->
-  offset = $("#map_viewport").offset()
+  offset = Map.viewport._.offset()
 
   # Set x_val and y_val equal to the distance from the top-left of the
   # image layer.

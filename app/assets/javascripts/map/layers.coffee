@@ -38,11 +38,11 @@ Map.layers.check = (type) ->
         z: Map.zoom
         type: type
       $("#" + tile.id).remove()
-      $("#map_viewport").append Map.layers.getTileHTML tile
+      Map.viewport._.append Map.layers.getTileHTML tile
   $(window).triggerHandler 'resize'
 
 Map.layers.clear = (type) ->
-  $("#map_viewport ."+type+"-tile").remove()
+  Map.viewport._.find("."+type+"-tile").remove()
 
 Map.layers.getVisibleTiles = ->
   # Get the offset for the top left position, accounting for other elements on
