@@ -45,10 +45,4 @@ end
 
 group :development do
   gem 'sqlite3'
-
-  # Use Faye for pub/sub notifications (such as chat).
-  gem 'faye'
-
-  # Use the thin server for Faye in the development environment.
-  gem 'thin'
 end
