@@ -6,8 +6,8 @@
   vertical-align: middle;
   background-color: #000;
   color: #ccc;
-  height: 27px;
-  font: normal 12px "Lucida Grande", Verdana, sans-serif;
+  height: 29px;
+  font: normal 12px/18px Verdana, sans-serif;
   left: 0;
   position: fixed;
   right: 0;
@@ -19,8 +19,9 @@
     text-decoration: none;
   }
   ul li {
-    margin-top: 0.4em;
-    margin-left: 2px;
+    height: 19px;
+    margin-top: 5px;
+    margin-left: 3px;
     padding-left: 5px;
     padding-right: 5px;
     float: left;
@@ -31,7 +32,7 @@
     }
   }
   .iconic {
-    font-size: 125%;
+    font-size: 120%;
   }
   #navbar-user {
     float: right;
