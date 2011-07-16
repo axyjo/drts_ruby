@@ -18,8 +18,8 @@ Map.events.init = ->
   # Keyboard shortcuts.
   $(document).keydown (e) ->
     switch e.which
-      when 187 then Map.zoomIn()
-      when 189 then Map.zoomOut()
+      when 187, 109 then Map.zoomIn()
+      when 189, 61 then Map.zoomOut()
       when 37  then Map.pan(25, 0)
       when 38  then Map.pan(0, 25)
       when 39  then Map.pan(-25, 0)
