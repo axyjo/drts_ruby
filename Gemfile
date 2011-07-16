@@ -34,7 +34,7 @@ group :production do
   # Use resque for queues
   gem 'resque', :require => "resque/server"
   gem 'resque-retry'
-  gem 'resque-scheduler', :require => "resque_scheduler/server"
+  gem 'resque-scheduler'
 
   # Use the mysql2 gem for the DB.
   gem 'mysql2'

@@ -1,6 +1,7 @@
 if Rails.env.production?
   require 'resque'
   require 'resque_scheduler'
+  require 'resque_scheduler/server'
   require 'resque/scheduler'
   require 'resque-retry'
   require 'resque-retry/server'
