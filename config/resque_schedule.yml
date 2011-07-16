@@ -1,0 +1,5 @@
+economy:
+  cron: 0 12 * * *
+  class: Economy
+  args:
+  description: Update the economy

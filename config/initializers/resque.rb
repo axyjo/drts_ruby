@@ -9,6 +9,8 @@ if Rails.env.production?
   uri = URI.parse(REDIS_URL)
   Resque.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password, :thread_safe => true)
 
+  Resque.schedule = YAML.load_file("#{Rails.root}/config/resque_schedule.yml")
+
   if Resque.redis.get("resque_init_lock").nil?
     Resque.redis.set("resque_init_lock", "locked")
     Resque.redis.expire("resque_init_lock", 3600)
