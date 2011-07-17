@@ -30,13 +30,6 @@ $tile_size: 256px;
   bottom: 0;
 }
 
-#map_viewport {
-  left: 0px;
-  top: 0px;
-  position: relative;
-  float:left;
-}
-
 .map_tiles {
   @include experimental("user-select", none);
   width: $tile_size;
