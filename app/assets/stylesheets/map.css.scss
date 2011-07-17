@@ -8,6 +8,45 @@ $tile_size: 256px;
   overflow: hidden;
 }
 
+.map_control {
+  float: left;
+  clear: both;
+  position: relative;
+}
+
+.map_top, .map_bottom {
+  position: absolute;
+}
+
+.map_top {
+  top: 0;
+  .map_control {
+    margin-top: 10px;
+  }
+}
+
+.map_right {
+  right: 0;
+  .map_control {
+    float: right;
+    margin-right: 10px;
+  }
+}
+
+.map_bottom {
+  bottom: 0;
+  .map_control {
+    margin-bottom: 10px;
+  }
+}
+
+.map_left {
+  left: 0;
+  .map_control {
+    margin-left: 10px;
+  }
+}
+
 #map_bar {
   position:absolute;
   min-width: 225px;
