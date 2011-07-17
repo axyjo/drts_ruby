@@ -4,11 +4,8 @@
 @import "compass/css3/shared";
 $tile_size: 256px;
 
-#map {
-  position:absolute;
-  left:0; top:0;
+.map_container {
   overflow: hidden;
-  background-color: #F4F0EC;
 }
 
 #map_bar {
