@@ -14,7 +14,7 @@ Map.events.init = ->
   # div again.
   $(document).bind("mouseup", this.mouseup)
   # Window events.
-  $(window).resize(Map.events.resizeCheck)
+  $(window).resize(Map.events.resize)
   # Keyboard shortcuts.
   $(document).keydown (e) ->
     switch e.which
