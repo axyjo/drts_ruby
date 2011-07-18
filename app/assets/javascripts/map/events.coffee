@@ -24,6 +24,11 @@ Map.events.init = ->
       when 38  then Map.pan(0, 25)
       when 39  then Map.pan(-25, 0)
       when 40  then Map.pan(0, -25)
+  # Map controls.
+  $(".map_control_zoom").find("a.plus").click ->
+    Map.zoomIn()
+  $(".map_control_zoom").find("a.minus").click ->
+    Map.zoomOut()
 
 Map.events.click = (e) ->
   Map.bar.position(e)
