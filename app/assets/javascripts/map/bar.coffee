@@ -2,6 +2,15 @@ Map.bar = Map.bar || {}
 
 Map.bar.init = ->
   Map.bar._ = $ "#map_bar"
+  Map.bar.visible = true
+
+Map.bar.toggle = ->
+  if Map.bar.visible
+    Map.bar._.fadeOut()
+    Map.bar.visible = false
+  else
+    Map.bar._.fadeIn()
+    Map.bar.visible = true
 
 Map.bar.position = (e) ->
   offset = Map.viewport._.offset()
