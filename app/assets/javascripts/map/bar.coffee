@@ -4,7 +4,8 @@ Map.bar.init = ->
   Map.bar._ = $ "#map_bar"
 
 Map.bar.toggle = ->
-  Map.bar._.fadeToggle 'slow', Map.events.resizeCheck
+  Map.bar._.fadeToggle ->
+    Map._.width $(window).width()-Map.bar.width()
 
 Map.bar.width = ->
   if Map.bar._.is ':visible'
