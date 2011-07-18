@@ -57,8 +57,8 @@ Map.events.mouseup = (e) ->
     Map.viewport._.css("cursor", "")
 
 Map.events.resize = ->
-  Map._.width $(window).width()-Map.bar._.width()
+  Map._.width $(window).width()-Map.bar.width()
   Map._.height $(window).height() - Game.navbar.height()
   Map._.offset {top: Game.navbar.height()}
   Map.bar._.height Map._.height()
-  Map.bar._.offset {top: Game.navbar.height(), left: $(window).width() - Map.bar._.width()}
+  Map.bar._.offset {top: Game.navbar.height(), left: $(window).width() - Map.bar.width()}

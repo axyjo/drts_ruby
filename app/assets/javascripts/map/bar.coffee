@@ -11,6 +11,14 @@ Map.bar.toggle = ->
   else
     Map.bar._.fadeIn()
     Map.bar.visible = true
+  Map.events.resize()
+  Map.layers.checkAll()
+
+Map.bar.width = ->
+  if Map.bar.visible
+    Map.bar._.width()
+  else
+    0
 
 Map.bar.position = (e) ->
   offset = Map.viewport._.offset()
