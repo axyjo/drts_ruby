@@ -14,7 +14,7 @@ Map.events.init = ->
   # div again.
   $(document).bind("mouseup", this.mouseup)
   # Window events.
-  $(window).resize(Map.events.resize)
+  $(window).resize(Map.events.resizeCheck)
   # Keyboard shortcuts.
   $(document).keydown (e) ->
     switch e.which
@@ -55,6 +55,10 @@ Map.events.mouseup = (e) ->
   if Map.drag.dragging
     Map.drag.end()
     Map.viewport._.css("cursor", "")
+
+Map.events.resizeCheck = ->
+  Map.events.resize()
+  Map.layers.checkAll()
 
 Map.events.resize = ->
   Map._.width $(window).width()-Map.bar.width()
