@@ -2,18 +2,12 @@ Map.bar = Map.bar || {}
 
 Map.bar.init = ->
   Map.bar._ = $ "#map_bar"
-  Map.bar.visible = true
 
 Map.bar.toggle = ->
-  if Map.bar.visible
-    Map.bar._.fadeOut 'slow', Map.events.resizeCheck
-    Map.bar.visible = false
-  else
-    Map.bar._.fadeIn 'slow', Map.events.resizeCheck
-    Map.bar.visible = true
+  Map.bar._.fadeToggle 'slow', Map.events.resizeCheck
 
 Map.bar.width = ->
-  if Map.bar.visible
+  if Map.bar._.is ':visible'
     Map.bar._.width()
   else
     0
