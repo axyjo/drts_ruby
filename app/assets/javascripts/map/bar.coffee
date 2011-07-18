@@ -6,13 +6,11 @@ Map.bar.init = ->
 
 Map.bar.toggle = ->
   if Map.bar.visible
-    Map.bar._.fadeOut()
+    Map.bar._.fadeOut 'slow', Map.events.resizeCheck
     Map.bar.visible = false
   else
-    Map.bar._.fadeIn()
+    Map.bar._.fadeIn 'slow', Map.events.resizeCheck
     Map.bar.visible = true
-  Map.events.resize()
-  Map.layers.checkAll()
 
 Map.bar.width = ->
   if Map.bar.visible
