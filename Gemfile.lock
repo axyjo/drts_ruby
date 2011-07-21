@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/chriseppstein/compass.git
-  revision: 2124003550bf96e828f6e63351d44a61b647cbf1
+  revision: 2c1fcfcad708875d10db65740aabf417abc636a6
   branch: rails31
   specs:
-    compass (0.11.3.rails.0.2124003)
+    compass (0.11.3.rails.0.2c1fcfc)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
@@ -90,7 +90,7 @@ GEM
     guard-rspec (0.4.0)
       guard (>= 0.4.0)
     haml (3.1.2)
-    hike (1.1.0)
+    hike (1.2.0)
     i18n (0.6.0)
     jquery-rails (1.0.12)
       railties (~> 3.0)
