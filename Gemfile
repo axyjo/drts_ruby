@@ -40,9 +40,11 @@ group :production do
   gem 'mysql2'
 end
 
+gem "rspec-rails", :group => [:test, :development]
 group :test do
-  # Pretty printed test output
-  gem 'turn', :require => false
+  gem "factory_girl_rails"
+  gem "capybara"
+  gem "guard-rspec"
 end
 
 group :development do
