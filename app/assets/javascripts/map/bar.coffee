@@ -3,6 +3,16 @@ Map.bar = Map.bar || {}
 Map.bar.init = ->
   Map.bar._ = $ "#map_bar"
 
+Map.bar.toggle = ->
+  Map.bar._.fadeToggle ->
+    Map._.width $(window).width()-Map.bar.width()
+
+Map.bar.width = ->
+  if Map.bar._.is ':visible'
+    Map.bar._.width()
+  else
+    0
+
 Map.bar.position = (e) ->
   offset = Map.viewport._.offset()
 
