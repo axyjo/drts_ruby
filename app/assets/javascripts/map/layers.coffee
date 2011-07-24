@@ -2,6 +2,8 @@ Map.layers = Map.layers || {}
 
 Map.layers.init = ->
   Map.layers.tilesets = ["base"]
+  for tileset in Map.layers.tilesets
+    $(".tile_pane").append("<div id='" + tileset + "_tiles'></div>")
 
 Map.layers.checkAll = ->
   Map.layers.check tileset for tileset in Map.layers.tilesets
@@ -22,7 +24,6 @@ Map.layers.getTileHTML = (tile) ->
   img = $("<img class='map_tiles'></img>")
   tile_path = tile.type + "/" + tile.z + "/" + real_x + "/" + real_y + ".png"
   img.attr "id", tile.id
-  img.addClass tile.type + "-tile"
   img.attr "src", "http://" + document.location.host + "/tiles/" + tile_path
   img.offset {top: tile.y * Map.tileSize, left: tile.x * Map.tileSize}
   img
@@ -38,11 +39,11 @@ Map.layers.check = (type) ->
         z: Map.zoom
         type: type
       $("#" + tile.id).remove()
-      Map.viewport._.append Map.layers.getTileHTML tile
+      Map.viewport._.find("#"+type+"_tiles").append Map.layers.getTileHTML tile
   $(window).triggerHandler 'resize'
 
 Map.layers.clear = (type) ->
-  Map.viewport._.find("."+type+"-tile").remove()
+  Map.viewport._.find("#"+type+"_tiles").empty()
 
 Map.layers.getVisibleTiles = ->
   # Get the offset for the top left position, accounting for other elements on
