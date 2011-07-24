@@ -17,7 +17,6 @@ Map.events.init = ->
   $(window).resize(Map.events.resize)
   # Keyboard shortcuts.
   $(document).keydown (e) ->
-    console.log e.which
     switch e.which
       when 187, 107, 43 then Map.zoomIn()
       when 189, 61, 109, 45 then Map.zoomOut()
