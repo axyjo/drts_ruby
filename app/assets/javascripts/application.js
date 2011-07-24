@@ -23,4 +23,5 @@
 //= require game/modal
 //= require game/navbar
 //
+//= require config
 //= require application

@@ -16,7 +16,7 @@ if Rails.env.production?
     Resque.redis.expire("resque_init_lock", 3600)
 
     # Subtract 1 zoom level off the maximum so that the last one is generated on the fly.
-    maxZoom = 3 - 1
+    maxZoom = Rails.configuration.game[:maxZoom] - 1
     for z in 0..maxZoom
       maxTilesX = 2**(z+2) - 1
       maxTilesY = 2**(z+2) - 1

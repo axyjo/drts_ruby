@@ -10,7 +10,7 @@ class MapsController < ApplicationController
   def tiles
     slice_size = 2048
     z = params[:z].to_i
-    if z >= 0 and z <= 3
+    if z >= 0 and z <= Rails.configuration.game[:maxZoom]
       scale = 2**(z-3)
 
       # Chunk count is the number of chunks in the tile at the current zoom.

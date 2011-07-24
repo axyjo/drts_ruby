@@ -2,11 +2,6 @@ Map = Map || {}
 
 Map.init = ->
   Map._ = $ "#map"
-  Map.maxTiles = 0
-  Map.tileSize = 256
-  Map.mapSize = 8192
-  Map.defaultZoom = 0
-  Map.borderCache = 0
   Map.bar.init()
   Map.events.init()
   Map.layers.init()
@@ -20,8 +15,8 @@ Map.resetZoom = ->
 Map.setZoom = (z) ->
   if z < 0
     z = 0
-  else if z > 3
-    z = 3
+  else if z > Map.maxZoom
+    z = Map.maxZoom
   this.zoom = z
   Map.maxTiles = Math.pow(2, z+2)
   this.layers.clearAll()
