@@ -1,16 +1,16 @@
 GIT
   remote: https://github.com/chriseppstein/compass.git
-  revision: 2c1fcfcad708875d10db65740aabf417abc636a6
+  revision: 33263caffe5548a64253976c0a034afe1ed567f4
   branch: rails31
   specs:
-    compass (0.11.3.rails.0.2c1fcfc)
+    compass (0.11.3.rails.0.33263ca)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
 
 GIT
   remote: https://github.com/rails/sass-rails.git
-  revision: 031236b31eaf20658226a9ae051749cc6647c33f
+  revision: 231b14da040c3ad320076cbaaa70190d14b95d37
   branch: 3-1-stable
   specs:
     sass-rails (3.1.0.rc.4)
@@ -73,9 +73,9 @@ GEM
     erubis (2.7.0)
     execjs (1.2.0)
       multi_json (~> 1.0)
-    factory_girl (1.3.3)
-    factory_girl_rails (1.0.1)
-      factory_girl (~> 1.3)
+    factory_girl (2.0.1)
+    factory_girl_rails (1.1.0)
+      factory_girl (~> 2.0.0)
       railties (>= 3.0.0)
     ffi (1.0.9)
     flay (1.4.2)

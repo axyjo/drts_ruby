@@ -4,6 +4,10 @@ Notifications.init = ->
   notifications_client = Chat.client.subscribe '/broadcast', (msg) ->
     msg.type = 'info'
     Notifications.trigger msg
+  $(".notification").fadeIn()
+  $(".notification").click ->
+    $(this).fadeOut "slow", ->
+      $(this).remove()
 
 Notifications.trigger = (msg) ->
   element = $("<div></div>").addClass("notification").addClass(msg.type).hide()

@@ -10,15 +10,17 @@ class SessionsController < ApplicationController
     end
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      render :notice => "Logged in!"
+      flash[:success] = "Logged in!"
+      render
     else
-      flash.now.alert = "Invalid username or password"
+      flash[:error] = "Invalid username or password"
       render "new", :layout => false
     end
   end
 
   def destroy
     session[:user_id] = nil
-    render :nothing => true, :notice => "Logged out!"
+    flash[:success] = "Logged out!"
+    render :nothing => true
   end
 end
