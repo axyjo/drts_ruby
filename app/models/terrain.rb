@@ -1,3 +1,3 @@
 class Terrain < ActiveRecord::Base
-  attr_accessible :type, :blue_value
+  attr_accessible :name, :blue_value
 end

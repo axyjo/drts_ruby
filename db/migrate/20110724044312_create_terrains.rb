@@ -1,7 +1,7 @@
 class CreateTerrains < ActiveRecord::Migration
   def change
     create_table :terrains do |t|
-      t.string :type
+      t.string :name
       t.integer :blue_value
 
       t.timestamps
