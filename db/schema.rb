@@ -10,7 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110712030515) do
+ActiveRecord::Schema.define(:version => 20110724044312) do
+
+  create_table "coordinates", :force => true do |t|
+    t.integer  "lat"
+    t.integer  "lng"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "empires", :force => true do |t|
     t.datetime "created_at"
@@ -18,8 +25,43 @@ ActiveRecord::Schema.define(:version => 20110712030515) do
     t.string   "name"
   end
 
+  create_table "privileges", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "privileges_roles", :id => false, :force => true do |t|
+    t.integer  "role_id"
+    t.integer  "privilege_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "provinces", :force => true do |t|
     t.integer  "empire_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles_users", :id => false, :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "terrains", :force => true do |t|
+    t.string   "name"
+    t.integer  "blue_value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
