@@ -5,7 +5,7 @@ Notifications.init = ->
     msg.type = 'info'
     Notifications.trigger msg
   $(".notification").fadeIn()
-  $(".notification").click ->
+  $(document).delegate ".notification", "click",  ->
     $(this).fadeOut "slow", ->
       $(this).remove()
 
@@ -16,8 +16,5 @@ Notifications.trigger = (msg) ->
   element.width Map._.width()
   $("body").append(element)
   $(element).fadeIn()
-  element.click ->
-    $(this).fadeOut "slow", ->
-      $(this).remove()
 
 window.Notifications = Notifications
