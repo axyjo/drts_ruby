@@ -20,8 +20,8 @@ Map.resetZoom = ->
 Map.setZoom = (z) ->
   if z < 0
     z = 0
-  else if z > 4
-    z = 4
+  else if z > 3
+    z = 3
   this.zoom = z
   Map.maxTiles = Math.pow(2, z+2)
   this.layers.clearAll()
