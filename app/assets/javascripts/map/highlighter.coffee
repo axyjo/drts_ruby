@@ -12,8 +12,8 @@ Map.highlighter.zoom = ->
   Map.highlighter.rescale()
 
 Map.highlighter.rescale = ->
-  Map.highlighter._.width Map.highlighter.factor - 4
-  Map.highlighter._.height Map.highlighter.factor - 4
+  Map.highlighter._.width Map.highlighter.factor - 2
+  Map.highlighter._.height Map.highlighter.factor - 2
 
 Map.highlighter.reposition = (value) ->
   (value-1)*Map.highlighter.factor
