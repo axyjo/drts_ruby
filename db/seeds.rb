@@ -20,7 +20,28 @@ for x in 1..Rails.configuration.game[:gameSize]
   # Use a transaction to speed things up.
   ActiveRecord::Base.transaction do
     for y in 1..Rails.configuration.game[:gameSize]
-      Coordinate.create(lat: x, lng: y)
+      # Determine the terrain.
+      blue = ChunkyPNG::Color.b(terrain.get_pixel(x-1, y-1))
+      t = Terrain.find_by_blue_value(blue)
+
+      # Determine the empire.
+      empire_id = ChunkyPNG::Color.r(political.get_pixel(x-1, y-1))
+      if empire_id == 0
+        e = nil
+        e_id = nil
+      else
+        e = Empire.find_or_create_by_id(empire_id)
+        e_id = e.id
+      end
+
+      # Determine the province.
+      province_g = ChunkyPNG::Color.g(political.get_pixel(x-1, y-1))
+      province_b = ChunkyPNG::Color.b(political.get_pixel(x-1, y-1))
+      province_id = province_g * 255 + province_b + 1
+      p = Province.find_or_create_by_id_and_empire_id(province_id, e_id)
+
+      # Finally, create the coordinate.
+      Coordinate.create(lat: x, lng: y, terrain: t, province: p)
     end
   end
 end
