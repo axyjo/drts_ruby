@@ -16,6 +16,7 @@
 //= require map/bar
 //= require map/drag
 //= require map/events
+//= require map/highlighter
 //= require map/layers
 //= require map/viewport
 //

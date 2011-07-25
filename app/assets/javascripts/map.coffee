@@ -4,6 +4,7 @@ Map.init = ->
   Map._ = $ "#map"
   Map.bar.init()
   Map.events.init()
+  Map.highlighter.init()
   Map.layers.init()
   Map.viewport.init()
   Map.resetZoom()
@@ -21,6 +22,7 @@ Map.setZoom = (z) ->
   Map.maxTiles = Math.pow(2, z+2)
   this.layers.clearAll()
   this.layers.checkAll()
+  Map.highlighter.zoom()
 
 Map.zoomIn = ->
   this.setZoom(this.zoom + 1)

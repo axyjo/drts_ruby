@@ -5,7 +5,9 @@ Map.events.init = ->
   Map._.bind("click", Map.events.click)
   Map._.bind("dblclick", Map.events.dblclick)
   Map._.bind("mousedown", Map.events.mousedown)
-  Map._.bind("mousemove", Map.bar.position)
+  Map._.bind "mousemove", (e) ->
+    pos = Map.bar.position(e)
+    Map.highlighter.activate pos
   # A drag that has already started shouldn't be interrupted.
   $(document).bind("mousemove", Map.events.mousemove)
   # Instead of binding the mouseup event to the map, bind it to the document
