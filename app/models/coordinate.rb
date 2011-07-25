@@ -2,7 +2,7 @@ class Coordinate < ActiveRecord::Base
   belongs_to :province
   has_one :terrain
 
-  def lnglat(lng, lat)
+  def self.lnglat(lng, lat)
     Coordinate.find_by_lng_and_lat(lng, lat)
   end
 
