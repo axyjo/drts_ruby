@@ -41,7 +41,7 @@ for x in 1..Rails.configuration.game[:gameSize]
       p = Province.find_or_create_by_id_and_empire_id(province_id, e_id)
 
       # Finally, create the coordinate.
-      Coordinate.create(lat: x, lng: y, terrain: t, province: p)
+      Coordinate.create(lng: x, lat: y, terrain: t, province: p)
     end
   end
 end
