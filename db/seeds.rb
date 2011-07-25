@@ -1,3 +1,13 @@
+# Coordinates:
+for x in 1..Rails.configuration.game[:gameSize]
+  # Use a transaction to speed things up.
+  ActiveRecord::Base.transaction do
+    for y in 1..Rails.configuration.game[:gameSize]
+      Coordinate.create(lat: x, lng: y)
+    end
+  end
+end
+
 # Terrains:
 Terrain.create(name: "Plains", blue_value: 0)
 Terrain.create(name: "Forest", blue_value: 1)
