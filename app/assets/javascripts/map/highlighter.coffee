@@ -20,4 +20,4 @@ Map.highlighter.reposition = (value) ->
 
 Map.highlighter.activate = (pos) ->
   Map.highlighter._.offset {left: this.reposition(pos.x) + Map.viewport.left(), top: this.reposition(pos.y) + Map.viewport.top()}
-  Map.highlighter._.css "border", "2px #000 solid"
+  Map.highlighter._.css "border", "1px #000 solid"
