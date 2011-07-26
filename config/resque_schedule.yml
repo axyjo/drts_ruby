@@ -1,5 +1,5 @@
 economy:
-  cron: 0 12 * * *
+  cron: "0 0 * * * "
   class: Economy
   args:
-  description: Update the economy
+  description: "Update the economy"
