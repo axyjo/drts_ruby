@@ -1,2 +1,7 @@
-<h1>Empire#list</h1>
-<p>Find me in app/views/empire/list.html.erb</p>
+%h1 Choose your empire.
+%div
+  Empires are groups that you must join in order to make any progress in the game.
+- @empires.each do |empire|
+  %div
+    = link_to "empire/choose/#{empire.id}" do
+      = empire.name.inspect

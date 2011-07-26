@@ -1,7 +1,7 @@
 DrtsRuby::Application.routes.draw do
   get "empire/list"
 
-  get "empire/choose"
+  get "empire/choose/:id" => "empire#choose"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
