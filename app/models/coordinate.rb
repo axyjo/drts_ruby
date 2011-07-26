@@ -9,8 +9,8 @@ class Coordinate < ActiveRecord::Base
   end
 
   def distanceTo(target)
-    dx = target.lng - self.lng
-    dy = target.lat - self.lat
+    dx = toroidalMinMagnitude(target.lng, self.lng)
+    dy = toroidalMinMagnitude(target.lat, self.lat)
     Math.sqrt(dx**2 + dy**2)
   end
 
@@ -28,5 +28,12 @@ class Coordinate < ActiveRecord::Base
 
   def east
     Coordinate.lnglat(lng+1, lat)
+  end
+
+  private
+  def toroidalMinMagnitude(a, b)
+    diff1 = (a - b).abs
+    diff2 = Rails.configuration.game[:gameSize] - diff1
+    [diff1, diff2].min
   end
 end
