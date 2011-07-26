@@ -8,6 +8,12 @@ class Coordinate < ActiveRecord::Base
     Coordinate.find_by_lng_and_lat(lng, lat)
   end
 
+  def distanceTo(target)
+    dx = target.lng - self.lng
+    dy = target.lat - self.lat
+    Math.sqrt(dx**2 + dy**2)
+  end
+
   def north
     Coordinate.lnglat(lng, lat-1)
   end
