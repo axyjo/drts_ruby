@@ -1,4 +1,8 @@
 DrtsRuby::Application.routes.draw do
+  get "empire/list"
+
+  get "empire/choose"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
