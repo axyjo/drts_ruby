@@ -9,6 +9,5 @@
     #container
       = render "navbar"
       = yield
-    #modal
-    #modal-overlay
+    = render :partial => "modal"
     = render :partial => "flash", :locals => {:flash => flash}
