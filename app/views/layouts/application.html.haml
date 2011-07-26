@@ -9,5 +9,5 @@
     #container
       = render "navbar"
       = yield
-    = render :partial => "modal"
+    = render :partial => "modal", :locals => {:modal => @modal}
     = render :partial => "flash", :locals => {:flash => flash}
