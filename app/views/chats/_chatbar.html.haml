@@ -2,6 +2,9 @@
   #global-chat.chat
     %h1 Global chat
     #global-chat-box.chat-box
+  #faction-chat.chat
+    %h1 Faction chat
+    #faction-chat-box.chat-box
   .chat-form
     = form_tag '/chat/send', :remote => true
     = text_field_tag(:msg)
