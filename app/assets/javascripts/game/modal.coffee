@@ -6,6 +6,7 @@ Game.modal.init = ->
   $(document).keyup (e) ->
     if e.keyCode == 27
       Game.modal.hide()
+  Game.modal.fetch $("#modal").text().trim()
 
 Game.modal.changeActive = ->
   if Game.modal.current
@@ -24,15 +25,16 @@ Game.modal.click = (e) ->
   false
 
 Game.modal.fetch = (url) ->
-  $.ajax(
-    type: "GET"
-    url: url
-    success: (data) ->
-      $("#modal").html(data)
-      if data == ' '
-        window.location.reload()
-      else
-        Game.modal.show()
+  if url
+    $.ajax(
+      type: "GET"
+      url: url
+      success: (data) ->
+        $("#modal").html(data)
+        if data == ' '
+          window.location.reload()
+        else
+          Game.modal.show()
     )
 
 Game.modal.show = ->
