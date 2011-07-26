@@ -3,6 +3,8 @@ class Coordinate < ActiveRecord::Base
   has_one :terrain
 
   def self.lnglat(lng, lat)
+    lng = (lng-1).modulo(128) + 1
+    lat = (lat-1).modulo(128) + 1
     Coordinate.find_by_lng_and_lat(lng, lat)
   end
 
