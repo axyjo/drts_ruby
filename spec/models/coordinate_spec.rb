@@ -7,7 +7,22 @@ describe Coordinate do
     coord1.distanceTo(coord2).should eq(Math.sqrt(2))
     coord2.distanceTo(coord1).should eq(Math.sqrt(2))
   end
-  it "generates the correct distance between two points - toroidal case" do
+
+  it "generates the correct distance between two points - toroidal lng case" do
+    coord1 = Coordinate.lnglat(1, 1)
+    coord2 = Coordinate.lnglat(128, 1)
+    coord1.distanceTo(coord2).should eq(1)
+    coord2.distanceTo(coord1).should eq(1)
+  end
+
+  it "generates the correct distance between two points - toroidal lat case" do
+    coord1 = Coordinate.lnglat(1, 1)
+    coord2 = Coordinate.lnglat(1, 128)
+    coord1.distanceTo(coord2).should eq(1)
+    coord2.distanceTo(coord1).should eq(1)
+  end
+
+  it "generates the correct distance between two points - toroidal diagonal case" do
     coord1 = Coordinate.lnglat(1, 1)
     coord2 = Coordinate.lnglat(128, 128)
     coord1.distanceTo(coord2).should eq(Math.sqrt(2))
