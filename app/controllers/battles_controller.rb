@@ -26,6 +26,7 @@ class BattlesController < ApplicationController
           u.destroy
         else
           u.update_attributes(:size => u[:size]-s_unit)
+        end
       end
     end  
   end
