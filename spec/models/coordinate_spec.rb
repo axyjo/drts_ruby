@@ -1,8 +1,17 @@
 require 'spec_helper'
 
 describe Coordinate do
-  it "generates the correct distance between two points" do
-
+  it "generates the correct distance between two points - regular case" do
+    coord1 = Coordinate.lnglat(1, 1)
+    coord2 = Coordinate.lnglat(2, 2)
+    coord1.distanceTo(coord2).should eq(Math.sqrt(2))
+    coord2.distanceTo(coord1).should eq(Math.sqrt(2))
+  end
+  it "generates the correct distance between two points - toroidal case" do
+    coord1 = Coordinate.lnglat(1, 1)
+    coord2 = Coordinate.lnglat(128, 128)
+    coord1.distanceTo(coord2).should eq(Math.sqrt(2))
+    coord2.distanceTo(coord1).should eq(Math.sqrt(2))
   end
 
   it "generates the right neighbours when both coordinates are on the edge" do
