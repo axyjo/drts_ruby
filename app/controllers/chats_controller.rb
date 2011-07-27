@@ -3,7 +3,13 @@ class ChatsController < ApplicationController
     message = ActionController::Base.helpers.sanitize params[:msg]
     message = message.strip
     if message != ''
-      broadcast '/global_chat', {'user' => current_user.username, 'msg' => message}
+      if params[:type] == 'empire'
+        channel = '/empire_' + current_user.empire_id.to_s + '_chat'
+      else
+        channel = '/global_chat'
+      end
+
+      broadcast channel, {'user' => current_user.username, 'msg' => message}
       render
     end
   end
