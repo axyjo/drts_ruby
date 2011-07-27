@@ -5,6 +5,12 @@
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'application'
     = csrf_meta_tag
+    %script
+      - if current_user.empire
+        :coffee
+          $ ->
+            Chat.empire =  #{current_user.empire_id}
+            Chat.empire_subscribe()
   %body
     #container
       = render "navbar"
