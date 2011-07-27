@@ -8,4 +8,5 @@
   .chat-form
     = form_tag '/chat/send', :remote => true
     = text_field_tag(:msg)
+    = hidden_field_tag :type, 'global'
 

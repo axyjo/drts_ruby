@@ -22,4 +22,9 @@
     // This is to compensate for the border specified above for the .chat class.
     margin-left: -2px;
   }
+
+  // Don't display the faction chat by default.
+  #faction-chat {
+    display: none;
+  }
 }
