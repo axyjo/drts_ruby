@@ -6,11 +6,11 @@ Chat.init = ->
     $("#global-chat-box").append("<div class='chat-message'><strong>" + msg.user + "</strong>: " + msg.msg + "</div>")
     $("#msg").val ""
   $("#chat h1").bind "click", ->
-    $("#faction-chat").toggle()
+    $("#empire-chat").toggle()
     $("#global-chat").toggle()
 
     if $("#chat #type").val() == "global"
-      $("#chat #type").val("faction")
+      $("#chat #type").val("empire")
     else
       $("#chat #type").val("global")
 
