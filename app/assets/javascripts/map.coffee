@@ -5,6 +5,7 @@ Map.init = ->
   Map.bar.init()
   Map.events.init()
   Map.highlighter.init()
+  Map.infobox.init()
   Map.layers.init()
   Map.viewport.init()
   Map.resetZoom()
