@@ -8,6 +8,16 @@ class Coordinate < ActiveRecord::Base
     Coordinate.find_by_lng_and_lat(lng, lat)
   end
 
+  def self.mapWidth
+    # Get count for number of coordinates at a specific lat (y) value.
+    Coordinate.find(:all, :conditions => {:lat => 1}).count
+  end
+
+  def self.mapHeight
+    # Get count for number of coordinates at a specific lng (x) value.
+    Coordinate.find(:all, :conditions => {:lng => 1}).count
+  end
+
   def distanceTo(target)
     dx = toroidalMinMagnitude(target.lng, self.lng)
     dy = toroidalMinMagnitude(target.lat, self.lat)
