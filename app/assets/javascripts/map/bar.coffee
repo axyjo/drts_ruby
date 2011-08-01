@@ -23,19 +23,21 @@ Map.bar.position = (e) ->
 
   # Mod these values by the map size at the current zoom level.
   mapWidth = Map.tileSize * Map.maxTiles
-  x_val = x_val % mapWidth
-  if x_val <= 0
-    x_val += mapWidth
-  y_val = y_val % mapWidth
-  if y_val <= 0
-    y_val += mapWidth
+  x = x_val % mapWidth
+  if x <= 0
+    x += mapWidth
+  y = y_val % mapWidth
+  if y <= 0
+    y += mapWidth
 
   # Multiply x_val and y_val by a scaling factor dependent on the current zoom
   # level. Then, get the ceiling value because the possible values range from 1
   # to the game map width.
   scale = Math.pow(2, Map.zoom+3)
+  x = Math.ceil(x/scale)
+  y = Math.ceil(y/scale)
   x_val = Math.ceil(x_val/scale)
   y_val = Math.ceil(y_val/scale)
 
-  $("#map_position").html(x_val + ", " + y_val)
-  {x: x_val, y: y_val}
+  $("#map_position").html(x + ", " + y)
+  {x: x, y: y, xTor: x_val, yTor: y_val}
