@@ -6,7 +6,7 @@
     = javascript_include_tag 'application'
     = csrf_meta_tag
     %script
-      - if current_user.empire
+      - if !current_user.nil? && !current_user.empire.nil?
         :coffee
           $ ->
             Chat.empire =  #{current_user.empire_id}
