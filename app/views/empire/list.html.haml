@@ -2,6 +2,7 @@
 %div
   Empires are groups that you must join in order to make any progress in the game.
 - @empires.each do |empire|
-  %div
-    = link_to "empire/choose/#{empire.id}" do
-      = empire.name.inspect
+  -if empire.id != 255
+    %div
+      = link_to "empire/choose/#{empire.id}" do
+        = empire.name.inspect
