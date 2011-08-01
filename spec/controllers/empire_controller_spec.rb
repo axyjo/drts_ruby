@@ -8,12 +8,4 @@ describe EmpireController do
       response.should be_success
     end
   end
-
-  describe "GET 'choose'" do
-    it "should be successful" do
-      get 'choose'
-      response.should be_success
-    end
-  end
-
 end
