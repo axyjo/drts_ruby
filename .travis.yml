@@ -3,4 +3,4 @@ notifications:
   recipients:
     - joshi.a@gmail.com
     - nikhilm92@gmail.com
-script: "bundle exec rake db:drop db:create db:migrate db:seed spec"
+script: "bundle exec rake --trace db:drop db:create db:migrate db:seed spec"
