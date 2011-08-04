@@ -1,5 +1,5 @@
 DrtsRuby::Application.routes.draw do
-  get "empire/list"
+  get "empire/list", :as => "empire_list"
 
   get "empire/choose/:id" => "empire#choose"
 
