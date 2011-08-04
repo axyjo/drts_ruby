@@ -22,10 +22,9 @@ class ApplicationController < ActionController::Base
   end
 
   def check_empire
-    @modal = @modal || ""
     if current_user
       if current_user.empire.nil?
-        @modal = "/empire/list"
+        redirect empire_list_path
       end
     end
   end
