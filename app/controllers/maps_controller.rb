@@ -4,6 +4,9 @@ class MapsController < ApplicationController
   # In production, save the tiles generated.
   caches_page :tiles
 
+  # Skip checking path for tiles.
+  skip_before_filter :check_path, :only => :tiles
+
   def view
   end
 
