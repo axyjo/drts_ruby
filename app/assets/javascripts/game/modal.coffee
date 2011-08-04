@@ -6,7 +6,6 @@ Game.modal.init = ->
   $(document).keyup (e) ->
     if e.keyCode == 27
       Game.modal.hide()
-  Game.modal.fetch $("#modal").text().trim()
   if !$("#modal").is(":visible") and window.location.pathname != '/'
     Game.modal.fetch window.location.pathname
 
