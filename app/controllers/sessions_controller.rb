@@ -1,4 +1,7 @@
 class SessionsController < ApplicationController
+  skip_before_filter :check_empire
+  skip_before_filter :check_path, :only => :create
+
   def new
     render :layout => false
   end
@@ -21,6 +24,6 @@ class SessionsController < ApplicationController
   def destroy
     session[:user_id] = nil
     flash[:success] = "Logged out!"
-    render :nothing => true
+    render
   end
 end
