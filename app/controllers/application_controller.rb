@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_user
   before_filter :check_empire
+  before_filter :check_path
 
   def broadcast(channel, data)
     message = {:channel => channel, :data => data}
@@ -21,5 +22,9 @@ class ApplicationController < ActionController::Base
         @modal = "/empire/list"
       end
     end
+  end
+
+  def check_path
+    render "maps/view" if !request.xhr?
   end
 end
