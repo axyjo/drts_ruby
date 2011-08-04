@@ -10,6 +10,12 @@ class ApplicationController < ActionController::Base
     Net::HTTP.post_form(uri, :message => message.to_json)
   end
 
+  def redirect(path)
+    if request.fullpath != path
+      redirect_to path
+    end
+  end
+
   private
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
