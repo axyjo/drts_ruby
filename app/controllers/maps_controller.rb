@@ -32,30 +32,24 @@ class MapsController < ApplicationController
       # Get the tile we want.
       img_dir = Rails.root.join("app", "assets", "images", "map", params[:type], tile_x.to_s)
       path = img_dir.join(tile_y.to_s + ".png").to_s
-      tile = ChunkyPNG::Image.from_file(path)
 
-      # Don't crop if there is no difference between the chunk size and the slice size.
-      if chunk_width != slice_size and chunk_height != slice_size
-        tile.crop!(chunk_x, chunk_y, chunk_width, chunk_height)
-      end
-      tile.resample_nearest_neighbor!(tile.width * scale, tile.height * scale)
-
-      # Blur the image while scaling if ImageMagick exists on the server.
+      # Prefer using Imagemagick if it exists on the server.
       if File.exists?(Rails.configuration.game[:imageMagickPath]) && File.executable?(Rails.configuration.game[:imageMagickPath])
-        src = Tempfile.new('tile_src')
         dest = Tempfile.new('tile_dest')
-        tile.save(src.path)
 
-        blur_sigma = (Rails.configuration.game[:maxZoom] - z) * 1.5
-        options = "-resize #{tile.width * scale}x#{tile.height * scale} -blur 0x#{blur_sigma}"
-        options = "-blur 0x#{blur_sigma}"
-
-        command = "#{Rails.configuration.game[:imageMagickPath]} #{src.path} #{options} #{dest.path}"
+        blur_sigma = (Rails.configuration.game[:maxZoom] - z)*0.75
+        options = "-crop #{chunk_width}x#{chunk_height}+#{chunk_x}+#{chunk_y} +repage -scale 256x256 -blur 0x#{blur_sigma}"
+        command = "#{Rails.configuration.game[:imageMagickPath]} #{path} #{options} #{dest.path}"
         `#{command}`
 
         response = IO.read(dest.path)
-
       else
+        tile = ChunkyPNG::Image.from_file(path)
+        # Don't crop if there is no difference between the chunk size and the slice size.
+        if chunk_width != slice_size and chunk_height != slice_size
+          tile.crop!(chunk_x, chunk_y, chunk_width, chunk_height)
+        end
+        tile.resample_nearest_neighbor!(tile.width * scale, tile.height * scale)
         response = tile.to_blob
       end
 
