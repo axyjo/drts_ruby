@@ -40,7 +40,26 @@ class MapsController < ApplicationController
       end
       tile.resample_nearest_neighbor!(tile.width * scale, tile.height * scale)
 
-      send_data tile.to_blob, :type =>'image/png', :disposition => 'inline'
+      # Blur the image while scaling if ImageMagick exists on the server.
+      if File.exists?(Rails.configuration.game[:imageMagickPath]) && File.executable?(Rails.configuration.game[:imageMagickPath])
+        src = Tempfile.new('tile_src')
+        dest = Tempfile.new('tile_dest')
+        tile.save(src.path)
+
+        blur_sigma = (Rails.configuration.game[:maxZoom] - z) * 1.5
+        options = "-resize #{tile.width * scale}x#{tile.height * scale} -blur 0x#{blur_sigma}"
+        options = "-blur 0x#{blur_sigma}"
+
+        command = "#{Rails.configuration.game[:imageMagickPath]} #{src.path} #{options} #{dest.path}"
+        `#{command}`
+
+        response = IO.read(dest.path)
+
+      else
+        response = tile.to_blob
+      end
+
+      send_data response, :type =>'image/png', :disposition => 'inline'
     end
   end
 end
