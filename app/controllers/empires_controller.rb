@@ -1,4 +1,4 @@
-class EmpireController < ApplicationController
+class EmpiresController < ApplicationController
   def list
     @empires = Empire.find(:all)
     render :layout => false
