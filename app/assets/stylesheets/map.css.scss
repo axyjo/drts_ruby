@@ -47,7 +47,7 @@ $tile_size: 256px;
   }
 }
 
-.map_control_zoom {
+.map_control_zoom, .map_control_bartoggle {
   @include border-radius(7px);
   padding: 5px;
   background: rgba(0, 0, 0, 0.25);

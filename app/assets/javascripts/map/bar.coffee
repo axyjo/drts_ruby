@@ -2,10 +2,13 @@ Map.bar = Map.bar || {}
 
 Map.bar.init = ->
   Map.bar._ = $ "#map_bar"
+  Map.bar.icon = $(".map_control_bartoggle").find "a.iconic"
 
 Map.bar.toggle = ->
   Map.bar._.fadeToggle ->
     Map._.width $(window).width()-Map.bar.width()
+    Map.bar.icon.toggleClass "fullscreen"
+    Map.bar.icon.toggleClass "exit-fullscreen"
 
 Map.bar.width = ->
   if Map.bar._.is ':visible'

@@ -32,6 +32,8 @@ Map.events.init = ->
     Map.zoomIn()
   $(".map_control_zoom").find("a.minus").click ->
     Map.zoomOut()
+  $(".map_control_bartoggle").find("a").click ->
+    Map.bar.toggle()
 
 Map.events.click = (e) ->
   Map.bar.position(e)
