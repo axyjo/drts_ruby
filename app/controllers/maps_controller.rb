@@ -37,7 +37,7 @@ class MapsController < ApplicationController
       if File.exists?(Rails.configuration.game[:imageMagickPath]) && File.executable?(Rails.configuration.game[:imageMagickPath])
         dest = Tempfile.new('tile_dest')
 
-        blur_sigma = (Rails.configuration.game[:maxZoom] - z)*0.75
+        blur_sigma = (Rails.configuration.game[:maxZoom] - z)*0.6
         options = "-crop #{chunk_width}x#{chunk_height}+#{chunk_x}+#{chunk_y} +repage -scale 256x256 -blur 0x#{blur_sigma}"
         command = "#{Rails.configuration.game[:imageMagickPath]} #{path} #{options} #{dest.path}"
         `#{command}`
