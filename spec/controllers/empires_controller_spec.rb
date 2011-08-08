@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe EmpireController do
+describe EmpiresController do
 
   describe "GET 'list'" do
     it "should be successful" do
