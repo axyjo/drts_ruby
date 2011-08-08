@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   def check_empire
     if current_user
       if current_user.empire.nil?
-        redirect empire_list_path
+        redirect empires_list_path
       end
     end
   end
