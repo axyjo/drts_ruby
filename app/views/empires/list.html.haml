@@ -4,5 +4,5 @@
 - @empires.each do |empire|
   -if empire.id != 255
     %div
-      = link_to "empires/choose/#{empire.id}" do
+      = link_to empires_choose_path(empire.id) do
         = empire.name.inspect
