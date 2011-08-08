@@ -1,4 +1,6 @@
 class EmpiresController < ApplicationController
+  skip_before_filter :check_empire, :only => :choose
+
   def list
     @empires = Empire.find(:all)
     render :layout => false
@@ -20,5 +22,4 @@ class EmpiresController < ApplicationController
     end
     redirect_to root_url
   end
-
 end
