@@ -24,4 +24,6 @@ Map.infobox.trigger = (x, y) ->
     url: "http://" + document.location.host + "/coordinates/" + x + "/" + y
     success: (data) ->
       Map.infobox._.html data
+      Map.infobox._.offset {left: Map.highlighter.reposition(pos.xTor) + Map.viewport.left(), top: Map.highlighter.reposition(pos.yTor) + Map.viewport.top()}
+      Map.infobox._.fadeIn 'fast'
   )
