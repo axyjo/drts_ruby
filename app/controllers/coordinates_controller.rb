@@ -6,6 +6,6 @@ class CoordinatesController < ApplicationController
       raise ActionController::RoutingError.new('Not Found')
     end
     @test = "blah"
-    render
+    render :partial => "info"
   end
 end

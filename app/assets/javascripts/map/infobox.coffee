@@ -23,5 +23,5 @@ Map.infobox.trigger = (x, y) ->
     type: "GET"
     url: "http://" + document.location.host + "/coordinates/" + x + "/" + y
     success: (data) ->
-      Map.infobox._.html "called at " + x + ", " + y
+      Map.infobox._.html data
   )
