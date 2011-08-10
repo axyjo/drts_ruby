@@ -103,3 +103,9 @@ $tile_size: 256px;
 #map_highlight {
   position: absolute;
 }
+
+#map_infobox {
+  position: absolute;
+  border: 1px #000 solid;
+  background-color: #fff;
+}
