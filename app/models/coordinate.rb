@@ -1,6 +1,6 @@
 class Coordinate < ActiveRecord::Base
   belongs_to :province
-  has_one :terrain
+  belongs_to :terrain
 
   def self.lnglat(lng, lat)
     lng = (lng-1).modulo(128) + 1
