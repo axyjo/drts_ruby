@@ -5,7 +5,13 @@ class CoordinatesController < ApplicationController
     if x < 1 || y < 1 || x > Rails.configuration.game[:gameSize] || y > Rails.configuration.game[:gameSize]
       raise ActionController::RoutingError.new('Not Found')
     end
-    @test = "blah"
+
+    coord = Coordinate.lnglat(x, y)
+    puts coord.terrain_id
+
+    @x = x.to_s
+    @y = y.to_s
+    @terrain = Terrain.find(coord.terrain_id)
     render :partial => "info"
   end
 end
