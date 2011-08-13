@@ -33,12 +33,11 @@ class MapsController < ApplicationController
       img_dir = Rails.root.join("app", "assets", "images", "map", params[:type], tile_x.to_s)
       path = img_dir.join(tile_y.to_s + ".png").to_s
 
-      # Prefer using Imagemagick if it exists on the server.
+      # Prefer using Imagemagick if it exists on the server. It's faster.
       if File.exists?(Rails.configuration.game[:imageMagickPath]) && File.executable?(Rails.configuration.game[:imageMagickPath])
         dest = Tempfile.new('tile_dest')
 
-        blur_sigma = (Rails.configuration.game[:maxZoom] - z)*0.6
-        options = "-crop #{chunk_width}x#{chunk_height}+#{chunk_x}+#{chunk_y} +repage -scale 256x256 -blur 0x#{blur_sigma}"
+        options = "-crop #{chunk_width}x#{chunk_height}+#{chunk_x}+#{chunk_y} +repage -scale 256x256"
         command = "#{Rails.configuration.game[:imageMagickPath]} #{path} #{options} #{dest.path}"
         `#{command}`
 
