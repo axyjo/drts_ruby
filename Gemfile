@@ -1,15 +1,13 @@
 source 'http://rubygems.org'
 
-#gem 'rails', '3.1.0.rc5'
-#
-# Use the stable 3.1 branch.
-gem 'rails', :git => 'git://github.com/rails/rails.git', :branch => '3-1-stable'
+# Use the 3.1.3 release of Rails.
+gem 'rails', '3.1.3'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 # Asset template engines
-gem 'sass-rails', :git => 'https://github.com/rails/sass-rails.git', :branch => '3-1-stable'
+gem 'sass-rails'
 gem 'coffee-script'
 gem 'uglifier'
 
@@ -19,7 +17,7 @@ gem 'jquery-rails'
 gem 'haml'
 
 # Add compass for CSS
-gem 'compass', :git => 'https://github.com/chriseppstein/compass.git', :branch => 'rails31'
+gem 'compass', :git => 'https://github.com/chriseppstein/compass.git'
 
 # Use chunky_png/oily_png for tile generation.
 gem 'oily_png'
