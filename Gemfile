@@ -17,7 +17,7 @@ gem 'jquery-rails'
 gem 'haml'
 
 # Add compass for CSS
-gem 'compass'
+gem 'compass', '~>0.12.alpha'
 
 # Use bcrypt-ruby for password hashing.
 gem 'bcrypt-ruby'
