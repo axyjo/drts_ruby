@@ -1,12 +1,3 @@
-GIT
-  remote: https://github.com/chriseppstein/compass.git
-  revision: 79d94647f9a00b06c4a83db02e86f5d404569baf
-  specs:
-    compass (0.12.alpha.1.79d9464)
-      chunky_png (~> 1.2)
-      fssm (>= 0.2.7)
-      sass (~> 3.1)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -54,6 +45,10 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.1.3)
+    compass (0.11.5)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
     diff-lcs (1.1.3)
     erubis (2.7.0)
     execjs (1.2.9)
@@ -211,7 +206,7 @@ PLATFORMS
 DEPENDENCIES
   capybara
   coffee-script
-  compass!
+  compass
   factory_girl_rails
   guard-rspec
   haml

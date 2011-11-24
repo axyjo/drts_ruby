@@ -17,7 +17,7 @@ gem 'jquery-rails'
 gem 'haml'
 
 # Add compass for CSS
-gem 'compass', :git => 'https://github.com/chriseppstein/compass.git'
+gem 'compass'
 
 # Use chunky_png/oily_png for tile generation.
 gem 'oily_png'
