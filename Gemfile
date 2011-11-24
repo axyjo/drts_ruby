@@ -19,6 +19,9 @@ gem 'haml'
 # Add compass for CSS
 gem 'compass'
 
+# Use bcrypt-ruby for password hashing.
+gem 'bcrypt-ruby'
+
 # Use chunky_png/oily_png for tile generation.
 gem 'oily_png'
 
