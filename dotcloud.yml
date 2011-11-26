@@ -9,5 +9,7 @@ node:
   approot: node
   requirements:
    - faye
+   - temp
+   - imagemagick
 db:
   type: mysql
