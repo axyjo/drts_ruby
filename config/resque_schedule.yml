@@ -1,5 +1,0 @@
-economy:
-  cron: "0 0 * * * "
-  class: Economy
-  args:
-  description: "Update the economy"

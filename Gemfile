@@ -35,11 +35,6 @@ group :production do
   # Use therubyracer as our V8 engine (especially on Dotcloud)
   gem 'therubyracer'
 
-  # Use resque for queues
-  gem 'resque', :require => "resque/server"
-  gem 'resque-retry'
-  gem 'resque-scheduler'
-
   # Use the mysql2 gem for the DB.
   gem 'mysql2'
 end

@@ -4,11 +4,6 @@ www:
   config:
     ruby-version: 1.9.2
     rack-env: production
-queue:
-  type: redis
-resque:
-  type: ruby-worker
-  instances: 1
 node:
   type: nodejs
   approot: node
