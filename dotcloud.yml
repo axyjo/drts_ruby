@@ -7,5 +7,8 @@ www:
 node:
   type: nodejs
   approot: node
+  requirements:
+   - faye
+   - canvas
 db:
   type: mysql

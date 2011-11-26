@@ -1,6 +1,6 @@
 var http = require('http'),
     fs   = require('fs'),
-    faye = require('./faye');
+    faye = require('faye');
 
 var bayeux = new faye.NodeAdapter({
     mount:    '/faye',
