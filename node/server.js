@@ -42,11 +42,11 @@ var server = http.createServer(function(req, res) {
 
         var imgPath = require('path').join(type, tileX, tileY) + '.png';
         var crop = chunkWidth +'x'+ chunkHeight +'+'+ chunkX +'+'+ chunkY;
-        var options = ['-crop', crop, '+repage', '-scale', '256x256', '-'];
+        var op = [imgPath, '-crop', crop, '+repage', '-scale', '256x256', '-'];
 
         require('path').exists(imgPath, function(exists) {
           if(exists) {
-            im.convert(options, function(err, stdout) {
+            im.convert(op, function(err, stdout) {
               if(err) throw err;
               res.writeHead(200, {
                 'Content-Type': 'image/png',
