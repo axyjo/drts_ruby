@@ -1,5 +1,6 @@
 var http = require('http'),
     fs   = require('fs'),
+    cache= require('./cache');
     im   = require('imagemagick'),
     faye = require('faye');
 
@@ -41,23 +42,31 @@ var server = http.createServer(function(req, res) {
         var chunkY = (y % chunkCount) * chunkHeight;
 
         var imgPath = require('path').join(type, tileX, tileY) + '.png';
-        var crop = chunkWidth +'x'+ chunkHeight +'+'+ chunkX +'+'+ chunkY;
-        var op = [imgPath, '-crop', crop, '+repage', '-scale', '256x256', '-'];
-
-        require('path').exists(imgPath, function(exists) {
-          if(exists) {
-            im.convert(op, function(err, stdout) {
-              if(err) throw err;
-              res.writeHead(200, {
-                'Content-Type': 'image/png',
-                'Content-Length': stdout.length
+        if(val = cache.get(imgPath)) {
+          res.writeHead(200, {
+            'Content-Type': 'image/png',
+            'Content-Length': val.length
+          });
+          res.end(val, 'binary');
+        } else {
+          require('path').exists(imgPath, function(exists) {
+            if(exists) {
+              var crop = chunkWidth +'x'+ chunkHeight +'+'+ chunkX +'+'+ chunkY;
+              var op = [imgPath, '-crop', crop, '+repage', '-scale', '256x256', '-'];
+              im.convert(op, function(err, stdout) {
+                if(err) throw err;
+                cache.put(imgPath, stdout, 300*1000);
+                res.writeHead(200, {
+                  'Content-Type': 'image/png',
+                  'Content-Length': stdout.length
+                });
+                res.end(stdout, 'binary');
               });
-              res.end(stdout, 'binary');
-            });
-          } else {
-            throw new Error('imgPath does not exist: '+imgPath);
-          }
-        });
+            } else {
+              throw new Error('imgPath does not exist: '+imgPath);
+            }
+          });
+        }
       } else {
         throw new Error('Zoom-level is out of bounds.');
       }
