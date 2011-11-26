@@ -41,7 +41,7 @@ var server = http.createServer(function(req, res) {
 
         var imgPath = require('path').join(type, x, y) + '.png';
         var options = ' -crop ' + chunkWidth + 'x' + chunkHeight;
-        options += '+' + chunkX + '+' + chunk + ' +repage -scale 256x256';
+        options += '+' + chunkX + '+' + chunkY + ' +repage -scale 256x256';
         options += ' png:-';
 
         require('path').exists(imgPath, function(exists) {
