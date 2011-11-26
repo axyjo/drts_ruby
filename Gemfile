@@ -22,9 +22,6 @@ gem 'compass', '~>0.12.alpha'
 # Use bcrypt-ruby for password hashing.
 gem 'bcrypt-ruby'
 
-# Use chunky_png/oily_png for tile generation.
-gem 'oily_png'
-
 # Use rails_code_qa for test coverage reports.
 gem 'rails_code_qa'
 
