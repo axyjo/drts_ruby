@@ -12,15 +12,15 @@ var server = http.createServer(function(req, res) {
   var segments = require('url').parse(req.url).pathname;
   segments = segments.split('/');
 
-  if(segments.length == 5) {
+  if(segments.length == 6 && segments[1] == 'tiles') {
     var maxZoom = 3;
     var sliceSize = 2048;
     // We're dealing with tiles.
     try {
-      var type = segments[1];
-      var z    = parseInt(segments[2]);
-      var x    = parseInt(segments[3]);
-      var y    = parseInt(segments[4]);
+      var type = segments[2];
+      var z    = parseInt(segments[3]);
+      var x    = parseInt(segments[4]);
+      var y    = parseInt(segments[5]);
 
       // Check if directory exists.
       var dir = fs.lstatSync(type);
@@ -66,8 +66,6 @@ var server = http.createServer(function(req, res) {
       res.end(e.message);
     }
   }
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end("Leave me alone!");
 });
 
 bayeux.attach(server);
