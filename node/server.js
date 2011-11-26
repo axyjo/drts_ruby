@@ -39,8 +39,22 @@ var server = http.createServer(function(req, res) {
         var chunkX = (x % chunkCount) * chunkWidth;
         var chunkY = (y % chunkCount) * chunkHeight;
 
-        res.writeHead(200, {'Content-Type': 'image/png'});
-        res.end('Hello World\n');
+        var imgPath = require('path').join(type, x, y) + '.png';
+        var options = ' -crop ' + chunkWidth + 'x' + chunkHeight;
+        options += '+' + chunkX + '+' + chunk + ' +repage -scale 256x256';
+        options += ' png:-';
+
+        require('path').exists(imgPath, function(exists) {
+          if(exists) {
+            child = exec('convert ' + imgPath + options,
+            function(error, stdout, stderr) {
+              res.writeHead(200, {'Content-Type': 'image/png'});
+              res.end(stdout);
+            });
+          } else {
+            throw new Error('imgPath does not exist: '+imgPath);
+          }
+        });
       } else {
         throw new Error('Zoom-level is out of bounds.');
       }

@@ -9,6 +9,5 @@ node:
   approot: node
   requirements:
    - faye
-   - canvas
 db:
   type: mysql
