@@ -42,13 +42,17 @@ var server = http.createServer(function(req, res) {
 
         var imgPath = require('path').join(type, tileX, tileY) + '.png';
         var crop = chunkWidth +'x'+ chunkHeight +'+'+ chunkX +'+'+ chunkY;
-        var options = ['-crop', crop, '+repage', '-scale', '256x256', 'png:-'];
+        var options = ['-crop', crop, '+repage', '-scale', '256x256', '-'];
 
         require('path').exists(imgPath, function(exists) {
           if(exists) {
-            res.writeHead(200, {'Content-Type': 'image/png'});
             im.convert(options, function(err, stdout) {
-              res.end(stdout);
+              if(err) throw err;
+              res.writeHead(200, {
+                'Content-Type': 'image/png',
+                'Content-Length': stdout.length
+              });
+              res.end(stdout, 'binary');
             });
           } else {
             throw new Error('imgPath does not exist: '+imgPath);
