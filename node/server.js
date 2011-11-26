@@ -1,5 +1,6 @@
 var http = require('http'),
     fs   = require('fs'),
+    im   = require('imagemagick'),
     faye = require('faye');
 
 var bayeux = new faye.NodeAdapter({
@@ -40,21 +41,15 @@ var server = http.createServer(function(req, res) {
         var chunkY = (y % chunkCount) * chunkHeight;
 
         var imgPath = require('path').join(type, tileX, tileY) + '.png';
-        var options = ' -crop ' + chunkWidth + 'x' + chunkHeight;
-        options += '+' + chunkX + '+' + chunkY + ' +repage -scale 256x256';
-        options += ' png:-';
+        var crop = chunkWidth + 'x' + chunkHeight + '+' chunkX + '+' + chunkY;
+        var options = ['-crop', crop, '+repage', '-scale', '256x256', 'png:-'];
 
         require('path').exists(imgPath, function(exists) {
           if(exists) {
-            var child = require('child_process');
-            var imgSpawn = child.spawn('convert', [imgPath + options]);
             res.writeHead(200, {'Content-Type': 'image/png'});
-            imgSpawn.stdout.on('data', function(data) {
-              res.write(data);
-            }
-            imgSpawn.on('exit', function() {
-              res.end();
-            }
+            im.convert(options, function(err, stdout) {
+              res.end(stdout);
+            });
           } else {
             throw new Error('imgPath does not exist: '+imgPath);
           }
