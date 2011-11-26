@@ -73,10 +73,6 @@ DrtsRuby::Application.routes.draw do
   resources :users
   resources :sessions
 
-  if Rails.env.production?
-    mount Resque::Server, :at => "/resque"
-  end
-
   root :to => "maps#view"
 
 end
