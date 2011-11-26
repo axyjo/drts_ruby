@@ -41,8 +41,10 @@ var server = http.createServer(function(req, res) {
         var chunkX = (x % chunkCount) * chunkWidth;
         var chunkY = (y % chunkCount) * chunkHeight;
 
+
+        var tileID = require('path').join(type, z, x, y);
         var imgPath = require('path').join(type, tileX, tileY) + '.png';
-        if(val = cache.get(imgPath)) {
+        if(val = cache.get(tileID)) {
           res.writeHead(200, {
             'Content-Type': 'image/png',
             'Content-Length': val.length
@@ -55,7 +57,7 @@ var server = http.createServer(function(req, res) {
               var op = [imgPath, '-crop', crop, '+repage', '-scale', '256x256', '-'];
               im.convert(op, function(err, stdout) {
                 if(err) throw err;
-                cache.put(imgPath, stdout, 300*1000);
+                cache.put(tileID, stdout, 300*1000);
                 res.writeHead(200, {
                   'Content-Type': 'image/png',
                   'Content-Length': stdout.length
