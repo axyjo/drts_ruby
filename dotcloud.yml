@@ -9,8 +9,8 @@ queue:
 resque:
   type: ruby-worker
   instances: 1
-faye-node:
+node:
   type: nodejs
-  approot: faye
+  approot: node
 db:
   type: mysql
