@@ -42,7 +42,7 @@ var server = http.createServer(function(req, res) {
         var chunkY = (y % chunkCount) * chunkHeight;
 
 
-        var tileID = require('path').join(type, z, x, y);
+        var tileID = type + '-' + z + '-' + x + '-' + y;
         var imgPath = require('path').join(type, tileX, tileY) + '.png';
         if(val = cache.get(tileID)) {
           res.writeHead(200, {
