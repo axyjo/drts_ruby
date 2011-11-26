@@ -30,8 +30,8 @@ var server = http.createServer(function(req, res) {
         var chunkCount = Math.pow(2, z);
 
         // Calculate which pre-cut tile will contain what we want.
-        var tileY = Math.floor(x/chunkCount);
-        var tileY = Math.floor(y/chunkCount);
+        var tileX = Math.floor(x/chunkCount).toString();
+        var tileY = Math.floor(y/chunkCount).toString();
 
         // Calculate how much of the pre-cut tile we want.
         var chunkWidth = sliceSize/chunkCount;
@@ -39,18 +39,22 @@ var server = http.createServer(function(req, res) {
         var chunkX = (x % chunkCount) * chunkWidth;
         var chunkY = (y % chunkCount) * chunkHeight;
 
-        var imgPath = require('path').join(type, x, y) + '.png';
+        var imgPath = require('path').join(type, tileX, tileY) + '.png';
         var options = ' -crop ' + chunkWidth + 'x' + chunkHeight;
         options += '+' + chunkX + '+' + chunkY + ' +repage -scale 256x256';
         options += ' png:-';
 
         require('path').exists(imgPath, function(exists) {
           if(exists) {
-            var child = exec('convert ' + imgPath + options,
-            function(error, stdout, stderr) {
-              res.writeHead(200, {'Content-Type': 'image/png'});
-              res.end(stdout);
-            });
+            var child = require('child_process');
+            var imgSpawn = child.spawn('convert', [imgPath + options]);
+            res.writeHead(200, {'Content-Type': 'image/png'});
+            imgSpawn.stdout.on('data', function(data) {
+              res.write(data);
+            }
+            imgSpawn.on('exit', function() {
+              res.end();
+            }
           } else {
             throw new Error('imgPath does not exist: '+imgPath);
           }
