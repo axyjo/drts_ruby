@@ -1,6 +1,6 @@
 www:
   type: ruby
-  instances: 2
+  instances: 1
   config:
     ruby-version: 1.9.2
     rack-env: production
