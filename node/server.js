@@ -46,7 +46,7 @@ var server = http.createServer(function(req, res) {
 
         require('path').exists(imgPath, function(exists) {
           if(exists) {
-            child = exec('convert ' + imgPath + options,
+            var child = exec('convert ' + imgPath + options,
             function(error, stdout, stderr) {
               res.writeHead(200, {'Content-Type': 'image/png'});
               res.end(stdout);
