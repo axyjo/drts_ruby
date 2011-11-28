@@ -70,4 +70,4 @@ Map.events.resize = ->
   Map._.height $(window).height() - Game.navbar.height()
   Map._.offset {top: Game.navbar.height()}
   Map.bar._.height Map._.height()
-  Map.bar._.offset {top: Game.navbar.height(), left: $(window).width() - Map.bar.width()}
+  Map.bar._.offset {top: Game.navbar.height(), left: Map._.width()}
