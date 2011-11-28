@@ -8,6 +8,8 @@ Map.drag.start = (e) ->
   # used to change the offset of the viewport.
   this.dragging = true
 
+  Map.infobox._.trigger "mapdragstart"
+
 Map.drag.move = (e) ->
   # Caculate change in position. e.client[X,Y] are the current positions while
   # this.dragStart[Left,Top] are the initial positions.
@@ -25,3 +27,5 @@ Map.drag.end = ->
   this.dragging = false
   # Check layers for newly loaded tiles.
   Map.layers.checkAll()
+
+  Map.infobox._.trigger "mapdragend"

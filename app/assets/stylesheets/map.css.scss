@@ -117,4 +117,15 @@ $tile_size: 256px;
   position: absolute;
   border: 1px #000 solid;
   background-color: #fff;
+  @include experimental("transition", opacity 0.2s ease-in-out);
+}
+
+.map_infobox_visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.map_infobox_invisible {
+  visibility: hidden;
+  opacity: 0;
 }
