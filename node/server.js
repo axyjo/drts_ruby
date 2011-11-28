@@ -76,6 +76,9 @@ var server = http.createServer(function(req, res) {
       res.writeHead(500, {'Content-Type': 'text/plain'});
       res.end(e.message);
     }
+  } else {
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.end("Hello, world! Welcome to <strong>zeus</strong>.");
   }
 });
 
