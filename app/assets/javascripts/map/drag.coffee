@@ -18,6 +18,9 @@ Map.drag.move = (e) ->
   this.dragStartLeft = e.clientX
   this.dragStartTop = e.clientY
 
+  #Check layers for newly loaded tiles.
+  Map.layers.checkAll()
+
 Map.drag.end = ->
   this.dragging = false
   # Check layers for newly loaded tiles.
