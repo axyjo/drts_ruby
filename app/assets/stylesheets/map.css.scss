@@ -6,6 +6,7 @@ $tile_size: 256px;
 
 .map_container {
   overflow: hidden;
+  background-color: #666;
 }
 
 .map_control {
@@ -98,6 +99,14 @@ $tile_size: 256px;
   width: $tile_size;
   height: $tile_size;
   position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  @include experimental("transition", opacity 0.2s linear);
+}
+
+.map_tiles_loaded {
+  visibility: visible;
+  opacity: 1;
 }
 
 #map_highlight {

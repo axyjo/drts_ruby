@@ -26,6 +26,8 @@ Map.layers.getTileHTML = (tile) ->
   img.attr "id", tile.id
   img.attr "src", "http://webapp-axyjo.dotcloud.com/tiles/" + tile_path
   img.offset {top: tile.y * Map.tileSize, left: tile.x * Map.tileSize}
+  img.bind "load", ->
+    $(this).addClass "map_tiles_loaded"
   img
 
 Map.layers.check = (type) ->
