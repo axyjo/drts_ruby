@@ -29,23 +29,34 @@ Map.layers.getTileHTML = (tile) ->
   img
 
 Map.layers.check = (type) ->
-  visibleTiles = Map.layers.getVisibleTiles()
-  for t in visibleTiles
+  visibleTiles = Map.layers.getTiles(type)
+  $("#"+type+"_tiles").children().each (i, e) ->
+    if(typeof visibleTiles[$(this).attr('id')] != "undefined")
+      delete visibleTiles[$(this).attr('id')]
+    else
+      $(e).remove()
+  for k,v of visibleTiles
     do ->
-      tile =
-        id: type + '-' + t.x + '-' + t.y + '-' + Map.zoom
-        x: t.x
-        y: t.y
-        z: Map.zoom
-        type: type
-      $("#" + tile.id).remove()
-      Map.viewport._.find("#"+type+"_tiles").append Map.layers.getTileHTML tile
-  $(window).triggerHandler 'resize'
+      Map.viewport._.find("#"+type+"_tiles").append Map.layers.getTileHTML v
 
 Map.layers.clear = (type) ->
   Map.viewport._.find("#"+type+"_tiles").empty()
 
-Map.layers.getVisibleTiles = ->
+Map.layers.getTiles = (type) ->
+  visibleTiles = {}
+  coords = Map.layers.getVisibleCoords()
+  for c in coords
+    do ->
+      tile =
+        id: type + '-' + c.x + '-' + c.y + '-' + Map.zoom
+        x: c.x
+        y: c.y
+        z: Map.zoom
+        type: type
+      visibleTiles[tile.id] = tile
+  visibleTiles
+
+Map.layers.getVisibleCoords = ->
   # Get the offset for the top left position, accounting for other elements on
   # the page.
   realViewportLeft = Map._.offset().left - Map.viewport.left()
@@ -67,12 +78,12 @@ Map.layers.getVisibleTiles = ->
   endY = startY + tilesY
 
   # Generate the list of visible tiles based on the above variables.
-  visibleTiles = []
+  visibleCoords = []
   counter = 0
   for x in [startX..endX]
     do ->
       for y in [startY..endY]
         do ->
           tile = x: x, y: y
-          visibleTiles[counter++] = tile
-  visibleTiles
+          visibleCoords[counter++] = tile
+  visibleCoords
