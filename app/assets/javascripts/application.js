@@ -7,6 +7,8 @@
 //= require jquery
 //= require faye
 //= require jquery_ujs
+// Game objects:
+//= require obj/point
 // Game Coffeescript files:
 //= require chat
 //
