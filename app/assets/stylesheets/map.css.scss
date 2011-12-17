@@ -60,6 +60,11 @@ $tile_size: 256px;
   display: none;
 }
 
+.map_control, .iconic {
+  padding-left:2px;
+  padding-top:2px;
+}
+
 .map_control_zoom, .map_control_bartoggle {
   @include border-radius(7px);
   padding: 5px;
