@@ -14,55 +14,59 @@ var server = http.createServer(function(req, res) {
   segments = segments.split('/');
 
   if(segments.length == 6 && segments[1] == 'tiles') {
-    var maxZoom = 3;
-    var sliceSize = 2048;
     // We're dealing with tiles.
     try {
       var type = segments[2];
       var z    = parseInt(segments[3]);
       var x    = parseInt(segments[4]);
       var y    = parseInt(segments[5]);
+      var tileID = type + '-' + z + '-' + x + '-' + y;
 
       // Check if directory exists.
       var dir = fs.lstatSync(type);
 
+      var maxZoom = 3;
+      var sliceSize = 2048;
       if(z >= 0 && z <= maxZoom) {
-        var scale = Math.pow(2, z-maxZoom);
-        // Chunk count is the number of chunks in the tile at the current zoom.
-        var chunkCount = Math.pow(2, z);
-
-        // Calculate which pre-cut tile will contain what we want.
-        var tileX = Math.floor(x/chunkCount).toString();
-        var tileY = Math.floor(y/chunkCount).toString();
-
-        // Calculate how much of the pre-cut tile we want.
-        var chunkWidth = sliceSize/chunkCount;
-        var chunkHeight = sliceSize/chunkCount;
-        var chunkX = (x % chunkCount) * chunkWidth;
-        var chunkY = (y % chunkCount) * chunkHeight;
-
-
-        var tileID = type + '-' + z + '-' + x + '-' + y;
-        var imgPath = require('path').join(type, tileX, tileY) + '.png';
         if(val = cache.get(tileID)) {
           res.writeHead(200, {
             'Content-Type': 'image/png',
             'Content-Length': val.length
           });
           res.end(val, 'binary');
-        } else {
+        }
+        var TTL = cache.getTTL(tileID);
+        if(isNaN(TTL) || TTL < 60*1000 || !val) {
+          var scale = Math.pow(2, z-maxZoom);
+
+          // The number of chunks in the tile at the current zoom.
+          var chunkCount = Math.pow(2, z);
+
+          // Calculate which pre-cut tile will contain what we want.
+          var tileX = Math.floor(x/chunkCount).toString();
+          var tileY = Math.floor(y/chunkCount).toString();
+
+          // Calculate how much of the pre-cut tile we want.
+          var chunkWidth = sliceSize/chunkCount;
+          var chunkHeight = sliceSize/chunkCount;
+          var chunkX = (x % chunkCount) * chunkWidth;
+          var chunkY = (y % chunkCount) * chunkHeight;
+
+          var imgPath = require('path').join(type, tileX, tileY) + '.png';
           require('path').exists(imgPath, function(exists) {
             if(exists) {
               var crop = chunkWidth +'x'+ chunkHeight +'+'+ chunkX +'+'+ chunkY;
               var op = [imgPath, '-crop', crop, '+repage', '-scale', '256x256', '-'];
               im.convert(op, function(err, stdout) {
                 if(err) throw err;
-                cache.put(tileID, stdout, 300*1000);
-                res.writeHead(200, {
-                  'Content-Type': 'image/png',
-                  'Content-Length': stdout.length
-                });
-                res.end(stdout, 'binary');
+                cache.put(tileID, stdout, 5*60*1000);
+                if(isNaN(TTL) || !val) {
+                  res.writeHead(200, {
+                    'Content-Type': 'image/png',
+                    'Content-Length': stdout.length
+                  });
+                  res.end(stdout, 'binary');
+                }
               });
             } else {
               throw new Error('imgPath does not exist: '+imgPath);

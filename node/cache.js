@@ -32,3 +32,14 @@ exports.get = function(key) {
   return null;
 }
 
+exports.getTTL = function(key) {
+  var data = cache[key];
+  if(typeof data != "undefined") {
+    if(isNaN(data.expire) || data.expire >= now()) {
+      return data.expire - now();
+    } else {
+      exports.del(key);
+    }
+  }
+  return null;
+}
