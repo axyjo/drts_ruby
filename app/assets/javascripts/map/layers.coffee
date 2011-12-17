@@ -1,15 +1,38 @@
 Map.layers = Map.layers || {}
 
 Map.layers.init = ->
-  Map.layers.tilesets = ["base"]
-  for tileset in Map.layers.tilesets
+  Map.layers.tilesets =
+    base:
+      attribution: ["Akshay Joshi", "Nikhil Mahajan"]
+      year: 2007
+  Map.layers.attribution this.tilesets
+  for tileset, data of this.tilesets
     $(".tile_pane").append("<div id='" + tileset + "_tiles'></div>")
 
+Map.layers.attribution = (tilesets) ->
+  div = $ ".map_attribution"
+  div.empty()
+  year = (new Date()).getFullYear()
+  for tileset, data of tilesets
+    str = " &copy; " + data.year + " - " + year + " "
+    arr = data.attribution
+    while arr.length isnt 0
+      name = arr.shift()
+      if arr.length is 1
+        name += " and "
+      else if  arr.length > 1
+        name += ", "
+      str += name
+    str += "."
+    div.append str
+  div.append " All rights reserved. Iconic icon set by P.J. Onori."
+  div.show()
+
 Map.layers.checkAll = ->
-  Map.layers.check tileset for tileset in Map.layers.tilesets
+  Map.layers.check tileset for tileset, data of this.tilesets
 
 Map.layers.clearAll = ->
-  Map.layers.clear tileset for tileset in Map.layers.tilesets
+  Map.layers.clear tileset for tileset, data of this.tilesets
 
 Map.layers.getTileHTML = (tile) ->
   # Calculate which tile we really want to load from the server.

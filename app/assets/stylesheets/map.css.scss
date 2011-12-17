@@ -48,6 +48,18 @@ $tile_size: 256px;
   }
 }
 
+.map_attribution {
+  background-color: #000;
+  font: normal 12px/18px Verdana, sans-serif;
+  opacity: 0.70;
+  color: #ccc;
+  padding-top: 2px;
+  padding-right: 2px;
+  padding-bottom: 3px;
+  padding-left: 2px;
+  display: none;
+}
+
 .map_control_zoom, .map_control_bartoggle {
   @include border-radius(7px);
   padding: 5px;
