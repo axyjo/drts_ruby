@@ -56,7 +56,7 @@ exports.getTTL = function(key) {
 setInterval(function() {
   var tot = hit_count + miss_count;
   if(tot == 0) {
-    tot = 1
+    tot = 1;
   }
 
   var client = db.createClient({
