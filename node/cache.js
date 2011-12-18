@@ -70,9 +70,9 @@ setInterval(function(tch, tcm) {
   var h = tch/tot*100;
   var m = tcm/tot*100;
 
-  client.query('INSERT INTO ' + table + ' SET timestamp = NOW(), metric = ? ' +
+  client.query('INSERT INTO ' + table + ' SET timestamp = NOW(), metric = ?,' +
     'description = ?, value = ?', ['tile_cache_hit_rate', 'in percent', h]);
-  client.query('INSERT INTO ' + table + ' SET timestamp = NOW(), metric = ? ' +
+  client.query('INSERT INTO ' + table + ' SET timestamp = NOW(), metric = ?,' +
     'description = ?, value = ?', ['tile_cache_miss_rate', 'in percent', m]);
 
   hit_count = 0;
