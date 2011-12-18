@@ -62,7 +62,6 @@ DrtsRuby::Application.routes.draw do
   # match ':controller(/:action(/:id(.:format)))'
 
   get "maps/view"
-  match "/tiles/:type/:z/:x/:y" => "maps#tiles", :as => :tiles
 
   match "/chat/send" => "chats#new"
 
@@ -72,6 +71,7 @@ DrtsRuby::Application.routes.draw do
 
   resources :users
   resources :sessions
+  resources :admin
 
   root :to => "maps#view"
 
