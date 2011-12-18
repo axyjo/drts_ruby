@@ -58,7 +58,7 @@ setInterval(function() {
   }
   db.Database({
     hostname: env["DOTCLOUD_DB_MYSQL_HOST"],
-    port: env["DOTCLOUD_DB_MYSQL_PORT"],
+    port: parseInt(env["DOTCLOUD_DB_MYSQL_PORT"]),
     user: env["DOTCLOUD_DB_MYSQL_LOGIN"],
     password: env["DOTCLOUD_DB_MYSQL_PASSWORD"],
     database: 'game_production'
