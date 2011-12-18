@@ -27,6 +27,12 @@ Map.zoomIn = ->
 Map.zoomOut = ->
   this.setZoom(this.zoom - 1)
 
+Map.setView = (center, zoom) ->
+  #to implement.
+
+Map.panTo = (center) ->
+  this.setView center, this.zoom
+
 Map.pan = (x, y) ->
   Map.viewport.moveDelta x, y, false
   Map.layers.checkAll()
