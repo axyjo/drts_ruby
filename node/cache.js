@@ -53,8 +53,8 @@ exports.getTTL = function(key) {
   return null;
 }
 
-setInterval(function(tch, tcm) {
-  var tot = tch + tcm;
+var update_cache_stats = function() {
+  var tot = tile_cache_hits + tile_cache_misses;
   if(tot == 0) {
     tot = 1;
   }
@@ -67,14 +67,16 @@ setInterval(function(tch, tcm) {
     database: database
   });
 
-  var h = tch/tot*100;
-  var m = tcm/tot*100;
+  var h = tile_cache_hits/tot*100;
+  var m = tile_cache_misses/tot*100;
 
   client.query('INSERT INTO ' + table + ' SET timestamp = NOW(), metric = ?,' +
     'description = ?, value = ?', ['tile_cache_hit_rate', 'in percent', h]);
   client.query('INSERT INTO ' + table + ' SET timestamp = NOW(), metric = ?,' +
     'description = ?, value = ?', ['tile_cache_miss_rate', 'in percent', m]);
 
-  hit_count = 0;
-  miss_count = 0;
-}, 5*60*1000, tile_cache_hits, tile_cache_misses);
+  tile_cache_hits = 0;
+  tile_cache_misses = 0;
+}
+
+setInterval(update_cache_stats, 5*60*1000);
