@@ -7,8 +7,8 @@ var database = 'game_production';
 var table = 'performance_metrics';
 
 var cache = {}
-var hit_count = 0
-var miss_count = 0
+var global.tile_cache_hits = 0
+var global.tile_cache_misses = 0
 function now() {
   return (new Date).getTime();
 }
@@ -16,7 +16,7 @@ function now() {
 exports.put = function(key, value, ttl) {
   var expire = now() + ttl;
   cache[key] = {value: value, expire: expire}
-  miss_count++;
+  global.tile_cache_misses++;
   if(!isNaN(expire)) {
     setTimeout(function() {
       exports.del(key);
@@ -33,7 +33,7 @@ exports.get = function(key) {
   if(typeof data != "undefined") {
     if(isNaN(data.expire) || data.expire >= now()) {
       return data.value;
-      hit_count++;
+      global.tile_cache_hits++;
     } else {
       exports.del(key);
     }
@@ -54,7 +54,7 @@ exports.getTTL = function(key) {
 }
 
 setInterval(function() {
-  var tot = hit_count + miss_count;
+  var tot = global.tile_cache_hits + global.tile_cache_misses;
   if(tot == 0) {
     tot = 1;
   }
@@ -67,8 +67,8 @@ setInterval(function() {
     database: database
   });
 
-  var h = hit_rate/tot*100;
-  var m = miss_rate/tot*100;
+  var h = global.tile_cache_hits/tot*100;
+  var m = global.tile_cache_misses/tot*100;
 
   client.query('INSERT INTO ' + table + ' SET timestamp = NOW(), metric = ? ' +
     'description = ?, value = ?', ['tile_cache_hit_rate', 'in percent', h]);
