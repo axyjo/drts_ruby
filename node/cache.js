@@ -79,4 +79,4 @@ var update_cache_stats = function() {
   tile_cache_misses = 0;
 }
 
-setInterval(update_cache_stats, 5*60*1000);
+setInterval(update_cache_stats, 10*60*1000);
