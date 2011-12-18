@@ -7,8 +7,8 @@ var database = 'game_production';
 var table = 'performance_metrics';
 
 var cache = {}
-var global.tile_cache_hits = 0
-var global.tile_cache_misses = 0
+var tile_cache_hits = 0
+var tile_cache_misses = 0
 function now() {
   return (new Date).getTime();
 }
@@ -16,7 +16,7 @@ function now() {
 exports.put = function(key, value, ttl) {
   var expire = now() + ttl;
   cache[key] = {value: value, expire: expire}
-  global.tile_cache_misses++;
+  tile_cache_misses++;
   if(!isNaN(expire)) {
     setTimeout(function() {
       exports.del(key);
@@ -33,7 +33,7 @@ exports.get = function(key) {
   if(typeof data != "undefined") {
     if(isNaN(data.expire) || data.expire >= now()) {
       return data.value;
-      global.tile_cache_hits++;
+      tile_cache_hits++;
     } else {
       exports.del(key);
     }
@@ -53,8 +53,8 @@ exports.getTTL = function(key) {
   return null;
 }
 
-setInterval(function() {
-  var tot = global.tile_cache_hits + global.tile_cache_misses;
+setInterval(function(tch, tcm) {
+  var tot = tch + tcm;
   if(tot == 0) {
     tot = 1;
   }
@@ -67,8 +67,8 @@ setInterval(function() {
     database: database
   });
 
-  var h = global.tile_cache_hits/tot*100;
-  var m = global.tile_cache_misses/tot*100;
+  var h = tch/tot*100;
+  var m = tcm/tot*100;
 
   client.query('INSERT INTO ' + table + ' SET timestamp = NOW(), metric = ? ' +
     'description = ?, value = ?', ['tile_cache_hit_rate', 'in percent', h]);
@@ -77,4 +77,4 @@ setInterval(function() {
 
   hit_count = 0;
   miss_count = 0;
-}, 5*60*1000);
+}, 5*60*1000, tile_cache_hits, tile_cache_misses);
