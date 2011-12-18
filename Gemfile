@@ -19,8 +19,8 @@ gem 'haml'
 # Add compass for CSS
 gem 'compass', '~>0.12.alpha'
 
-# Use bcrypt-ruby for password hashing.
-gem 'bcrypt-ruby'
+# Use devise as our authentication engine.
+gem 'devise'
 
 # Use rails_code_qa for test coverage reports.
 gem 'rails_code_qa'
