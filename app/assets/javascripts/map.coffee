@@ -2,14 +2,15 @@ Map = Map || {}
 
 Map.init = ->
   Map._ = $ "#map"
-  Map.bar.init()
-  Map.events.init()
-  Map.highlighter.init()
-  Map.infobox.init()
-  Map.layers.init()
-  Map.viewport.init()
-  Map.resetZoom()
-  Map.viewport.move(0, 0)
+  if Map._.length != 0
+    Map.bar.init()
+    Map.events.init()
+    Map.highlighter.init()
+    Map.infobox.init()
+    Map.layers.init()
+    Map.viewport.init()
+    Map.resetZoom()
+    Map.viewport.move(0, 0)
 
 Map.resetZoom = ->
   this.setZoom(Map.defaultZoom)
