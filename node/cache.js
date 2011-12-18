@@ -1,8 +1,10 @@
 var sys = require('sys');
 var fs = require('fs');
-var db = require('db-mysql');
+var db = require('mysql');
 
 var env = JSON.parse(fs.readFileSync('/home/dotcloud/environment.json', 'utf-8'));
+var database = 'game_production';
+var table = 'performance_metrics';
 
 var cache = {}
 var hit_count = 0
@@ -56,24 +58,23 @@ setInterval(function() {
   if(tot == 0) {
     tot = 1
   }
-  db.Database({
-    hostname: env["DOTCLOUD_DB_MYSQL_HOST"],
+
+  var client = db.createClient({
+    host: env["DOTCLOUD_DB_MYSQL_HOST"],
     port: parseInt(env["DOTCLOUD_DB_MYSQL_PORT"]),
     user: env["DOTCLOUD_DB_MYSQL_LOGIN"],
     password: env["DOTCLOUD_DB_MYSQL_PASSWORD"],
-    database: 'game_production'
-  }).connect(function(err) {
-    var h = hit_rate/tot*100;
-    var m = miss_rate/tot*100;
-    this.query().insert('performance_metrics',
-      ['timestamp', 'metric', 'description', 'value'],
-      [{value: 'NOW', escape: false}, 'tile_cache_hit_rate', 'in percent', h]
-    ).insert('performance_metrics',
-      ['timestamp', 'metric', 'description', 'value'],
-      [{value: 'NOW', escape: false}, 'tile_cache_miss_rate', 'in percent', m]
-    ).execute(function(err, result) {
-      hit_count = 0;
-      miss_count = 0;
-    });
+    database: database
   });
+
+  var h = hit_rate/tot*100;
+  var m = miss_rate/tot*100;
+
+  client.query('INSERT INTO ' + table + ' SET timestamp = NOW(), metric = ? ' +
+    'description = ?, value = ?', ['tile_cache_hit_rate', 'in percent', h]);
+  client.query('INSERT INTO ' + table + ' SET timestamp = NOW(), metric = ? ' +
+    'description = ?, value = ?', ['tile_cache_miss_rate', 'in percent', m]);
+
+  hit_count = 0;
+  miss_count = 0;
 }, 5*60*1000);

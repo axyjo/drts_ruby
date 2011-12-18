@@ -10,6 +10,6 @@ node:
   requirements:
    - faye
    - imagemagick
-   - db-mysql
+   - mysql
 db:
   type: mysql
