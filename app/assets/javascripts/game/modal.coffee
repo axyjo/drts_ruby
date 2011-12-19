@@ -4,6 +4,7 @@ Game.modal.init = ->
   Game.modal._ = $ "#modal"
   Game.modal.overlay = $ "#modal-overlay"
   $("li").bind("click", Game.modal.click)
+  Game.modal._.on "click", "a", Game.modal.click
   Game.modal.changeActive()
   $(document).keyup (e) ->
     if e.keyCode == 27
@@ -20,7 +21,10 @@ Game.modal.changeActive = ->
 
 Game.modal.click = (e) ->
   element = $ e.currentTarget
-  link = element.find "a:last"
+  if element.is "a"
+    link = element
+  else
+    link = element.find "a:last"
   path = $(link).attr("href")
   if path != "" and path != window.location.pathname
     if not element.hasClass("active")
