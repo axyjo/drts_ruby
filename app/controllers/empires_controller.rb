@@ -12,7 +12,7 @@ class EmpiresController < ApplicationController
       if e.valid? && params[:id].to_i != 255
         u.empire = e
         u.save
-        flash[:success] = "Successfully associated user with the " + e.name.inspect + " empire."
+        flash[:success] = "Successfully associated user with the " + e.name + " empire."
       else
         flash[:error] = "The empire chosen was not valid."
       end
