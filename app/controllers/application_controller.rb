@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :check_empire
   before_filter :check_path
+  layout :layout
 
   def broadcast(channel, data)
     message = {:channel => channel, :data => data}
@@ -25,6 +26,17 @@ class ApplicationController < ActionController::Base
   end
 
   def check_path
-    render "maps/view" if !request.xhr?
+    if(!request.xhr? && params[:controller] != "maps")
+      redirect_to root_url
+    end
+  end
+
+  def layout
+    puts "layout"
+    if(params[:action] == "view" && params[:controller] == "maps")
+      "application"
+    else
+      false
+    end
   end
 end

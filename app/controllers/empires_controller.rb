@@ -3,7 +3,6 @@ class EmpiresController < ApplicationController
 
   def list
     @empires = Empire.find(:all)
-    render :layout => false
   end
 
   def choose
