@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   belongs_to :empire
   has_and_belongs_to_many :roles, :uniq => true
 
-  attr_accessible :username, :email
+  attr_accessible :username, :email, :password
 
   validates_presence_of :username
   validates_uniqueness_of :username
