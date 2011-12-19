@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :check_empire
   before_filter :check_path
+  before_filter :check_modal
   layout :layout
 
   def broadcast(channel, data)
@@ -26,9 +27,16 @@ class ApplicationController < ActionController::Base
   end
 
   def check_path
-    if(!request.xhr? && params[:controller] != "maps")
+    path = request.fullpath.split('?')[0]
+    if(!request.xhr? && path != '/')
+      session[:modal_path] = path
       redirect_to root_url
     end
+  end
+
+  def check_modal
+    @modal_path = session[:modal_path]
+    session[:modal_path] = nil
   end
 
   def layout

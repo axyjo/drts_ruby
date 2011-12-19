@@ -1,13 +1,16 @@
 Game.modal = Game.modal || {}
 
 Game.modal.init = ->
+  Game.modal._ = $ "#modal"
+  Game.modal.overlay = $ "#modal-overlay"
   $("li").bind("click", Game.modal.click)
   Game.modal.changeActive()
   $(document).keyup (e) ->
     if e.keyCode == 27
       Game.modal.hide()
-  if !$("#modal").is(":visible") and window.location.pathname != '/'
-    Game.modal.fetch window.location.pathname
+  if !Game.modal._.is(":visible") and Game.modal._.data("path")
+    Game.modal.fetch Game.modal._.data "path"
+    Game.modal.show()
 
 Game.modal.changeActive = ->
   if Game.modal.current
@@ -22,6 +25,7 @@ Game.modal.click = (e) ->
   if path != "" and path != window.location.pathname
     if not element.hasClass("active")
       Game.modal.fetch path
+      Game.modal.show()
       window.history.pushState {}, "Title", path
   false
 
@@ -31,17 +35,16 @@ Game.modal.fetch = (url) ->
       type: "GET"
       url: url
       success: (data) ->
-        $("#modal").html(data)
-        Game.modal.show()
+        Game.modal._.html(data)
     )
 
 Game.modal.show = ->
   Game.modal.changeActive()
-  $("#modal").show()
-  $("#modal-overlay").show()
+  Game.modal._.show()
+  Game.modal.overlay.show()
 
 Game.modal.hide = ->
   window.history.pushState {}, "Home", "/"
   Game.modal.changeActive()
-  $("#modal").hide()
-  $("#modal-overlay").hide()
+  Game.modal._.hide()
+  Game.modal.overlay.hide()
