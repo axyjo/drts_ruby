@@ -55,4 +55,8 @@ DrtsRuby::Application.configure do
 
   # Set the default URL for the mailer
   config.action_mailer.default_url_options = {:host => 'game.akshayjoshi.com'}
+
+  # Use sendmail locally to send emails.
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :sendmail
 end
