@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   def check_path
     path = request.fullpath.split('?')[0]
     if(!request.xhr? && path != '/' && request.get?)
-      session[:modal_path] = path
+      session[:modal_path] = request.fullpath
       redirect_to root_url
     end
   end
