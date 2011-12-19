@@ -1,5 +1,5 @@
 class EmpiresController < ApplicationController
-  skip_before_filter :check_empire, :only => :choose
+  skip_filter :check_empire, :only => :choose
 
   def list
     @empires = Empire.find(:all)
