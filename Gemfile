@@ -22,6 +22,10 @@ gem 'compass', '~>0.12.alpha'
 # Use devise as our authentication engine.
 gem 'devise'
 
+# Use activeadmin for our administrative pages.
+gem 'activeadmin'
+gem 'meta_search', '>= 1.1.0.pre'
+
 # Use rails_code_qa for test coverage reports.
 gem 'rails_code_qa'
 
