@@ -1,4 +1,6 @@
 ActiveAdmin.register User do
+  scope :unassociated
+
   index do
     column :id
     column :username
