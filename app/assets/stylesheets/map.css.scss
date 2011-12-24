@@ -5,6 +5,7 @@
 $tile_size: 256px;
 
 .map_container {
+  @include experimental("user-select", none);
   overflow: hidden;
   background-color: #666;
 }
