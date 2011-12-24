@@ -10,4 +10,13 @@ ActiveAdmin.register User do
     column :created_at
     default_actions
   end
+
+  form do |f|
+    f.inputs "User Details" do
+      f.input :username
+      f.input :email
+      f.input :empire
+    end
+    f.buttons
+  end
 end
