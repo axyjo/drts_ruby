@@ -6,4 +6,8 @@ class Unit < ActiveRecord::Base
   def is_land?
     type == 1
   end
+
+  def is_water?
+    type == 2
+  end
 end
