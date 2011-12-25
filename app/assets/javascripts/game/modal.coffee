@@ -9,8 +9,10 @@ Game.modal.init = ->
   $(document).keyup (e) ->
     if e.keyCode == 27
       Game.modal.hide()
-  if !Game.modal._.is(":visible") and Game.modal._.data("path")
-    Game.modal.fetch Game.modal._.data "path"
+  default_path = Game.modal._.data('path')
+  if !Game.modal._.is(":visible") and default_path
+    Game.modal.fetch default_path
+    window.history.pushState {}, "Title", default_path
     Game.modal.show()
 
 Game.modal.changeActive = ->
