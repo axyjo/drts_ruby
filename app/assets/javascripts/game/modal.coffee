@@ -27,11 +27,15 @@ Game.modal.click = (e) ->
     link = element.find "a:last"
   path = $(link).attr("href")
   if path != "" and path != window.location.pathname
-    if not element.hasClass("active")
+    if link.data("method")
+      true
+    else if element.hasClass("active")
+      false
+    else
       Game.modal.fetch path
       Game.modal.show()
       window.history.pushState {}, "Title", path
-  false
+      false
 
 Game.modal.fetch = (url) ->
   if url
