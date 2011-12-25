@@ -60,12 +60,16 @@ Map.layers.check = (type) ->
       delete visibleTiles[$(this).attr('id')]
     else
       $(e).remove()
+      Game.debug.entityCount--
   for k,v of visibleTiles
     do ->
       Map.viewport._.find("#"+type+"_tiles").append Map.layers.getTileHTML v
+      Game.debug.entityCount++
 
 Map.layers.clear = (type) ->
-  Map.viewport._.find("#"+type+"_tiles").empty()
+  div = Map.viewport._.find("#"+type+"_tiles")
+  Game.debug.entityCount -= div.children().length
+  div.empty()
 
 Map.layers.getTiles = (type) ->
   visibleTiles = {}

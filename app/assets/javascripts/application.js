@@ -27,6 +27,7 @@
 //= require game/modal
 //= require game/navbar
 //= require game/fullscreen
+//= require game/debug
 //
 //= require config
 //= require application
