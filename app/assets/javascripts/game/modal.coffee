@@ -4,6 +4,7 @@ Game.modal.init = ->
   Game.modal._ = $ "#modal"
   Game.modal.overlay = $ "#modal-overlay"
   $("li").bind("click", Game.modal.click)
+  Game.modal.overlay.bind 'click', Game.modal.hide
   Game.modal._.on "click", "a", Game.modal.click
   Game.modal.changeActive()
   $(document).keyup (e) ->
