@@ -1,6 +1,7 @@
 Map.layers = Map.layers || {}
 
 Map.layers.init = ->
+  Map.layers.subdomainCount = 4
   Map.layers.tilesets =
     base:
       attribution: ["Akshay Joshi", "Nikhil Mahajan"]
@@ -45,9 +46,11 @@ Map.layers.getTileHTML = (tile) ->
 
   # Create and return the image object.
   img = $("<img class='map_tiles'></img>")
+  sd = (tile.z + real_x + real_y) % Map.layers.subdomainCount
+  host = "http://" + sd + ".zeus.akshayjoshi.com"
   tile_path = tile.type + "/" + tile.z + "/" + real_x + "/" + real_y + ".png"
   img.attr "id", tile.id
-  img.attr "src", "http://zeus.akshayjoshi.com/tiles/" + tile_path
+  img.attr "src", host + "/tiles/" + tile_path
   img.offset {top: tile.y * Map.tileSize, left: tile.x * Map.tileSize}
   img.bind "load", ->
     $(this).addClass "map_tiles_loaded"
